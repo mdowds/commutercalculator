@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request
 from flask_restful import Resource, Api
 from api.travel_time import get_travel_time
+from api.data import stations
+from urllib.parse import unquote_plus
 
 app = Flask(__name__)
 ccapi = Api(app)
@@ -8,8 +10,11 @@ ccapi = Api(app)
 
 class JourneysTo(Resource):
     def get(self, destination):
-        stub = { "results": [{"origin": "London Euston", "journeyTime": get_travel_time("London Euston", destination)}] }
-        return jsonify(stub)
+        origins = filter(lambda s: s != unquote_plus(destination), stations)
+        results = tuple(map(lambda s: {"origin": s, "journeyTime": get_travel_time(s, destination)}, origins))
+
+        output = { "results": results }
+        return jsonify(output)
 
 
 class Hello(Resource):
