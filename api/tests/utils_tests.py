@@ -38,10 +38,3 @@ class UtilsTests(unittest.TestCase):
         os.chdir(dname)
         self.assertEqual("bar", load_config_value("foo"))
 
-    def test_pipeline(self):
-        def inc(x): return x+1
-        def square(x): return x*x
-        expected = square(inc(1))
-        pipe = pipeline(inc, square)
-        self.assertEqual(expected, pipe(1))
-

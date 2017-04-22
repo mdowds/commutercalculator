@@ -1,5 +1,6 @@
 from api.interfaces.gmaps import get_duration
-from api.utils import secs_to_mins, load_config_value, pipeline
+from api.lib.functional import pipeline
+from api.utils import secs_to_mins, load_config_value
 
 
 def get_travel_time(origin, destination):

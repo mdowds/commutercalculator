@@ -10,7 +10,7 @@ class GmapsInterfaceTests(unittest.TestCase):
     def test_extract_duration(self):
         mock = {"routes": [{"legs": [{"duration": {"value": 2} }] }], "status": "OK" }
         empty = {}
-        invalid = {"status": "ZERO-RESULTS"}
+        invalid = {"routes": [], "status": "ZERO-RESULTS"}
         self.assertEqual(2, extract_duration(mock))
         self.assertEqual(None, extract_duration(empty))
         self.assertEqual(None, extract_duration(invalid))

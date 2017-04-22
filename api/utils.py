@@ -1,13 +1,13 @@
-from typing import Dict, Any, Sequence, Callable
-import os
 import json
+import os
 from functools import reduce
+from typing import Dict, Any, Sequence, Callable
 
 
 def dict_value(keys: Sequence[Any], input_dict: Dict[Any, Any]):
     def select(dictionary, key):
         try: return dictionary[key]
-        except (KeyError, TypeError): return None
+        except (KeyError, TypeError, IndexError): return None
 
     return reduce(select, keys, input_dict)
 
@@ -29,7 +29,3 @@ def load_config_value(key: str) -> str:
 
 
 generic_func = Callable[[Any], Any]
-def pipeline(*functions: generic_func) -> generic_func:
-    def pipeline2(f: generic_func, g: generic_func) -> generic_func:
-        return lambda x: g(f(x))
-    return reduce(pipeline2, functions, lambda x: x)

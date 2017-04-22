@@ -1,8 +1,8 @@
 from functools import partial
 from typing import Dict, Any
 from requests import get, Response
-from api.utils import dict_value, pipeline
-
+from api.lib.functional import pipeline
+from api.utils import dict_value
 
 get_directions = partial(get, "https://maps.googleapis.com/maps/api/directions/json")
 extract_duration = partial(dict_value, ("routes", 0, "legs", 0, "duration", "value"))
