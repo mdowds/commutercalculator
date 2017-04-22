@@ -1,4 +1,5 @@
 import unittest
+import os
 from api.utils import *
 
 
@@ -30,4 +31,7 @@ class UtilsTests(unittest.TestCase):
         self.assertEqual(50, secs_to_mins(3005))
 
     def test_load_config_value(self):
+        abspath = os.path.abspath(__file__)
+        dname = os.path.dirname(abspath)
+        os.chdir(dname)
         self.assertEqual("bar", load_config_value("foo"))
