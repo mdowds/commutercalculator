@@ -24,6 +24,9 @@ class UtilsTests(unittest.TestCase):
         dict1 = {"foo": [{"bar": "baz"}]}
         self.assertEqual("baz", dict_value(("foo", 0, "bar"), dict1))
 
+    def test_dict_value_withMissingKey(self):
+        self.assertEqual(None, dict_value("foo", {}))
+
     def test_secs_to_mins(self):
         self.assertEqual(1, secs_to_mins(60))
         self.assertEqual(5, secs_to_mins(300))
