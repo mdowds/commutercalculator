@@ -2,7 +2,7 @@ from functools import partial
 from typing import Dict, Any
 from requests import get, Response
 
-directions_request = partial(get, "https://maps.googleapis.com/maps/api/directions/json")
+get_directions = partial(get, "https://maps.googleapis.com/maps/api/directions/json")
 
 
 def make_directions_params(origin: str, destination: str, key: str) -> Dict[str, str]:
