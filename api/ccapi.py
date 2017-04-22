@@ -1,14 +1,14 @@
 from flask import Flask, jsonify, request
 from flask_restful import Resource, Api
-from api.result import Result
+from api.travel_time import get_travel_time
 
 app = Flask(__name__)
 ccapi = Api(app)
 
 
 class JourneysTo(Resource):
-    def get(self, station):
-        stub = { "results": [Result("King's Cross").__dict__] }
+    def get(self, destination):
+        stub = { "results": [{"origin": "London Euston", "journeyTime": get_travel_time("London Euston", destination)}] }
         return jsonify(stub)
 
 
@@ -17,7 +17,7 @@ class Hello(Resource):
         return "Hello world"
 
 ccapi.add_resource(Hello, '/api')
-ccapi.add_resource(JourneysTo, '/api/journeys/to/<string:station>')
+ccapi.add_resource(JourneysTo, '/api/journeys/to/<string:destination>')
 
 @app.errorhandler(404)
 def page_not_found(error):
