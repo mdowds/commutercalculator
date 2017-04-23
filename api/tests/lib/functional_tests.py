@@ -24,3 +24,8 @@ class FunctionalTests(unittest.TestCase):
         expected = square(inc(1))
         pipe = pipeline(inc, square)
         self.assertEqual(expected, pipe(1))
+
+    def test_safe(self):
+        safe_f = safe(lambda x: x)
+        self.assertEqual("foo", safe_f("foo").value)
+        self.assertEqual(None, safe_f(None).value)

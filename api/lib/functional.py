@@ -18,7 +18,12 @@ def bind(fn: generic_func) -> generic_func:
         return monad.bind(fn)
     return partial(__inner, fn)
 
+
 def pipeline(*functions: generic_func) -> generic_func:
     def pipeline2(f: generic_func, g: generic_func) -> generic_func:
         return lambda x: g(f(x))
     return reduce(pipeline2, functions, lambda x: x)
+
+
+def safe(fn: generic_func) -> generic_func:
+    return lambda x: Maybe(fn(x))
