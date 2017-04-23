@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request
 from flask_restful import Resource, Api
-from api.travel_time import get_travel_time
+from api.result import set_origin, add_journey_time, validate_result
 from api.data import stations
 from urllib.parse import unquote_plus
+from api.lib.functional import pipeline
+from functools import partial
 
 app = Flask(__name__)
 ccapi = Api(app)
@@ -11,18 +13,16 @@ ccapi = Api(app)
 class JourneysTo(Resource):
 
     def get(self, destination):
-        def build_results(station):
-            time = get_travel_time(station, destination).value
-            if time is None: return
-            return {"origin": station, "journeyTime": time}
+        time_to_dest = partial(add_journey_time, destination)
+        build_result = pipeline(set_origin, time_to_dest)
 
         results = (
-            build_results(station)
+            build_result(station)
             for station in stations
             if station != unquote_plus(destination)
         )
 
-        filtered_results = tuple(result for result in results if result is not None)
+        filtered_results = tuple(result for result in results if validate_result(result))
 
         output = { "results": filtered_results }
         return jsonify(output)

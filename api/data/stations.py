@@ -9,5 +9,5 @@ stations = (
     "London Charing Cross",
     "London Cannon Street",
     "London Bridge Station",
-    "Stratford Station"
+    "Stratford Station, London"
 )
