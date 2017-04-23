@@ -9,11 +9,22 @@ ccapi = Api(app)
 
 
 class JourneysTo(Resource):
-    def get(self, destination):
-        origins = filter(lambda s: s != unquote_plus(destination), stations)
-        results = tuple(map(lambda s: {"origin": s, "journeyTime": get_travel_time(s, destination)}, origins))
 
-        output = { "results": results }
+    def get(self, destination):
+        def build_results(station):
+            time = get_travel_time(station, destination).value
+            if time is None: return
+            return {"origin": station, "journeyTime": time}
+
+        results = (
+            build_results(station)
+            for station in stations
+            if station != unquote_plus(destination)
+        )
+
+        filtered_results = tuple(result for result in results if result is not None)
+
+        output = { "results": filtered_results }
         return jsonify(output)
 
 

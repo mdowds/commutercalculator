@@ -1,10 +1,10 @@
 import json
 import os
 from functools import reduce
-from typing import Dict, Any, Sequence, Callable
+from typing import Dict, Any, Sequence, Callable, Union
 
 
-def dict_value(keys: Sequence[Any], input_dict: Dict[Any, Any]):
+def dict_value(keys: Sequence[Any], input_dict: Dict[Any, Any]) -> Union[Dict[Any, Any], None]:
     def select(dictionary, key):
         try: return dictionary[key]
         except (KeyError, TypeError, IndexError): return None
