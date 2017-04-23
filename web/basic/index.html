@@ -20,19 +20,7 @@
         <div id="wrapper">
             <div id="map"></div>
         </div>
-        <script>
-          function initMap() {
-            var trafalgar = {lat: 51.507368, lng: -0.127811};
-            var map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 11,
-              center: trafalgar
-            });
-            var marker = new google.maps.Marker({
-              position: trafalgar,
-              map: map
-            });
-          }
-        </script>
+        <script src="main.js"></script>
         <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRjAWQkQM6irAiFc-zSQ1eSJcbdbF9pHM&callback=initMap">
         </script>
