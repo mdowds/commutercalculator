@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_restful import Resource, Api
+from flask_restful.utils import cors
 from api.result import set_origin, add_journey_time, validate_result
 from api.data import stations
 from urllib.parse import unquote_plus
@@ -12,6 +13,7 @@ ccapi = Api(app)
 
 class JourneysTo(Resource):
 
+    @cors.crossdomain(origin='*')
     def get(self, destination):
         time_to_dest = partial(add_journey_time, destination)
         build_result = pipeline(set_origin, time_to_dest)
