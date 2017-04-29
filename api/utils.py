@@ -3,6 +3,8 @@ import os
 from functools import reduce
 from typing import Dict, Any, Sequence, Callable, Union
 
+generic_func = Callable[[Any], Any]
+
 
 def dict_value(keys: Sequence[Any], input_dict: Dict[Any, Any]) -> Union[Dict[Any, Any], None]:
     def select(dictionary, key):
@@ -28,4 +30,5 @@ def load_config_value(key: str) -> str:
     return data[key]
 
 
-generic_func = Callable[[Any], Any]
+def create_error(message: str) -> Dict[str, str]:
+    return {"error": message}

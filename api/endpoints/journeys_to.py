@@ -6,8 +6,7 @@ from functools import partial
 from api.interfaces import gmaps
 from api.lib.functional import Maybe, pipeline, safe, bind
 from typing import Dict, Any, Callable
-
-from api.utils import secs_to_mins
+from api.utils import secs_to_mins, create_error
 
 Result = Dict[str, Any]
 
@@ -17,7 +16,12 @@ class JourneysTo(Resource):
     @cors.crossdomain(origin='*')
     def get(self, dest_sid):
         stations = Station.select()
-        destination = next(filter((lambda s: s.sid == dest_sid), stations)) # Add check for this not matching anything
+
+        try:
+            destination = next(filter((lambda s: s.sid == dest_sid), stations))
+        except StopIteration:
+            return jsonify(create_error("No station found"))
+
         origins = tuple(filter((lambda s: s.sid != dest_sid), stations))
 
         result_to_dest = partial(build_result, partial(get_travel_time, destination))

@@ -38,3 +38,7 @@ class UtilsTests(unittest.TestCase):
         os.chdir(dname)
         self.assertEqual("bar", load_config_value("foo"))
 
+    def test_create_error(self):
+        error = create_error("Error")
+        self.assertIsNotNone(error["error"])
+        self.assertEqual("Error", error["error"])
