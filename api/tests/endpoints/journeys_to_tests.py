@@ -11,13 +11,13 @@ class JourneysToTests(unittest.TestCase):
     def test_build_result(self):
         actual = build_result(lambda x: Maybe(10), self.station)
 
-        self.assertEqual("FOO", actual["origin"]["sid"])
+        self.assertEqual("FOO", actual["origin"]["id"])
         self.assertEqual("Foo Station", actual["origin"]["name"])
         self.assertEqual(10, actual["journeyTime"])
 
     def test_build_result_withNone(self):
         actual = build_result(lambda x: Maybe(None), self.station)
-        self.assertEqual("FOO", actual["origin"]["sid"])
+        self.assertEqual("FOO", actual["origin"]["id"])
         self.assertEqual("Foo Station", actual["origin"]["name"])
         self.assertEqual(None, actual["journeyTime"])
 

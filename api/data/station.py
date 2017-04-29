@@ -16,7 +16,7 @@ class Station(Model):
 
 def serialize_station(station: Station) -> Dict[str, Any]:
     return {
-        "sid": station.sid,
+        "id": station.sid,
         "name": station.name,
         "placeId": station.place_id
     }
