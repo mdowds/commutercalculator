@@ -8,12 +8,12 @@ export default class List extends React.Component {
     }
 
     componentDidMount() {
-        window.fetch('http://127.0.0.1/api/journeys/to/London+Victoria').then(
+        window.fetch('http://127.0.0.1/api/journeys/to/VIC').then(
             (response) => { return response.json(); }
         ).then(
             (json) => {
                 const results = json.results.map(
-                    (result) => { return result.origin + ": " + result.journeyTime + " minutes"; }
+                    (result) => { return result.origin.name + ": " + result.journeyTime + " minutes"; }
                 );
                 this.setState({items: results});
             }
