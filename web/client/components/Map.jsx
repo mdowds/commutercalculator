@@ -2,32 +2,12 @@ import React from 'react';
 
 export default class Map extends React.Component {
 
-    constructor(){
-        super();
-        this.state = { markers: [] };
-    }
-
-    componentDidMount() {
-        const trafalgar = {lat: 51.507368, lng: -0.127811};
-
-        this.map = new google.maps.Map(this.refs.map, {
-            center: trafalgar,
-            zoom: 11
-        });
-
-        this.setState({
-            markers: [{
-                position: trafalgar
-            }]
-        });
-    }
-
     render() {
 
-        this.state.markers.map((marker) => {
+        this.props.markers.map((marker) => {
             return new google.maps.Marker({
                 position: marker.position,
-                map: this.map
+                map: this.props.map
             });
         });
 
@@ -37,7 +17,7 @@ export default class Map extends React.Component {
         };
 
         return (
-            <div ref="map" style={mapStyle}>I should be a map!</div>
+            <div ref={this.props.divRef} style={mapStyle}>Map loading</div>
         );
     }
 
