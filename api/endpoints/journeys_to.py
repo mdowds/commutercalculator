@@ -49,11 +49,15 @@ def validate_result(result: Result) -> bool:
 
 
 def get_travel_time(origin: Station, destination: Station) -> Maybe:
+
+    params_with_origin = partial(gmaps.build_params, origin)
+
     pipe = pipeline(
+        params_with_origin,
         gmaps.get_directions,
         gmaps.extract_response_dict,
         safe(gmaps.extract_duration),
         bind(secs_to_mins)
     )
 
-    return pipe(gmaps.build_params(origin, destination))
+    return pipe(destination)

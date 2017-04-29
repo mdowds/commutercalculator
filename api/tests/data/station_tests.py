@@ -9,6 +9,4 @@ class StationTests(unittest.TestCase):
 
         self.assertEqual(station.sid, result["sid"])
         self.assertEqual(station.name, result["name"])
-        self.assertEqual(station.name, result["lat"])
-        self.assertEqual(station.name, result["long"])
         self.assertEqual(station.name, result["placeId"])
