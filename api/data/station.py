@@ -24,6 +24,6 @@ def serialize_station(station: Station) -> Dict[str, Any]:
         "placeId": station.place_id,
         "position": {
             "lat": station.lat,
-            "long": station.long
+            "lng": station.long
         }
     }
