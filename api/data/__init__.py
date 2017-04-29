@@ -1,1 +1,1 @@
-from .stations import stations
+from .station import Station, serialize_station
