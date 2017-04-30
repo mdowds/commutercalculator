@@ -7,7 +7,11 @@ export default class App extends React.Component {
 
     constructor(){
         super();
-        this.state = { map: {}, markers: [] };
+        this.state = {
+            map: {},
+            dest: "",
+            markers: []
+        };
     }
 
     componentDidMount() {
@@ -44,7 +48,7 @@ export default class App extends React.Component {
     render() {
         return (
             <div className="container">
-                <Header dest="Victoria" />
+                <Header dest={this.state.dest} />
                 <Map
                     divRef={el => this.map = el}
                     map={this.state.map}

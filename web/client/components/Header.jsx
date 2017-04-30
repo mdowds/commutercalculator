@@ -12,7 +12,7 @@ export default class Header extends React.Component {
             width: "100%"
         };
 
-        const title = this.props.dest !== undefined ? "Journeys to " + this.props.dest : "Commuter Calculator";
+        const title = this.props.dest ? "Journeys to " + this.props.dest : "Commuter Calculator";
 
         return (
             <div style={divStyle}>
