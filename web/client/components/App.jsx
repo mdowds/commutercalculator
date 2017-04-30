@@ -1,6 +1,7 @@
 import React from 'react';
 import List from './List.jsx'
-import Map from './Map.jsx'
+import Map from './Map.jsx';
+import Header from './Header.jsx';
 
 export default class App extends React.Component {
 
@@ -15,7 +16,11 @@ export default class App extends React.Component {
         this.setState({
             map: new google.maps.Map(this.map, {
                 center: trafalgar,
-                zoom: 11
+                zoom: 11,
+                clickableIcons: false,
+                mapTypeControl: false,
+                streetViewControl: false,
+                fullscreenControlOptions: {position: google.maps.ControlPosition.RIGHT_BOTTOM}
             })
         });
 
@@ -27,7 +32,6 @@ export default class App extends React.Component {
 
                 json.results.map( (result) => {
                     this.addMarker({position: result.origin.position});
-                    //return result.origin.name + ": " + result.journeyTime + " minutes";
                 });
             }
         );
@@ -39,11 +43,14 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <Map
-                divRef={el => this.map = el}
-                map={this.state.map}
-                markers={this.state.markers}
-            />
+            <div className="container">
+                <Header dest="Victoria" />
+                <Map
+                    divRef={el => this.map = el}
+                    map={this.state.map}
+                    markers={this.state.markers}
+                />
+            </div>
         );
     }
 }
