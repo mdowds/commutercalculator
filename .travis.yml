@@ -8,7 +8,10 @@ install:
   - nvm install stable
   - nvm use stable
   - cd web && npm install && cd ../
+  - gem install coveralls-lcov
 script:
   - coverage run --omit=tests/*,*site-packages/*  -m unittest discover -p "*tests.py"
-  - cd web && npm test
-after_success: coveralls
+  - cd web && npm test -- --coverage
+after_success:
+  - coveralls-lcov -v -n coverage/lcov.info > coverage.json
+  - coveralls --merge=coverage.json
