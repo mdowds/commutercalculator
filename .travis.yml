@@ -7,11 +7,8 @@ install:
   - . $HOME/.nvm/nvm.sh
   - nvm install stable
   - nvm use stable
-  - cd web
-  - npm install
-  - npm install --only=dev
+  - cd web && npm install && cd ../
 script:
   - coverage run --omit=tests/*,*site-packages/*  -m unittest discover -p "*tests.py"
-  - cd web
-  - npm test
+  - cd web && npm test
 after_success: coveralls
