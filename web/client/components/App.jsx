@@ -4,6 +4,7 @@ import Map from './Map.jsx';
 import Header from './Header.jsx';
 import Marker from '../gmaps/Marker'
 import { createMap } from '../gmaps/helpers'
+import { getJSON } from '../utils'
 
 export default class App extends React.Component {
 
@@ -19,18 +20,14 @@ export default class App extends React.Component {
     componentDidMount() {
         this.setState({ map: createMap(this.map) });
 
-        window.fetch('http://127.0.0.1/api/journeys/to/VIC').then(
-            (response) => { return response.json(); }
-        ).then(
-            (json) => {
-                this.addMarker(json.destination.position);
-                this.setState({dest: json.destination.name});
+        getJSON('http://127.0.0.1/api/journeys/to/VIC', (json) => {
+            this.addMarker(json.destination.position);
+            this.setState({dest: json.destination.name});
 
-                json.results.map( (result) => {
-                    this.addMarker(result.origin.position);
-                });
-            }
-        );
+            json.results.map( (result) => {
+                this.addMarker(result.origin.position);
+            });
+        });
     }
 
     addMarker(position) {
