@@ -27,17 +27,18 @@ export default class MapContainer extends React.Component {
     }
 
     render() {
-        // this.props.markers.map((marker) => {
-        //    marker.addToMap(this.map);
-        //    marker.addInfoWindow();
-        // });
         const map = this.state.map ? this.state.map : null;
 
         const destMarker = this.props.destination ? <Marker map={map} position={this.props.destination.position} /> : null;
 
+        const originsMarkers = this.props.results.map((result) => {
+            return <Marker key={result.origin.id} map={map} position={result.origin.position} />
+        });
+
         return (
             <Map divRef={el => this.mapDiv = el}>
                 {destMarker}
+                {originsMarkers}
             </Map>
         );
     }
