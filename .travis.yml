@@ -11,7 +11,7 @@ install:
   - gem install coveralls-lcov
 script:
   - coverage run --omit=tests/*,*site-packages/*  -m unittest discover -p "*tests.py"
-  - cd web && npm test -- --coverage
+  - cd web && npm test -- --coverage && cd ../
 after_success:
-  - coveralls-lcov -v -n coverage/lcov.info > coverage.json
+  - coveralls-lcov -v -n web/coverage/lcov.info > coverage.json
   - coveralls --merge=coverage.json
