@@ -8,6 +8,7 @@ install:
   - nvm install stable
   - nvm use stable
   - npm install ./web
+  - npm install ./web --only=dev
 script:
   - coverage run --omit=tests/*,*site-packages/*  -m unittest discover -p "*tests.py"
   - cd web
