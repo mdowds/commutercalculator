@@ -4,6 +4,9 @@ python:
 install:
   - pip install -r requirements.txt
   - pip install coveralls
+  - . $HOME/.nvm/nvm.sh
+  - nvm install stable
+  - nvm use stable
   - npm install ./web
 script:
   - coverage run --omit=tests/*,*site-packages/*  -m unittest discover -p "*tests.py"
