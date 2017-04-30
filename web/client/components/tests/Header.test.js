@@ -3,7 +3,7 @@ import {shallow} from 'enzyme';
 import Header from '../Header.jsx';
 
 test("Header displays the destination", () => {
-    const header = shallow(<Header dest="Waterloo" />);
+    const header = shallow(<Header destinationName="Waterloo" />);
     expect(header.text()).toEqual("Journeys to Waterloo")
 });
 

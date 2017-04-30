@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Map from './Map.jsx';
 import {Marker, DestinationMarker} from './Marker.jsx'
+import gmaps from '../gmaps'
 
 export default class MapContainer extends React.Component {
 
@@ -17,13 +18,13 @@ export default class MapContainer extends React.Component {
     createMap() {
         const trafalgar = {lat: 51.507368, lng: -0.127811};
 
-        return new google.maps.Map(this.mapDiv, {
+        return new gmaps.Map(this.mapDiv, {
             center: trafalgar,
             zoom: 11,
             clickableIcons: false,
             mapTypeControl: false,
             streetViewControl: false,
-            fullscreenControlOptions: {position: google.maps.ControlPosition.RIGHT_BOTTOM}
+            fullscreenControlOptions: {position: gmaps.ControlPosition.RIGHT_BOTTOM}
         });
     }
 

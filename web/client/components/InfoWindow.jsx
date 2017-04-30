@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import gmaps from '../gmaps';
 
 export default class InfoWindow extends React.Component {
     render() {
-        const infoWindow = new google.maps.InfoWindow({
+        const infoWindow = new gmaps.InfoWindow({
             content: this.props.info
         });
 
