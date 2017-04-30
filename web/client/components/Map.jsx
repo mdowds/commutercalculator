@@ -3,12 +3,8 @@ import React from 'react';
 export default class Map extends React.Component {
 
     render() {
-
         this.props.markers.map((marker) => {
-            return new google.maps.Marker({
-                position: marker.position,
-                map: this.props.map
-            });
+           marker.addToMap(this.props.map);
         });
 
         const mapStyle = {
