@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Map extends React.Component {
 
@@ -16,3 +17,7 @@ export default class Map extends React.Component {
         );
     }
 }
+
+Map.propTypes = {
+    divRef: PropTypes.func
+};
