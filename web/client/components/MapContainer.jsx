@@ -1,19 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Map from './Map.jsx';
-import {Marker, DestinationMarker} from './Marker.jsx'
+import {StationMarker, DestinationMarker} from './StationMarker.jsx'
 import gmaps from '../gmaps'
 
 export default class MapContainer extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {map: {}};
+        this.state = {
+            map: {}
+            // openInfoWindow: null
+        };
+
+        // this.updateOpenInfoWindow = this.updateOpenInfoWindow.bind(this);
     }
 
     componentDidMount() {
         this.setState({map: this.createMap()});
     }
+
+    // updateOpenInfoWindow(infoWindow) {
+    //     this.setState({openInfoWindow: infoWindow});
+    // }
 
     createMap() {
         const trafalgar = {lat: 51.507368, lng: -0.127811};
@@ -31,10 +40,17 @@ export default class MapContainer extends React.Component {
     render() {
         const map = this.state.map ? this.state.map : null;
 
-        const destMarker = this.props.destination ? <DestinationMarker map={map} position={this.props.destination.position} name={this.props.destination.name} /> : null;
+        const destMarker = this.props.destination ? <DestinationMarker map={map} station={this.props.destination} /> : null;
 
         const originsMarkers = this.props.results.map((result) => {
-            return <Marker key={result.origin.id} map={map} position={result.origin.position} name={result.origin.name} time={result.journeyTime} />
+            return <StationMarker
+                key={result.origin.id}
+                map={map}
+                station={result.origin}
+                time={result.journeyTime}
+                // updateOpenInfoWindow={this.updateOpenInfoWindow}
+                // openInfoWindow={this.state.openInfoWindow}
+            />
         });
 
         return (
