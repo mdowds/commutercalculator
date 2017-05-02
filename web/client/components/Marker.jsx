@@ -12,17 +12,19 @@ export class Marker extends React.Component {
             map: this.props.map,
             icon: icon
         });
-        return <InfoWindow info={this.props.info} marker={marker} />;
+
+        return <InfoWindow name={this.props.name} time={this.props.time} marker={marker} />;
     }
 }
 
 Marker.propTypes = {
     position: PropTypes.object,
-    info: PropTypes.node,
+    name: PropTypes.string,
     map: PropTypes.object,
+    time: PropTypes.number,
     isDestination: PropTypes.bool
 };
 
 export function DestinationMarker(props) {
-    return(<Marker isDestination={true} position={props.position} info={props.info} map={props.map} />);
+    return(<Marker isDestination={true} position={props.position} name={props.name} map={props.map} />);
 }
