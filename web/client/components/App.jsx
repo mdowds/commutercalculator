@@ -13,12 +13,12 @@ export default class App extends React.Component {
             destination: {},
             results: []
         };
+        this.getJourneys = this.getJourneys.bind(this);
     }
 
-    componentDidMount() {
-
-        getJSON('http://127.0.0.1/api/journeys/to/VIC', (json) => {
-            this.setState({destination: json.destination});
+    getJourneys(origin) {
+        getJSON('http://127.0.0.1/api/journeys/to/' + origin, (json) => {
+            this.setState({destination: json.destination, results: []});
 
             json.results.map( (result) => {
                 this.setState({results: this.state.results.concat([result])});
@@ -30,7 +30,7 @@ export default class App extends React.Component {
         return (
             <div className="container">
                 <Header destinationName={this.state.destination.name}>
-                    <SearchForm/>
+                    <SearchForm onSubmit={this.getJourneys}/>
                 </Header>
                 <MapContainer gmaps={this.props.gmaps} destination={this.state.destination} results={this.state.results} />
             </div>
