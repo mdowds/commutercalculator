@@ -1,22 +1,22 @@
 export default {
-    LatLng: function(lat, lng) {
-        return {
-            latitude: parseFloat(lat),
-            longitude: parseFloat(lng),
-
-            lat: function() { return this.latitude; },
-            lng: function() { return this.longitude; }
-        };
-    },
-    LatLngBounds: function(ne, sw) {
-        return {
-            getSouthWest: function() { return sw; },
-            getNorthEast: function() { return ne; }
-        };
-    },
-    OverlayView: function() {
-        return {};
-    },
+    // LatLng: function(lat, lng) {
+    //     return {
+    //         latitude: parseFloat(lat),
+    //         longitude: parseFloat(lng),
+    //
+    //         lat: function() { return this.latitude; },
+    //         lng: function() { return this.longitude; }
+    //     };
+    // },
+    // LatLngBounds: function(ne, sw) {
+    //     return {
+    //         getSouthWest: function() { return sw; },
+    //         getNorthEast: function() { return ne; }
+    //     };
+    // },
+    // OverlayView: function() {
+    //     return {};
+    // },
     InfoWindow: function(input) {
         input.infoWindowRendered = true;
         return input;
@@ -29,16 +29,18 @@ export default {
         input.markerRendered = true;
         return input;
     },
-    MarkerImage: function() {
-        return {};
+    // MarkerImage: function() {
+    //     return {};
+    // },
+    Map: function(container, input) {
+        input.container = container;
+        return input;
     },
-    Map: function() {
-        return {};
-    },
-    Point: function() {
-        return {};
-    },
-    Size: function() {
-        return {};
-    }
+    // Point: function() {
+    //     return {};
+    // },
+    // Size: function() {
+    //     return {};
+    // }
+    ControlPosition: { RIGHT_BOTTOM: 1 }
 }

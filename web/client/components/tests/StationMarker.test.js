@@ -17,7 +17,7 @@ test("StationMarker renders a Marker in correct position", () => {
 test("StationMarker renders a Marker on the map", () => {
     const map = {map: "Some map"};
     const stationMarker = renderStationMarker({map: map});
-    expect(stationMarker.marker.map).toEqual(map);
+    expect(stationMarker.marker.map).toBe(map);
 });
 
 test("StationMarker renders an origin Marker with green icon", () => {
