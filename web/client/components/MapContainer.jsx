@@ -10,19 +10,12 @@ export default class MapContainer extends React.Component {
         super(props);
         this.state = {
             map: {}
-            // openInfoWindow: null
         };
-
-        // this.updateOpenInfoWindow = this.updateOpenInfoWindow.bind(this);
     }
 
     componentDidMount() {
         this.setState({map: this.createMap()});
     }
-
-    // updateOpenInfoWindow(infoWindow) {
-    //     this.setState({openInfoWindow: infoWindow});
-    // }
 
     createMap() {
         const trafalgar = {lat: 51.507368, lng: -0.127811};
@@ -40,16 +33,15 @@ export default class MapContainer extends React.Component {
     render() {
         const map = this.state.map ? this.state.map : null;
 
-        const destMarker = this.props.destination ? <DestinationMarker map={map} station={this.props.destination} /> : null;
+        const destMarker = this.props.destination ? <DestinationMarker gmaps={gmaps} map={map} station={this.props.destination} /> : null;
 
         const originsMarkers = this.props.results.map((result) => {
             return <StationMarker
                 key={result.origin.id}
+                gmaps={gmaps}
                 map={map}
                 station={result.origin}
                 time={result.journeyTime}
-                // updateOpenInfoWindow={this.updateOpenInfoWindow}
-                // openInfoWindow={this.state.openInfoWindow}
             />
         });
 
