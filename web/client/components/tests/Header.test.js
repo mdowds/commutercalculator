@@ -1,13 +1,15 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import renderer from 'react-test-renderer';
 import Header from '../Header.jsx';
 
-test("Header displays the destination", () => {
-    const header = shallow(<Header destinationName="Waterloo" />);
-    expect(header.text()).toEqual("Journeys to Waterloo")
+test("Header renders the title", () => {
+    const header = renderer.create(<Header />);
+    let tree = header.toJSON();
+    expect(tree).toMatchSnapshot();
 });
 
-test("Header displays the default text", () => {
-    const header = shallow(<Header />);
-    expect(header.text()).toEqual("Commuter Calculator")
+test("Header renders children", () => {
+    const header = renderer.create(<Header>Child content</Header>);
+    let tree = header.toJSON();
+    expect(tree).toMatchSnapshot();
 });

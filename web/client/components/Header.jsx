@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default class Header extends React.Component {
-
     render() {
 
         const divStyle = {
@@ -12,13 +11,16 @@ export default class Header extends React.Component {
             width: "100%"
         };
 
-        const title = this.props.destinationName ? "Journeys to " + this.props.destinationName : "Commuter Calculator";
+        const h1Style = {
+            margin: "2px 0",
+            fontSize: "25px"
+        };
 
         return (
             <div style={divStyle}>
-                {title}
+                <h1 style={h1Style}>Commuter Calculator</h1>
+                {this.props.children}
             </div>
         );
     }
-
 }
