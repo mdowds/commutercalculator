@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MapContainer from './MapContainer.jsx';
 import Header from './Header.jsx';
+import SearchForm from './SearchForm.jsx';
 import { getJSON } from '../utils'
 
 export default class App extends React.Component {
@@ -28,7 +29,9 @@ export default class App extends React.Component {
     render() {
         return (
             <div className="container">
-                <Header destinationName={this.state.destination.name} />
+                <Header destinationName={this.state.destination.name}>
+                    <SearchForm/>
+                </Header>
                 <MapContainer gmaps={this.props.gmaps} destination={this.state.destination} results={this.state.results} />
             </div>
         );
