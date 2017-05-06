@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Map from './Map.jsx';
 import {StationMarker, DestinationMarker} from './StationMarker.jsx'
-import gmaps from '../gmaps'
 
 export default class MapContainer extends React.Component {
 
@@ -14,10 +13,10 @@ export default class MapContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({map: this.createMap()});
+        this.setState({map: this.createMap(this.props.gmaps)});
     }
 
-    createMap() {
+    createMap(gmaps) {
         const trafalgar = {lat: 51.507368, lng: -0.127811};
 
         return new gmaps.Map(this.mapDiv, {
@@ -33,12 +32,12 @@ export default class MapContainer extends React.Component {
     render() {
         const map = this.state.map ? this.state.map : null;
 
-        const destMarker = this.props.destination ? <DestinationMarker gmaps={gmaps} map={map} station={this.props.destination} /> : null;
+        const destMarker = this.props.destination ? <DestinationMarker gmaps={this.props.gmaps} map={map} station={this.props.destination} /> : null;
 
         const originsMarkers = this.props.results.map((result) => {
             return <StationMarker
                 key={result.origin.id}
-                gmaps={gmaps}
+                gmaps={this.props.gmaps}
                 map={map}
                 station={result.origin}
                 time={result.journeyTime}
@@ -55,6 +54,7 @@ export default class MapContainer extends React.Component {
 }
 
 MapContainer.propTypes = {
+    gmaps: PropTypes.object,
     destination: PropTypes.object,
     results: PropTypes.arrayOf(PropTypes.object)
 };

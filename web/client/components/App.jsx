@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import MapContainer from './MapContainer.jsx';
 import Header from './Header.jsx';
 import { getJSON } from '../utils'
@@ -28,8 +29,12 @@ export default class App extends React.Component {
         return (
             <div className="container">
                 <Header destinationName={this.state.destination.name} />
-                <MapContainer destination={this.state.destination} results={this.state.results} />
+                <MapContainer gmaps={this.props.gmaps} destination={this.state.destination} results={this.state.results} />
             </div>
         );
     }
 }
+
+App.propTypes = {
+    gmaps: PropTypes.object
+};
