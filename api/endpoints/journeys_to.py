@@ -6,7 +6,7 @@ from functools import partial
 from api.interfaces import gmaps
 from api.lib.functional import Maybe, pipeline, safe, bind
 from typing import Dict, Any, Callable
-from api.utils import secs_to_mins, create_error
+from api.utils import secs_to_mins, create_error, tuple_filter, tuple_map
 
 Result = Dict[str, Any]
 
@@ -22,16 +22,16 @@ class JourneysTo(Resource):
         except StopIteration:
             return jsonify(create_error("No station found"))
 
-        origins = tuple(filter((lambda s: s.sid != dest_sid), stations))
+        extract_origins = partial(tuple_filter, lambda s: s.sid != dest_sid)
+        get_result = partial(build_result, partial(get_travel_time, destination))
+        get_results = partial(tuple_map, get_result)
+        filter_results = partial(tuple_filter, validate_result)
 
-        result_to_dest = partial(build_result, partial(get_travel_time, destination))
-
-        results = tuple(map(lambda s: result_to_dest(s), origins))
-        filtered_results = tuple(filter(lambda r: validate_result(r), results))
+        assemble_results = pipeline(extract_origins, get_results, filter_results)
 
         output = {
             "destination": serialize_station(destination),
-            "results": filtered_results
+            "results": assemble_results(stations)
         }
 
         return jsonify(output)

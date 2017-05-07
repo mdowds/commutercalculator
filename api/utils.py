@@ -32,3 +32,10 @@ def load_config_value(key: str) -> str:
 
 def create_error(message: str) -> Dict[str, str]:
     return {"error": message}
+
+
+def tuple_map(func: generic_func, seq: Sequence) -> Sequence:
+    return tuple(map(func, seq))
+
+def tuple_filter(func: generic_func, seq: Sequence) -> Sequence:
+    return tuple(filter(func, seq))

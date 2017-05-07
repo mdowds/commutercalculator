@@ -42,3 +42,11 @@ class UtilsTests(unittest.TestCase):
         error = create_error("Error")
         self.assertIsNotNone(error["error"])
         self.assertEqual("Error", error["error"])
+
+    def test_tuple_map(self):
+        self.assertEqual((2,3,4), tuple_map(lambda x: x + 1, (1,2,3)))
+        self.assertEqual((2,3,4), tuple_map(lambda x: x + 1, [1,2,3]))
+
+    def test_tuple_filter(self):
+        self.assertEqual((1,2), tuple_filter(lambda x: x < 10, (1,2,11,12)))
+        self.assertEqual((1,2), tuple_filter(lambda x: x < 10, [1,2,11,12]))
