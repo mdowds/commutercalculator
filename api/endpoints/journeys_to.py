@@ -7,6 +7,7 @@ from api.interfaces import gmaps
 from api.lib.functional import Maybe, pipeline, safe, bind
 from typing import Dict, Any, Callable
 from api.utils import secs_to_mins, create_error, tuple_filter, tuple_map
+import re
 
 Result = Dict[str, Any]
 
@@ -14,7 +15,9 @@ Result = Dict[str, Any]
 class JourneysTo(Resource):
 
     @cors.crossdomain(origin='*')
-    def get(self, dest_sid):
+    def get(self, dest_in):
+        dest_sid = sanitise_input(dest_in)
+
         stations = Station.select()
 
         try:
@@ -42,6 +45,12 @@ def build_result(get_time: Callable[[Station], Maybe], origin: Station) -> Resul
         "origin": serialize_station(origin),
         "journeyTime": get_time(origin).value
     }
+
+
+def sanitise_input(input: str) -> str:
+    strip_non_alpha = partial(re.sub,'[^a-zA-Z]','')
+    sanitise = pipeline(strip_non_alpha, str.upper)
+    return sanitise(input)
 
 
 def validate_result(result: Result) -> bool:

@@ -1,5 +1,5 @@
 import unittest
-from api.endpoints.journeys_to import build_result, validate_result
+from api.endpoints.journeys_to import *
 from api.lib.functional import Maybe
 from api.data import Station
 
@@ -25,3 +25,10 @@ class JourneysToTests(unittest.TestCase):
         self.assertTrue(validate_result({"origin": self.station, "journeyTime": 5}))
         self.assertFalse(validate_result({"origin": self.station, "journeyTime": None}))
         self.assertFalse(validate_result({"origin": None, "journeyTime": 5}))
+
+    def test_sanitise_input(self):
+        self.assertEqual("FOO", sanitise_input("FOO"))
+        self.assertEqual("FOO", sanitise_input("foo"))
+        self.assertEqual("FOO", sanitise_input("FOO123"))
+        self.assertEqual("FOO", sanitise_input("FOO123!"))
+        self.assertEqual("FOO", sanitise_input("FOO;"))
