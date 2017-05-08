@@ -10,8 +10,8 @@ class Hello(Resource):
     def get(self):
         return "Hello world"
 
-ccapi.add_resource(Hello, '/api')
-ccapi.add_resource(JourneysTo, '/api/journeys/to/<string:dest_in>')
+ccapi.add_resource(Hello, '/')
+ccapi.add_resource(JourneysTo, '/journeys/to/<string:dest_in>')
 
 @app.errorhandler(404)
 def page_not_found(error):
