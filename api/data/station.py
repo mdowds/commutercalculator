@@ -1,9 +1,6 @@
 from peewee import *
-import os
 from typing import Dict, Any
-
-db = SqliteDatabase(os.path.join(os.getcwd(), 'api', 'data', 'ccdb.sqlite'))
-
+from api.data.ccdb import db
 
 class Station(Model):
     sid = CharField(primary_key=True)

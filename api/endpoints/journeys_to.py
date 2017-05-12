@@ -59,6 +59,8 @@ def validate_result(result: Result) -> bool:
 
 def get_travel_time(origin: Station, destination: Station) -> Maybe:
 
+    # TODO: Check first for records in Journey table in DB
+
     params_with_origin = partial(gmaps.build_params, origin)
 
     pipe = pipeline(
