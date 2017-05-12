@@ -11,7 +11,7 @@ class Station(Model):
     place_id = CharField()
     lat = DoubleField()
     long = DoubleField()
-    outcode = CharField()
+    postcode = CharField()
 
     class Meta:
         database = db
@@ -21,7 +21,6 @@ def serialize_station(station: Station) -> Dict[str, Any]:
     return {
         "id": station.sid,
         "name": station.name,
-        "placeId": station.place_id,
         "position": {
             "lat": station.lat,
             "lng": station.long
