@@ -16,8 +16,8 @@ def extract_response_dict(response: Response) -> Dict[str, Any]:
 
 def build_params(origin: Station, desination: Station) -> Dict[str, str]:
     return {
-        "origin": "place_id:" + origin.place_id,
-        "destination": "place_id:" + desination.place_id,
+        "origin": "%s,%s" % (origin.lat, origin.long),
+        "destination": "%s,%s" % (desination.lat, desination.long),
         "mode": "transit",
         "key": load_config_value("gmapsApiKey")
     }

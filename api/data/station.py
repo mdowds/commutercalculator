@@ -8,7 +8,6 @@ db = SqliteDatabase(os.path.join(os.getcwd(), 'api', 'data', 'ccdb.sqlite'))
 class Station(Model):
     sid = CharField(primary_key=True)
     name = CharField(null=False)
-    place_id = CharField()
     lat = DoubleField()
     long = DoubleField()
     postcode = CharField()
