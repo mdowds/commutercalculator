@@ -1,6 +1,7 @@
 import unittest
 from api.services.journey_time import *
 
+
 class JourneyTimeTest(unittest.TestCase):
 
     def test_process_times(self):
