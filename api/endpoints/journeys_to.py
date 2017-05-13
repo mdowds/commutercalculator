@@ -3,11 +3,12 @@ from flask_restful import Resource
 from flask_restful.utils import cors
 from api.data import Station, serialize_station
 from functools import partial
-from api.lib.functional import Maybe, pipeline
-from typing import Dict, Any, Callable
-from api.utils import create_error, tuple_filter, tuple_map
+from api.lib.functional import curried
+from typing import Dict, Any
+from api.utils import create_error, filter_, map_, find
 from api.services import get_journey_time
 import re
+from fn import F
 
 Result = Dict[str, Any]
 
@@ -21,35 +22,32 @@ class JourneysTo(Resource):
         stations = Station.select()
 
         try:
-            destination = next(filter((lambda s: s.sid == dest_sid), stations))
+            destination = find((lambda s: s.sid == dest_sid), stations)
         except StopIteration:
             return jsonify(create_error("No station found"))
 
-        extract_origins = partial(tuple_filter, lambda s: s.sid != dest_sid)
-        get_result = partial(build_result, partial(get_journey_time, destination))
-        get_results = partial(tuple_map, get_result)
-        filter_results = partial(tuple_filter, validate_result)
-
-        assemble_results = pipeline(extract_origins, get_results, filter_results)
+        origins = filter_(lambda s: s.sid != dest_sid, stations)
+        results_for = F() >> map_(build_result(destination)) >> filter_(validate_result)
 
         output = {
             "destination": serialize_station(destination),
-            "results": assemble_results(stations)
+            "results": results_for(origins)
         }
 
         return jsonify(output)
 
 
-def build_result(get_time: Callable[[Station], Maybe], origin: Station) -> Result:
+@curried
+def build_result(destination: Station, origin: Station) -> Result:
     return {
         "origin": serialize_station(origin),
-        "journeyTime": get_time(origin).value
+        "journeyTime": get_journey_time(destination, origin)
     }
 
 
 def sanitise_input(input: str) -> str:
     strip_non_alpha = partial(re.sub,'[^a-zA-Z]','')
-    sanitise = pipeline(strip_non_alpha, str.upper)
+    sanitise = F() >> strip_non_alpha >> str.upper
     return sanitise(input)
 
 

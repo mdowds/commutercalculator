@@ -3,22 +3,23 @@ from api.lib.functional import Maybe, safe, bind, Option, curried
 from api.data import JourneyTime
 from api.interfaces import gmaps
 from api.utils import secs_to_mins
-from fn import F, _
+from fn import F
 from typing import Union, Sequence
 
 
-def get_journey_time(origin: Station, destination: Station) -> Maybe:
-    return Option(time_from_db, origin, destination).or_call(get_time_and_save, origin, destination)
+@curried
+def get_journey_time(destination: Station, origin: Station) -> Union[int, None]:
+    return Option(time_from_db, origin, destination).or_call(get_time_and_save, origin, destination).value
 
 
 def time_from_db(origin: Station, destination: Station) -> Union[int, None]:
-    times = JourneyTime.select().where(JourneyTime.origin == origin.sid and JourneyTime.destination == destination.sid)
+    times = JourneyTime.select().where((JourneyTime.origin == origin.sid) & (JourneyTime.destination == destination.sid))
     return process_times(times)
 
 
 def process_times(times: Sequence[JourneyTime]) -> Union[int, None]:
     if len(times) == 0: return None
-    # TODO: Replace with more sophisticated avaeraging
+    # TODO: Replace with more sophisticated averaging
     return times[0].time
 
 
@@ -36,5 +37,5 @@ def time_from_gmaps(origin: Station, destination: Station) -> Maybe:
 
 @curried
 def save_to_db(origin: Station, destination: Station, time: int) -> Union[int, None]:
-    JourneyTime.create(origin=origin.sid, destination=destination.sid, time=time)
+    JourneyTime.create(origin=origin.sid, destination=destination.sid, time=int(time))
     return time
