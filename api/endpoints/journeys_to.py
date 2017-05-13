@@ -2,13 +2,11 @@ from flask import jsonify
 from flask_restful import Resource
 from flask_restful.utils import cors
 from api.data import Station, serialize_station
-from functools import partial
-from api.lib.functional import curried
+from api.lib.functional import curried, F, partial
 from typing import Dict, Any
 from api.utils import create_error, filter_, map_, find
 from api.services import get_journey_time
 import re
-from fn import F
 
 Result = Dict[str, Any]
 

@@ -1,9 +1,8 @@
 from api.data import Station
-from api.lib.functional import Maybe, safe, bind, Option, curried
+from api.lib.functional import Maybe, safe, bind, Option, curried, F
 from api.data import JourneyTime
 from api.interfaces import gmaps
 from api.utils import secs_to_mins
-from fn import F
 from typing import Union, Sequence
 
 

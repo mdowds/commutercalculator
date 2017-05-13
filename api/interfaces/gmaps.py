@@ -1,10 +1,9 @@
-from functools import partial
 from typing import Any
 from requests import get
 from api.utils import dict_value,load_config_value
 from api.data import Station
 from typing import Dict
-from api.lib.functional import curried
+from api.lib.functional import curried, partial
 
 extract_duration = partial(dict_value, ("routes", 0, "legs", 0, "duration", "value"))
 

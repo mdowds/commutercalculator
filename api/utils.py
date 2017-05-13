@@ -1,8 +1,7 @@
 import json
 import os
-from functools import reduce
 from typing import Dict, Any, Sequence, Callable, Union, Tuple
-from api.lib.functional import curried
+from api.lib.functional import curried, reduce
 
 generic_func = Callable[[Any], Any]
 

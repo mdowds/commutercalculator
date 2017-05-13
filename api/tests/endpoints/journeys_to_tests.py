@@ -1,7 +1,6 @@
 import unittest
 from unittest.mock import patch
 from api.endpoints.journeys_to import *
-from api.lib.functional import Maybe
 from api.data import Station
 
 
