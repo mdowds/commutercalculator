@@ -1,7 +1,7 @@
 import json
 import os
 from functools import reduce
-from typing import Dict, Any, Sequence, Callable, Union
+from typing import Dict, Any, Sequence, Callable, Union, Tuple
 
 generic_func = Callable[[Any], Any]
 
@@ -34,8 +34,12 @@ def create_error(message: str) -> Dict[str, str]:
     return {"error": message}
 
 
-def tuple_map(func: generic_func, seq: Sequence) -> Sequence:
+def map_(func: generic_func, seq: Sequence) -> Tuple:
     return tuple(map(func, seq))
 
-def tuple_filter(func: generic_func, seq: Sequence) -> Sequence:
+
+def filter_(func: Callable[[Any], bool], seq: Sequence) -> Tuple:
     return tuple(filter(func, seq))
+
+def find(func: Callable[[Any], bool], seq: Sequence) -> Any:
+    return next(filter(func, seq))
