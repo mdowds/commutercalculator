@@ -3,10 +3,10 @@ from flask_restful import Resource
 from flask_restful.utils import cors
 from api.data import Station, serialize_station
 from functools import partial
-from api.interfaces import gmaps
-from api.lib.functional import Maybe, pipeline, safe, bind
+from api.lib.functional import Maybe, pipeline
 from typing import Dict, Any, Callable
-from api.utils import secs_to_mins, create_error, tuple_filter, tuple_map
+from api.utils import create_error, tuple_filter, tuple_map
+from api.services import get_journey_time
 import re
 
 Result = Dict[str, Any]
@@ -26,7 +26,7 @@ class JourneysTo(Resource):
             return jsonify(create_error("No station found"))
 
         extract_origins = partial(tuple_filter, lambda s: s.sid != dest_sid)
-        get_result = partial(build_result, partial(get_travel_time, destination))
+        get_result = partial(build_result, partial(get_journey_time, destination))
         get_results = partial(tuple_map, get_result)
         filter_results = partial(tuple_filter, validate_result)
 
@@ -55,20 +55,3 @@ def sanitise_input(input: str) -> str:
 
 def validate_result(result: Result) -> bool:
     return result["origin"] is not None and result["journeyTime"] is not None
-
-
-def get_travel_time(origin: Station, destination: Station) -> Maybe:
-
-    # TODO: Check first for records in Journey table in DB
-
-    params_with_origin = partial(gmaps.build_params, origin)
-
-    pipe = pipeline(
-        params_with_origin,
-        gmaps.get_directions,
-        gmaps.extract_response_dict,
-        safe(gmaps.extract_duration),
-        bind(secs_to_mins)
-    )
-
-    return pipe(destination)

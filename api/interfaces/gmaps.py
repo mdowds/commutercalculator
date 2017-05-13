@@ -1,17 +1,16 @@
 from functools import partial
 from typing import Any
-from requests import get, Response
+from requests import get
 from api.utils import dict_value,load_config_value
 from api.data import Station
 from typing import Dict
 from api.lib.functional import curried
 
-get_directions = partial(get, "https://maps.googleapis.com/maps/api/directions/json")
 extract_duration = partial(dict_value, ("routes", 0, "legs", 0, "duration", "value"))
 
 
-def extract_response_dict(response: Response) -> Dict[str, Any]:
-    return response.json()
+def get_directions(params: Dict[str, str]) -> Dict[str, Any]:
+    return get("https://maps.googleapis.com/maps/api/directions/json", params).json()
 
 
 @curried
