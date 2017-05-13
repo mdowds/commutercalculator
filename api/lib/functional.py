@@ -14,6 +14,14 @@ class Maybe:
         return Maybe(fn(self.value))
 
 
+class Option:
+    def __init__(self, fn, *args):
+        self.value = fn(*args)
+
+    def or_call(self, fn, *args):
+        return Option(fn, *args) if self.value is None else self
+
+
 def bind(fn: generic_func) -> generic_func:
     def __inner(fn, monad: Maybe):
         return monad.bind(fn)
