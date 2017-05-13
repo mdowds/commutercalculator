@@ -4,7 +4,7 @@ from api.data import JourneyTime
 from api.interfaces import gmaps
 from api.utils import secs_to_mins
 from fn import F, _
-from typing import Union
+from typing import Union, Sequence
 
 
 def get_journey_time(origin: Station, destination: Station) -> Maybe:
@@ -13,8 +13,11 @@ def get_journey_time(origin: Station, destination: Station) -> Maybe:
 
 def time_from_db(origin: Station, destination: Station) -> Union[int, None]:
     times = JourneyTime.select().where(JourneyTime.origin == origin.sid and JourneyTime.destination == destination.sid)
-    if len(times) == 0: return None
+    return process_times(times)
 
+
+def process_times(times: Sequence[JourneyTime]):
+    if len(times) == 0: return None
     # TODO: Replace with more sophisticated avaeraging
     return times[0].time
 
