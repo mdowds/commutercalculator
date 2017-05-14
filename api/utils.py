@@ -6,7 +6,8 @@ from api.lib.functional import curried, reduce
 generic_func = Callable[[Any], Any]
 
 
-def dict_value(keys: Sequence[Any], input_dict: Dict[Any, Any]) -> Union[Dict[Any, Any], None]:
+@curried
+def dict_value(keys: Sequence[Any], input_dict: Dict[Any, Any]) -> Any:
     def select(dictionary, key):
         try: return dictionary[key]
         except (KeyError, TypeError, IndexError): return None

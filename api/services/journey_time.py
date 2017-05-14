@@ -6,7 +6,8 @@ from api.utils import filter_, map_
 from typing import Union, Sequence, Tuple
 
 
-def get_journey_times(destination: Station, origins: Sequence[Station]) -> Tuple[JourneyTimeResult]:
+@curried
+def get_journey_times(destination: Station, origins: Sequence[Station]) -> Tuple[JourneyTimeResult, None]:
     existing_times = JourneyTime.select().where(JourneyTime.destination == destination.sid)
 
     return map_(_unique_times(existing_times), origins)
