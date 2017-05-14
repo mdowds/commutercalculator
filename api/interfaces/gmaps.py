@@ -2,13 +2,13 @@ from requests import Response
 from api.utils import dict_value,load_config_value, map_, secs_to_mins
 from api.data import Station
 from typing import Dict, Sequence, List
-from api.lib.functional import curried, partial
+from api.lib.functional import curried
 from collections import namedtuple
 import grequests
 
 _directions_url = "https://maps.googleapis.com/maps/api/directions/json"
 RequestSettings = namedtuple("RequestSettings", ("params", "callback"))
-JourneyTimeResult = namedtuple('JourneyTimeResult', ['origin', 'time'])
+JourneyTimeResult = namedtuple('JourneyTimeResult', ('origin', 'time'))
 
 
 @curried
@@ -27,9 +27,10 @@ def _exception_handler(request, exception):
 
 
 @curried
-def _extract_journey_time(times: List, origin: Station, response: Response, *args, **kwargs):
+def _extract_journey_time(times: List, origin: Station, response: Response, *args, **kwargs) -> List:
     journey_time = dict_value(("routes", 0, "legs", 0, "duration", "value"), response.json())
     if journey_time is not None: times.append(JourneyTimeResult(origin, secs_to_mins(journey_time)))
+    return times
 
 
 @curried
