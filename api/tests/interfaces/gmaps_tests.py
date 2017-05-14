@@ -1,17 +1,10 @@
 import unittest
 from unittest.mock import patch
 from api.interfaces.gmaps import *
+from api.interfaces.gmaps import _build_params
 
 
 class GmapsInterfaceTests(unittest.TestCase):
-
-    def test_extract_duration(self):
-        mock = {"routes": [{"legs": [{"duration": {"value": 2} }] }], "status": "OK" }
-        empty = {}
-        invalid = {"routes": [], "status": "ZERO-RESULTS"}
-        self.assertEqual(2, extract_duration(mock))
-        self.assertEqual(None, extract_duration(empty))
-        self.assertEqual(None, extract_duration(invalid))
 
     @patch("api.interfaces.gmaps.load_config_value")
     def test_build_params(self, mock_lcv):
@@ -19,7 +12,7 @@ class GmapsInterfaceTests(unittest.TestCase):
 
         origin = Station(lat=1.5, long=-0.2)
         dest = Station(lat=1.6, long=-0.3)
-        actual = build_params(origin, dest)
+        actual = _build_params(dest, origin)
 
         self.assertEqual("1.5,-0.2", actual["origin"])
         self.assertEqual("1.6,-0.3", actual["destination"])
@@ -32,7 +25,7 @@ class GmapsInterfaceTests(unittest.TestCase):
 
         origin = Station(lat=1.5, long=-0.2)
         dest = Station(lat=1.6, long=-0.3)
-        actual = build_params(origin)(dest)
+        actual = _build_params(dest)(origin)
 
         self.assertEqual("1.5,-0.2", actual["origin"])
         self.assertEqual("1.6,-0.3", actual["destination"])
