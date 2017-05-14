@@ -5,7 +5,7 @@ from api.data import Station, serialize_station
 from api.lib.functional import curried, F, partial
 from typing import Dict, Any
 from api.utils import create_error, filter_, map_, find
-from api.services import get_journey_time
+from api.services import get_journey_time, get_journey_times, JourneyTimeResult
 import re
 
 Result = Dict[str, Any]
@@ -25,21 +25,22 @@ class JourneysTo(Resource):
             return jsonify(create_error("No station found"))
 
         origins = filter_(lambda s: s.sid != dest_sid, stations)
-        results_for = F() >> map_(build_result(destination)) >> filter_(validate_result)
+
+        times = get_journey_times(destination, origins)
+        results = [build_result(time) for time in times if time is not None]
 
         output = {
             "destination": serialize_station(destination),
-            "results": results_for(origins)
+            "results": results
         }
 
         return jsonify(output)
 
 
-@curried
-def build_result(destination: Station, origin: Station) -> Result:
+def build_result(time: JourneyTimeResult) -> Result:
     return {
-        "origin": serialize_station(origin),
-        "journeyTime": get_journey_time(destination, origin)
+        "origin": serialize_station(time.origin),
+        "journeyTime": time.time
     }
 
 
