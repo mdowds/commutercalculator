@@ -15,11 +15,11 @@ class Maybe:
 
 
 class Option:
-    def __init__(self, fn, *args):
-        self.value = fn(*args)
+    def __init__(self, value):
+        self.value = value
 
     def or_call(self, fn, *args):
-        return Option(fn, *args) if self.value is None else self
+        return Option(fn(*args)) if self.value is None else self
 
 
 def bind(fn: generic_func) -> generic_func:

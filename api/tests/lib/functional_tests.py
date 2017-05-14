@@ -14,12 +14,11 @@ class FunctionalTests(unittest.TestCase):
         self.assertEqual(None, Maybe(None).bind(lambda x: x+1).value)
 
     def test_Option(self):
-        self.assertEqual(2, Option(lambda x: x+1, 1).value)
-        self.assertEqual(3, Option(lambda x,y: x+y, 1, 2).value)
+        self.assertEqual(2, Option(2).value)
 
     def test_Option_or_call(self):
-        self.assertEqual(3, Option(lambda: None).or_call(lambda x: x+2, 1).value)
-        self.assertEqual(2, Option(lambda x: x+1, 1).or_call(lambda x: x+2, 1).value)
+        self.assertEqual(3, Option(None).or_call(lambda x: x+2, 1).value)
+        self.assertEqual(2, Option(2).or_call(lambda x: x+2, 1).value)
 
     def test_bind(self):
         def square(x): return x*x
