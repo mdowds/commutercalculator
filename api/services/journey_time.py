@@ -1,7 +1,7 @@
 from api.data import Station
 from api.lib.functional import curried, F
 from api.data import JourneyTime
-from api.interfaces.gmaps import get_directions_multiple, JourneyTimeResult
+from api.interfaces.gmaps import JourneyTimeResult, get_journey_time
 from api.utils import filter_, map_
 from typing import Union, Sequence, Tuple
 
@@ -11,6 +11,12 @@ def get_journey_times(destination: Station, origins: Sequence[Station]) -> Tuple
     existing_times = JourneyTime.select().where(JourneyTime.destination == destination.sid)
 
     return map_(_unique_times(existing_times), origins)
+
+
+def update_journey_times(destination: Station, origins: Sequence[Station]) -> Tuple[Union[JourneyTimeResult, None]]:
+    pipe = F() >> get_journey_time(destination) >> _save_to_db(destination)
+    return map_(pipe, origins)
+    #return pipe(origins[0])
 
 
 @curried
@@ -23,11 +29,6 @@ def _process_db_times(times: Sequence[JourneyTime], origin: Station) -> Union[Jo
     if len(times) == 0: return None
     # TODO: Replace with more sophisticated averaging
     return JourneyTimeResult(origin, times[0].time)
-
-
-def _get_times_and_save(destination: Station, origins: Sequence[Station]) -> Union[int, None]:
-    pipe = F() >> get_directions_multiple(destination) >> map_(_save_to_db(destination))
-    return pipe(origins)
 
 
 @curried

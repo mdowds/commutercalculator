@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 from api.interfaces.gmaps import *
-from api.interfaces.gmaps import _build_params, _extract_journey_time, _prepare_request
+from api.interfaces.gmaps import _build_params, _extract_journey_times, _prepare_request, _extract_journey_time
 
 
 class GmapsInterfaceTests(unittest.TestCase):
@@ -29,15 +29,26 @@ class GmapsInterfaceTests(unittest.TestCase):
         self.assertEqual("abcde", actual["key"])
 
     @patch("api.interfaces.gmaps.Response")
-    def test_extract_journey_time(self, mock_response):
+    def test_extract_journey_times(self, mock_response):
         mock_response.json.return_value = {"routes": [{"legs": [{"duration": {"value": 600}}]}]}
-        self.assertEqual(10, _extract_journey_time([], self.origin, mock_response)[0].time)
-        self.assertEqual("Foo", _extract_journey_time([], self.origin, mock_response)[0].origin.name)
+        self.assertEqual(10, _extract_journey_times([], self.origin, mock_response)[0].time)
+        self.assertEqual("Foo", _extract_journey_times([], self.origin, mock_response)[0].origin.name)
 
     @patch("api.interfaces.gmaps.Response")
-    def test_extract_journey_time_with_none(self, mock_response):
+    def test_extract_journey_times_with_none(self, mock_response):
         mock_response.json.return_value = None
-        self.assertEqual([], _extract_journey_time([], self.origin, mock_response))
+        self.assertEqual([], _extract_journey_times([], self.origin, mock_response))
+
+    @patch("api.interfaces.gmaps.Response")
+    def test_extract_journey_time(self, mock_response):
+        mock_response.json.return_value = {"routes": [{"legs": [{"duration": {"value": 600}}]}]}
+        self.assertEqual(10, _extract_journey_time(self.origin, mock_response).time)
+        self.assertEqual("Foo", _extract_journey_time(self.origin, mock_response).origin.name)
+
+    @patch("api.interfaces.gmaps.Response")
+    def test_extract_journey_times_with_none(self, mock_response):
+        mock_response.json.return_value = None
+        self.assertEqual(None, _extract_journey_time(self.origin, mock_response))
 
     @patch("api.interfaces.gmaps.load_config_value")
     def test_prepare_request(self, mock_lcv):

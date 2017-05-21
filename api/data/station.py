@@ -2,12 +2,15 @@ from peewee import *
 from typing import Dict, Any
 from api.data.ccdb import db
 
+
 class Station(Model):
     sid = CharField(primary_key=True)
     name = CharField(null=False)
     lat = DoubleField()
     long = DoubleField()
     postcode = CharField()
+    major_station = BooleanField()
+    journey_times_updated = DateTimeField()
 
     class Meta:
         database = db
