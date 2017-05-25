@@ -4,7 +4,7 @@ exports[`Map renders the basic map container 1`] = `
 <div
   style={
     Object {
-      "height": "100%",
+      "height": "50%",
       "width": "100%",
     }
   }

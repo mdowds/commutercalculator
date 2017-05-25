@@ -2,11 +2,9 @@ import React from 'react';
 
 export default function Header(props) {
     const divStyle = {
-        padding: "5px",
-        position: "fixed",
-        zIndex: 1,
         backgroundColor: "white",
-        width: "100%"
+        width: "100%",
+        height: 90
     };
 
     const h1Style = {

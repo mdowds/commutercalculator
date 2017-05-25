@@ -20,7 +20,7 @@ export default class SearchForm extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{padding: 5, boxSizing: "border-box"}}>
                 <div>Journeys to <input id="stationInput" type="text" onChange={this.handleStationNameChange} /></div>
                 <div><input id="submitSearch" type="button" value="Search" onClick={this.handleSubmit}/></div>
             </div>

@@ -5,10 +5,8 @@ exports[`Header renders children 1`] = `
   style={
     Object {
       "backgroundColor": "white",
-      "padding": "5px",
-      "position": "fixed",
+      "height": 90,
       "width": "100%",
-      "zIndex": 1,
     }
   }
 >
@@ -31,10 +29,8 @@ exports[`Header renders the title 1`] = `
   style={
     Object {
       "backgroundColor": "white",
-      "padding": "5px",
-      "position": "fixed",
+      "height": 90,
       "width": "100%",
-      "zIndex": 1,
     }
   }
 >

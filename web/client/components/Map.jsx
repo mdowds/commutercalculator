@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default function Map(props) {
     const mapStyle = {
         width: '100%',
-        height: '100%'
+        height: '50%'
     };
 
     return (
