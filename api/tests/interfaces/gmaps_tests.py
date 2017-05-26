@@ -1,7 +1,8 @@
 import unittest
 from unittest.mock import patch
 from api.interfaces.gmaps import *
-from api.interfaces.gmaps import _build_params, _extract_journey_times, _prepare_request, _extract_journey_time, _add_arrival_param
+from api.interfaces.gmaps import _build_params, _extract_journey_times, _prepare_request, _extract_journey_time, _add_arrival_param, _get_peak_time
+import datetime
 
 
 class GmapsInterfaceTests(unittest.TestCase):
@@ -59,3 +60,7 @@ class GmapsInterfaceTests(unittest.TestCase):
         mock_lcv.return_value = "abcde"
         actual = _prepare_request([], self.dest, self.origin)
         self.assertEqual(_build_params(self.dest, self.origin), actual.params)
+
+    def test_get_peak_time(self):
+        self.assertEqual(1495526400, _get_peak_time(datetime.date(2017, 5, 22)))
+        self.assertEqual(1495440000, _get_peak_time(datetime.date(2017, 5, 19)))

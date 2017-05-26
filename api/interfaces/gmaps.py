@@ -1,10 +1,11 @@
 import requests
-from api.utils import dict_path,load_config_value, map_, secs_to_mins
+from api.utils import dict_path,load_config_value, map_, secs_to_mins, next_weekday
 from api.data import Station
 from typing import Sequence, List, Union
 from api.lib.functional import curried, F
 from collections import namedtuple
 from frozendict import frozendict
+from datetime import date, time, datetime
 import grequests
 
 RequestSettings = namedtuple("RequestSettings", ("params", "callback"))
@@ -16,7 +17,8 @@ _partial_get = F(requests.get, _directions_url)
 
 @curried
 def get_peak_journey_time(destination: Station, origin: Station) -> JourneyTimeResult:
-    pipe = F() >> _build_params(destination) >> _add_arrival_param(1) >> _partial_get >> _extract_journey_time(origin)
+    arrival = _get_peak_time(date.today())
+    pipe = F() >> _build_params(destination) >> _add_arrival_param(arrival) >> _partial_get >> _extract_journey_time(origin)
     return pipe(origin)
 
 
@@ -46,6 +48,11 @@ def _build_params(destination: Station, origin: Station) -> frozendict:
 @curried
 def _add_arrival_param(arrival: int, params: frozendict) -> frozendict:
     return params.copy(arrival_time=arrival)
+
+
+def _get_peak_time(base_date: date) -> int:
+    day = next_weekday(base_date)
+    return int(datetime.combine(day, time(9)).timestamp())
 
 
 ### Functions for multiple concurrent requests

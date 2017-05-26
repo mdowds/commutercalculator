@@ -16,7 +16,7 @@ def get_journey_times(destination: Station, origins: Sequence[Station]) -> Tuple
 
 @curried
 def update_journey_time(destination: Station, origin: Station) -> Union[JourneyTimeResult, None]:
-    pipe = F() >> gmaps.get_journey_time(destination) >> _save_to_db(destination)
+    pipe = F() >> gmaps.get_peak_journey_time(destination) >> _save_to_db(destination)
     return pipe(origin)
 
 
