@@ -1,15 +1,55 @@
-from requests import Response, get
+import requests
 from api.utils import dict_value,load_config_value, map_, secs_to_mins
 from api.data import Station
-from typing import Dict, Sequence, List, Union
-from api.lib.functional import curried
+from typing import Sequence, List, Union
+from api.lib.functional import curried, F
 from collections import namedtuple
+from frozendict import frozendict
 import grequests
 
-_directions_url = "https://maps.googleapis.com/maps/api/directions/json"
 RequestSettings = namedtuple("RequestSettings", ("params", "callback"))
 JourneyTimeResult = namedtuple('JourneyTimeResult', ('origin', 'time'))
 
+_directions_url = "https://maps.googleapis.com/maps/api/directions/json"
+_partial_get = F(requests.get, _directions_url)
+
+
+@curried
+def get_peak_journey_time(destination: Station, origin: Station) -> JourneyTimeResult:
+    pipe = F() >> _build_params(destination) >> _add_arrival_param(1) >> _partial_get >> _extract_journey_time(origin)
+    return pipe(origin)
+
+
+@curried
+def get_journey_time(destination: Station, origin: Station) -> JourneyTimeResult:
+    pipe = F() >> _build_params(destination) >> _partial_get >> _extract_journey_time(origin)
+    return pipe(origin)
+
+
+@curried
+def _extract_journey_time(origin: Station, response: requests.Response) -> Union[JourneyTimeResult, None]:
+    time = dict_value(("routes", 0, "legs", 0, "duration", "value"), response.json())
+    if time is None: return None
+    return JourneyTimeResult(origin, secs_to_mins(time))
+
+
+@curried
+def _build_params(destination: Station, origin: Station) -> frozendict:
+    return frozendict({
+        "origin": "%s,%s" % (origin.lat, origin.long),
+        "destination": "%s,%s" % (destination.lat, destination.long),
+        "mode": "transit",
+        "key": load_config_value("gmapsApiKey")
+    })
+
+
+@curried
+def _add_arrival_param(arrival: int, params: frozendict) -> frozendict:
+    return params.copy(arrival_time=arrival)
+
+
+### Functions for multiple concurrent requests
+### Currently not being used
 
 @curried
 def get_journey_time_multiple(destination: Station, origins: Sequence[Station]) -> List[JourneyTimeResult]:
@@ -24,41 +64,16 @@ def get_journey_time_multiple(destination: Station, origins: Sequence[Station]) 
 
 
 @curried
-def get_journey_time(destination: Station, origin: Station) -> JourneyTimeResult:
-    print("Getting time for " + origin.name + " to " + destination.name)
-    res = get(_directions_url, _build_params(destination, origin))
-    return _extract_journey_time(origin, res)
+def _prepare_request(times: List, destination: Station, origin: Station) -> RequestSettings:
+    return RequestSettings(_build_params(destination, origin), _extract_journey_times(times, origin))
 
 
 def _exception_handler(request, exception):
     print(request.url + " failed with exception " + str(exception))
     print(request.params)
 
-
 @curried
-def _extract_journey_times(times: List, origin: Station, response: Response, *args, **kwargs) -> List:
+def _extract_journey_times(times: List, origin: Station, response: requests.Response, *args, **kwargs) -> List:
     journey_time = _extract_journey_time(origin, response)
     if journey_time is not None: times.append(journey_time)
     return times
-
-
-@curried
-def _extract_journey_time(origin: Station, response: Response) -> Union[JourneyTimeResult, None]:
-    time = dict_value(("routes", 0, "legs", 0, "duration", "value"), response.json())
-    if time is None: return None
-    return JourneyTimeResult(origin, secs_to_mins(time))
-
-
-@curried
-def _prepare_request(times: List, destination: Station, origin: Station) -> RequestSettings:
-    return RequestSettings(_build_params(destination, origin), _extract_journey_times(times, origin))
-
-
-@curried
-def _build_params(destination: Station, origin: Station) -> Dict[str, str]:
-    return {
-        "origin": "%s,%s" % (origin.lat, origin.long),
-        "destination": "%s,%s" % (destination.lat, destination.long),
-        "mode": "transit",
-        "key": load_config_value("gmapsApiKey")
-    }
