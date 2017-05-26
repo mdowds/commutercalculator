@@ -1,5 +1,6 @@
 import unittest
 from api.utils import *
+import datetime
 
 
 class UtilsTests(unittest.TestCase):
@@ -54,3 +55,8 @@ class UtilsTests(unittest.TestCase):
     def test_find(self):
         self.assertEqual("foo", find(lambda x: x == "foo", ("foo", "bar")))
         self.assertEqual("foo", find(lambda x: x == "foo", ["foo", "bar"]))
+
+    def test_next_weekday(self):
+        self.assertEqual("Tue", next_weekday(datetime.date(2017,5,22)).strftime("%a"))
+        self.assertEqual("Mon", next_weekday(datetime.date(2017,5,26)).strftime("%a"))
+        self.assertEqual("Mon", next_weekday(datetime.date(2017,5,27)).strftime("%a"))

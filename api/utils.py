@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import date, timedelta
 from typing import Dict, Any, Sequence, Callable, Union, Tuple
 from api.lib.functional import curried, reduce
 
@@ -47,3 +48,12 @@ def filter_(func: Callable[[Any], bool], seq: Sequence) -> Tuple:
 
 def find(func: Callable[[Any], bool], seq: Sequence) -> Any:
     return next(filter(func, seq))
+
+
+def next_weekday(base_date: date) -> date:
+
+    def is_weekday(date_to_check: date) -> bool:
+        return date_to_check.weekday() in range(0, 5)
+
+    next_date = base_date + timedelta(1)
+    return next_date if is_weekday(next_date) else next_weekday(next_date)
