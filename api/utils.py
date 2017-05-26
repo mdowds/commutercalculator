@@ -7,7 +7,7 @@ generic_func = Callable[[Any], Any]
 
 
 @curried
-def dict_value(keys: Sequence[Any], input_dict: Dict[Any, Any]) -> Any:
+def dict_path(keys: Sequence[Any], input_dict: Dict[Any, Any]) -> Any:
     def select(dictionary, key):
         try: return dictionary[key]
         except (KeyError, TypeError, IndexError): return None

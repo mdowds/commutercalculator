@@ -1,5 +1,5 @@
 import requests
-from api.utils import dict_value,load_config_value, map_, secs_to_mins
+from api.utils import dict_path,load_config_value, map_, secs_to_mins
 from api.data import Station
 from typing import Sequence, List, Union
 from api.lib.functional import curried, F
@@ -28,7 +28,7 @@ def get_journey_time(destination: Station, origin: Station) -> JourneyTimeResult
 
 @curried
 def _extract_journey_time(origin: Station, response: requests.Response) -> Union[JourneyTimeResult, None]:
-    time = dict_value(("routes", 0, "legs", 0, "duration", "value"), response.json())
+    time = dict_path(("routes", 0, "legs", 0, "duration", "value"), response.json())
     if time is None: return None
     return JourneyTimeResult(origin, secs_to_mins(time))
 
