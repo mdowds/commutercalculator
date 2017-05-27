@@ -11,7 +11,7 @@ class Hello(Resource):
         return "Hello world"
 
 ccapi.add_resource(Hello, '/')
-ccapi.add_resource(JourneysTo, '/journeys/to/<string:dest_in>')
+ccapi.add_resource(JourneysTo, '/journeys/to/<string:dest>')
 
 @app.errorhandler(404)
 def page_not_found(error):
