@@ -14,21 +14,15 @@ Result = Dict[str, Any]
 class JourneysTo(Resource):
 
     @cors.crossdomain(origin='*')
-    def get(self, dest_in):
-        dest_sid = _sanitise_input(dest_in)
-
-        stations = Station.select()
-
+    def get(self, dest):
         try:
-            destination = find((lambda s: s.sid == dest_sid), stations)
-        except StopIteration:
+            destination = Station.get(Station.sid == _sanitise_input(dest))
+        except (StopIteration, Station.DoesNotExist):
             return jsonify(create_error("No station found"))
 
-        origins = filter_(lambda s: s.sid != dest_sid, stations)
+        output_pipe = F() >> get_journey_times >> map_(_build_result) >>  _build_output(destination) >> jsonify
 
-        output_pipe = F() >> get_journey_times(destination) >> filter_(lambda j: j is not None) >> map_(_build_result) >>  _build_output(destination) >> jsonify
-
-        return output_pipe(origins)
+        return output_pipe(destination)
 
 
 def _build_result(time: JourneyTimeResult) -> Result:
