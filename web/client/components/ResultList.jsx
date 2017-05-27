@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Result from './Result.jsx'
 
 export default function ResultList(props) {
 
     const entries = props.results.map((result) => {
-        return <li key={result.origin.name}>{result.origin.name}</li>
+        return <Result key={result.origin.id} origin={result.origin} journeyTime={result.journeyTime} />
     });
 
     const divStyle = {
@@ -15,7 +17,11 @@ export default function ResultList(props) {
 
     return (
         <div style={divStyle}>
-            <ul>{entries}</ul>
+            {entries}
         </div>
     );
 }
+
+ResultList.propTypes = {
+    results: PropTypes.arrayOf(PropTypes.object)
+};

@@ -31,21 +31,22 @@ test("MapContainer renders a Map with a DestinationMarker child", () => {
     expect(marker.prop('station')).toEqual(destination);
 });
 
-test("MapContainer renders a Map with StationMarker children", () => {
-    const results = [
-        {origin: {id: "VIC"}, journeyTime: 5},
-        {origin: {id: "PAD"}, journeyTime: 10},
-        {origin: {id: "EUS"}, journeyTime: 12}
-    ];
-
-    const mapContainer = shallow(<MapContainer results={results} />);
-    const markers = mapContainer.find('Map').children('StationMarker');
-
-    expect(markers.length).toEqual(results.length);
-
-    const stations = markers.map(node => node.prop('station').id);
-    expect(stations).toEqual(["VIC","PAD","EUS"]);
-
-    const times = markers.map(node => node.prop('time'));
-    expect(times).toEqual([5,10,12]);
-});
+// Obsolete test: results are now rendered in a ResultList
+// test("MapContainer renders a Map with StationMarker children", () => {
+//     const results = [
+//         {origin: {id: "VIC"}, journeyTime: 5},
+//         {origin: {id: "PAD"}, journeyTime: 10},
+//         {origin: {id: "EUS"}, journeyTime: 12}
+//     ];
+//
+//     const mapContainer = shallow(<MapContainer results={results} />);
+//     const markers = mapContainer.find('Map').children('StationMarker');
+//
+//     expect(markers.length).toEqual(results.length);
+//
+//     const stations = markers.map(node => node.prop('station').id);
+//     expect(stations).toEqual(["VIC","PAD","EUS"]);
+//
+//     const times = markers.map(node => node.prop('time'));
+//     expect(times).toEqual([5,10,12]);
+// });

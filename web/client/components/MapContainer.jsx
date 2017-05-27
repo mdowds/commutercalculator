@@ -34,20 +34,20 @@ export default class MapContainer extends React.Component {
 
         const destMarker = this.props.destination ? <DestinationMarker gmaps={this.props.gmaps} map={map} station={this.props.destination} /> : null;
 
-        const originsMarkers = this.props.results.map((result) => {
-            return <StationMarker
-                key={result.origin.id}
-                gmaps={this.props.gmaps}
-                map={map}
-                station={result.origin}
-                time={result.journeyTime}
-            />
-        });
+        // const originsMarkers = this.props.results.map((result) => {
+        //     return <StationMarker
+        //         key={result.origin.id}
+        //         gmaps={this.props.gmaps}
+        //         map={map}
+        //         station={result.origin}
+        //         time={result.journeyTime}
+        //     />
+        // });
 
         return (
             <Map divRef={el => this.mapDiv = el}>
                 {destMarker}
-                {originsMarkers}
+                {/*{originsMarkers}*/}
             </Map>
         );
     }
