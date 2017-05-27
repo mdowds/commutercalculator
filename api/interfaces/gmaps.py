@@ -7,6 +7,7 @@ from collections import namedtuple
 from frozendict import frozendict
 from datetime import date, time, datetime
 import grequests
+from pytz import timezone
 
 RequestSettings = namedtuple("RequestSettings", ("params", "callback"))
 JourneyTimeResult = namedtuple('JourneyTimeResult', ('origin', 'time'))
@@ -52,7 +53,9 @@ def _add_arrival_param(arrival: int, params: frozendict) -> frozendict:
 
 def _get_peak_time(base_date: date) -> int:
     day = next_weekday(base_date)
-    return int(datetime.combine(day, time(9)).timestamp())
+    dt = datetime.combine(day, time(9))
+    localised = timezone('Europe/London').localize(dt)
+    return int(localised.timestamp())
 
 
 ### Functions for multiple concurrent requests
