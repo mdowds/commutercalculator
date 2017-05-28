@@ -10,6 +10,6 @@ class Destinations(Resource):
 
     @cors.crossdomain(origin='*')
     def get(self):
-        destinations = Station.select().where(Station.major_station == True)
+        destinations = Station.select().where(Station.major_station == True).order_by(Station.name)
         output_pipe =  F() >> map_(serialize_station) >> jsonify
         return output_pipe(destinations)
