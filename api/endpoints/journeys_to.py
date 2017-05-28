@@ -4,7 +4,7 @@ from flask_restful.utils import cors
 from api.data import Station, serialize_station
 from api.lib.functional import F, partial, curried
 from typing import Dict, Any, List
-from api.utils import create_error, filter_, find, map_
+from api.utils import create_error, map_
 from api.services import get_journey_times, JourneyTimeResult
 import re
 
@@ -17,7 +17,7 @@ class JourneysTo(Resource):
     def get(self, dest):
         try:
             destination = Station.get(Station.sid == _sanitise_input(dest))
-        except (StopIteration, Station.DoesNotExist):
+        except Station.DoesNotExist:
             return jsonify(create_error("No station found"))
 
         output_pipe = F() >> get_journey_times >> map_(_build_result) >>  _build_output(destination) >> jsonify
