@@ -22,19 +22,24 @@ export default {
         return input;
     },
     Marker: function(input) {
-        input.addListener = function () {
-            return {};
-        };
+        // input.addListener = function () {
+        //     return {};
+        // };
 
-        input.markerRendered = true;
-        return input;
+        // input.markerRendered = true;
+        return {
+            map: input.map,
+            position: input.position,
+            icon: input.icon,
+            markerRendered: true,
+            setMap: function(map) { this.map = map; }
+        };
     },
     // MarkerImage: function() {
     //     return {};
     // },
     Map: function(container, input) {
-        input.container = container;
-        return input;
+        return Object.assign({container: container}, input);
     },
     // Point: function() {
     //     return {};

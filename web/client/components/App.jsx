@@ -5,6 +5,7 @@ import Header from './Header.jsx';
 import SearchForm from './SearchForm.jsx';
 import ResultList from './ResultList.jsx'
 import { getJSON } from '../utils'
+import Map from '../map'
 
 export default class App extends React.Component {
 
@@ -40,7 +41,7 @@ export default class App extends React.Component {
                 <Header destinationName={this.state.destination.name}>
                     <SearchForm onSubmit={this.getJourneys}/>
                 </Header>
-                <MapContainer gmaps={this.props.gmaps} destination={this.state.destination} results={this.state.results} />
+                <MapContainer mapObj={new Map(this.props.gmapsApi)} destination={this.state.destination} results={this.state.results} />
                 <ResultList results={this.state.results} isLoading={this.state.resultsLoading} />
             </div>
         );
@@ -48,5 +49,5 @@ export default class App extends React.Component {
 }
 
 App.propTypes = {
-    gmaps: PropTypes.object
+    gmapsApi: PropTypes.object
 };
