@@ -35,6 +35,10 @@ export default class App extends React.Component {
         });
     }
 
+    shouldDisplayResultList() {
+        return this.state.results.length > 0 || this.state.resultsLoading;
+    }
+
     render() {
         const containerStyle = {
             width: "100%",
@@ -48,8 +52,16 @@ export default class App extends React.Component {
                 <Header destinationName={this.state.destination.name}>
                     <SearchForm destinations={this.state.possibleDestinations} onSubmit={this.getJourneys}/>
                 </Header>
-                <MapContainer mapObj={new Map(this.props.gmapsApi)} destination={this.state.destination} results={this.state.results} />
-                <ResultList results={this.state.results} isLoading={this.state.resultsLoading} />
+                <MapContainer
+                    mapObj={new Map(this.props.gmapsApi)}
+                    destination={this.state.destination}
+                    styles={{height: this.shouldDisplayResultList() ? '50%': undefined}}
+                />
+                <ResultList
+                    results={this.state.results}
+                    isLoading={this.state.resultsLoading}
+                    styles={{height: this.shouldDisplayResultList() ? '50%': 0}}
+                />
             </div>
         );
     }

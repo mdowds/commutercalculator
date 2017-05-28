@@ -9,37 +9,42 @@ exports[`SearchForm renders the form with Autocomplete 1`] = `
     }
   }
 >
-  <div>
-    Journeys to
-    <div
-      style={
-        Object {
-          "display": "inline-block",
-        }
+  <span
+    style={
+      Object {
+        "fontSize": "90%",
+        "paddingRight": 5,
       }
-    >
-      <input
-        aria-autocomplete="list"
-        aria-expanded={false}
-        autoComplete="off"
-        onBlur={[Function]}
-        onChange={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        role="combobox"
-        value=""
-      />
-    </div>
-  </div>
-  <div>
+    }
+  >
+    Journeys to
+  </span>
+  <div
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  >
     <input
-      id="submitSearch"
+      aria-autocomplete="list"
+      aria-expanded={false}
+      autoComplete="off"
+      onBlur={[Function]}
+      onChange={[Function]}
       onClick={[Function]}
-      type="button"
-      value="Search"
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      role="combobox"
+      value=""
     />
   </div>
+  <input
+    id="submitSearch"
+    onClick={[Function]}
+    type="button"
+    value="Go"
+  />
 </div>
 `;

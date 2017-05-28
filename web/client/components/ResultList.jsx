@@ -8,14 +8,14 @@ export default function ResultList(props) {
         return <Result key={result.origin.id} origin={result.origin} journeyTime={result.journeyTime} />
     });
 
-    const containerStyle = {
+    const containerStyle = Object.assign({
         width: "100%",
         background: "white",
-        height: "50%",
-        overflow: "scroll"
-    };
+        height: "100%",
+        overflow: "scroll",
+    }, props.styles);
 
-    const loadingIndicator = <div style={{textAlign: "center", paddingTop: 10}}>Results loading</div>;
+    const loadingIndicator = <div style={{textAlign: "center", marginTop: 50}}>Results loading</div>;
 
     return (
         <div style={containerStyle}>
@@ -26,5 +26,6 @@ export default function ResultList(props) {
 
 ResultList.propTypes = {
     results: PropTypes.arrayOf(PropTypes.object).isRequired,
-    isLoading: PropTypes.bool.isRequired
+    isLoading: PropTypes.bool.isRequired,
+    styles: PropTypes.object
 };

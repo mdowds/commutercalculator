@@ -29,15 +29,25 @@ export default class MapContainer extends React.Component {
     render() {
         this.setDestination(this.props.destination.position, this.map);
 
+        const height = this.props.styles.height ? this.props.styles.height : '100%';
+
         return (
             <div
-                style={{width: '100%', height: '50%'}}
+                style={{width: '100%', height: height}}
                 ref={(div) => this.containerElement = div}
             >Map loading</div>
         )
     }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.styles.height !== this.props.styles.height) {
+            this.map.resize();
+        }
+    }
 }
 
 MapContainer.propTypes = {
-    mapObj: PropTypes.instanceOf(Map).isRequired
+    mapObj: PropTypes.instanceOf(Map).isRequired,
+    destination: PropTypes.object,
+    styles: PropTypes.object
 };

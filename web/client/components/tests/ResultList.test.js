@@ -9,6 +9,11 @@ test("ResultList renders the container", () => {
     expect(list.toJSON()).toMatchSnapshot();
 });
 
+test("ResultList renders the container with custom styles", () => {
+    const list = renderer.create(<ResultList results={[]} isLoading={false} styles={{height: 200}} />);
+    expect(list.toJSON()).toMatchSnapshot();
+});
+
 test("ResultList renders the loading indicator", () => {
     const list = renderer.create(<ResultList results={[]} isLoading={true} />);
     expect(list.toJSON()).toMatchSnapshot();

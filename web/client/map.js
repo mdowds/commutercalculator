@@ -37,4 +37,8 @@ export default class Map {
     panTo(position) {
         if(this.renderedMap) this.renderedMap.panTo(position);
     }
+
+    resize() {
+        this.gmaps.event.trigger(this.renderedMap, 'resize');
+    }
 }
