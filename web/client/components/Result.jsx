@@ -17,6 +17,6 @@ export default function Result(props) {
 }
 
 Result.propTypes = {
-    origin: PropTypes.object,
+    origin: PropTypes.object.isRequired,
     journeyTime: PropTypes.number
 };

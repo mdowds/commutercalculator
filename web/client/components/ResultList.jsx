@@ -25,6 +25,6 @@ export default function ResultList(props) {
 }
 
 ResultList.propTypes = {
-    results: PropTypes.arrayOf(PropTypes.object),
-    isLoading: PropTypes.bool
+    results: PropTypes.arrayOf(PropTypes.object).isRequired,
+    isLoading: PropTypes.bool.isRequired
 };

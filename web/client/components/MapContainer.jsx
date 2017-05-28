@@ -39,5 +39,5 @@ export default class MapContainer extends React.Component {
 }
 
 MapContainer.propTypes = {
-    mapObj: PropTypes.instanceOf(Map)
+    mapObj: PropTypes.instanceOf(Map).isRequired
 };

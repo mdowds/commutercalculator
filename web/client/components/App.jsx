@@ -56,5 +56,5 @@ export default class App extends React.Component {
 }
 
 App.propTypes = {
-    gmapsApi: PropTypes.object
+    gmapsApi: PropTypes.object.isRequired
 };
