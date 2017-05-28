@@ -22,6 +22,7 @@ export default class MapContainer extends React.Component {
         if(position && map) {
             map.panTo(position);
             map.removeMarkers();
+            map.addMarker(position, "img/blue.png");
         }
     }
 

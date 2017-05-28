@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchForm renders the form with Autocomplete 1`] = `
+<div
+  style={
+    Object {
+      "boxSizing": "border-box",
+      "padding": 5,
+    }
+  }
+>
+  <div>
+    Journeys to
+    <div
+      style={
+        Object {
+          "display": "inline-block",
+        }
+      }
+    >
+      <input
+        aria-autocomplete="list"
+        aria-expanded={false}
+        autoComplete="off"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        role="combobox"
+        value=""
+      />
+    </div>
+  </div>
+  <div>
+    <input
+      id="submitSearch"
+      onClick={[Function]}
+      type="button"
+      value="Search"
+    />
+  </div>
+</div>
+`;
