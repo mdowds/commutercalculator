@@ -18,16 +18,16 @@ export default class MapContainer extends React.Component {
         });
     }
 
-    setDestination(position, map) {
-        if(position && map) {
-            map.panTo(position);
+    setDestination(station, map) {
+        if(station.position && station.name && map) {
+            map.panTo(station.position);
             map.removeMarkers();
-            map.addMarker(position, "img/blue.png");
+            map.addMarker(station.position, "img/blue_Marker" + station.name.toUpperCase().substring(0,1) + ".png");
         }
     }
 
     render() {
-        this.setDestination(this.props.destination.position, this.map);
+        this.setDestination(this.props.destination, this.map);
 
         const height = this.props.styles.height ? this.props.styles.height : '100%';
 
