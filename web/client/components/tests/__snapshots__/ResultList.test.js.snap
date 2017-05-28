@@ -12,3 +12,27 @@ exports[`ResultList renders the container 1`] = `
   }
 />
 `;
+
+exports[`ResultList renders the loading indicator 1`] = `
+<div
+  style={
+    Object {
+      "background": "white",
+      "height": "50%",
+      "overflow": "scroll",
+      "width": "100%",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "paddingTop": 10,
+        "textAlign": "center",
+      }
+    }
+  >
+    Results loading
+  </div>
+</div>
+`;

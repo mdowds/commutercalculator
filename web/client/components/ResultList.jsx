@@ -8,20 +8,23 @@ export default function ResultList(props) {
         return <Result key={result.origin.id} origin={result.origin} journeyTime={result.journeyTime} />
     });
 
-    const divStyle = {
+    const containerStyle = {
         width: "100%",
         background: "white",
         height: "50%",
         overflow: "scroll"
     };
 
+    const loadingIndicator = <div style={{textAlign: "center", paddingTop: 10}}>Results loading</div>;
+
     return (
-        <div style={divStyle}>
-            {entries}
+        <div style={containerStyle}>
+            {props.isLoading ? loadingIndicator : entries}
         </div>
     );
 }
 
 ResultList.propTypes = {
-    results: PropTypes.arrayOf(PropTypes.object)
+    results: PropTypes.arrayOf(PropTypes.object),
+    isLoading: PropTypes.bool
 };
