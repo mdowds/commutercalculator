@@ -21,7 +21,11 @@ def _update_origin(destination: Station, origin: Station):
     return update_journey_time(origin, destination)
 
 
-terminals_to_update = Station.select().where(Station.major_station == True).order_by(Station.journey_times_updated).limit(3)
+stations_to_update = Station.select()\
+    .where((Station.min_zone == 1) | (Station.max_zone == 1))\
+    .order_by(Station.journey_times_updated)\
+    .limit(3)
+
 all_stations = Station.select().order_by(Station.name)
 
-for terminal in terminals_to_update: _update(all_stations, terminal)
+for terminal in stations_to_update: _update(all_stations, terminal)

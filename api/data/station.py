@@ -11,6 +11,8 @@ class Station(Model):
     postcode = CharField()
     major_station = BooleanField()
     journey_times_updated = DateTimeField()
+    min_zone = IntegerField()
+    max_zone = IntegerField()
 
     class Meta:
         database = db
