@@ -1,6 +1,6 @@
+import datetime
 import unittest
 from api.utils import *
-import datetime
 
 
 class UtilsTests(unittest.TestCase):
@@ -32,12 +32,6 @@ class UtilsTests(unittest.TestCase):
         self.assertEqual(1, secs_to_mins(60))
         self.assertEqual(5, secs_to_mins(300))
         self.assertEqual(50, secs_to_mins(3005))
-
-    def test_load_config_value(self):
-        abspath = os.path.abspath(__file__)
-        dname = os.path.dirname(abspath)
-        os.chdir(dname)
-        self.assertEqual("bar", load_config_value("foo"))
 
     def test_create_error(self):
         error = create_error("Error")

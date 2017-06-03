@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 from api.interfaces.gmaps import *
-from api.interfaces.gmaps import _build_params, _extract_journey_times, _prepare_request, _extract_journey_time, _add_arrival_param, _get_peak_time
+from api.interfaces.gmaps import _build_params, _extract_journey_time, _add_arrival_param, _get_peak_time
 import datetime
 
 
@@ -33,16 +33,16 @@ class GmapsInterfaceTests(unittest.TestCase):
         self.assertEqual("transit", actual["mode"])
         self.assertEqual("abcde", actual["key"])
 
-    @patch("api.interfaces.gmaps.requests.Response")
-    def test_extract_journey_times(self, mock_response):
-        mock_response.json.return_value = {"routes": [{"legs": [{"duration": {"value": 600}}]}]}
-        self.assertEqual(10, _extract_journey_times([], self.origin, mock_response)[0].time)
-        self.assertEqual("Foo", _extract_journey_times([], self.origin, mock_response)[0].origin.name)
-
-    @patch("api.interfaces.gmaps.requests.Response")
-    def test_extract_journey_times_with_none(self, mock_response):
-        mock_response.json.return_value = None
-        self.assertEqual([], _extract_journey_times([], self.origin, mock_response))
+    # @patch("api.interfaces.gmaps.requests.Response")
+    # def test_extract_journey_times(self, mock_response):
+    #     mock_response.json.return_value = {"routes": [{"legs": [{"duration": {"value": 600}}]}]}
+    #     self.assertEqual(10, _extract_journey_times([], self.origin, mock_response)[0].time)
+    #     self.assertEqual("Foo", _extract_journey_times([], self.origin, mock_response)[0].origin.name)
+    #
+    # @patch("api.interfaces.gmaps.requests.Response")
+    # def test_extract_journey_times_with_none(self, mock_response):
+    #     mock_response.json.return_value = None
+    #     self.assertEqual([], _extract_journey_times([], self.origin, mock_response))
 
     @patch("api.interfaces.gmaps.requests.Response")
     def test_extract_journey_time(self, mock_response):
@@ -55,11 +55,11 @@ class GmapsInterfaceTests(unittest.TestCase):
         mock_response.json.return_value = None
         self.assertEqual(None, _extract_journey_time(self.origin, mock_response))
 
-    @patch("api.interfaces.gmaps.load_config_value")
-    def test_prepare_request(self, mock_lcv):
-        mock_lcv.return_value = "abcde"
-        actual = _prepare_request([], self.dest, self.origin)
-        self.assertEqual(_build_params(self.dest, self.origin), actual.params)
+    # @patch("api.interfaces.gmaps.load_config_value")
+    # def test_prepare_request(self, mock_lcv):
+    #     mock_lcv.return_value = "abcde"
+    #     actual = _prepare_request([], self.dest, self.origin)
+    #     self.assertEqual(_build_params(self.dest, self.origin), actual.params)
 
     def test_get_peak_time(self):
         self.assertEqual(1495526400, _get_peak_time(datetime.date(2017, 5, 22)))

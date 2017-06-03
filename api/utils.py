@@ -1,7 +1,5 @@
-import json
-import os
 from datetime import date, timedelta
-from typing import Dict, Any, Sequence, Callable, Union, Tuple
+from typing import Dict, Any, Sequence, Callable, Tuple
 from api.lib.functional import curried, reduce
 
 generic_func = Callable[[Any], Any]
@@ -18,18 +16,6 @@ def dict_path(keys: Sequence[Any], input_dict: Dict[Any, Any]) -> Any:
 
 def secs_to_mins(value_in: int) -> int:
     return int(round(value_in / 60, 0))
-
-
-def load_config_value(key: str) -> str:
-    config_path = os.path.join(os.getcwd(), "config", "config.json")
-
-    try: data_file = open(config_path)
-    except FileNotFoundError as err: raise err
-
-    data = json.loads(data_file.read())
-    data_file.close()
-
-    return data[key]
 
 
 def create_error(message: str) -> Dict[str, str]:
