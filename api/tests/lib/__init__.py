@@ -1,1 +1,1 @@
-from .functional_tests import *
+from .functional import *

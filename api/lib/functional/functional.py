@@ -1,41 +1,48 @@
 from functools import partial, reduce, wraps
 from typing import Callable, Any
 from inspect import getfullargspec
+from abc import ABCMeta, abstractmethod
 
-generic_func = Callable[[Any], Any]
+Func = Callable[[Any], Any]
 
 
-class Maybe:
+class Monad:
+    __metaclass__ = ABCMeta
+
     def __init__(self, value):
-        self.value = value
+        self._value = value or None
 
-    def bind(self, fn):
-        if self.value is None: return Maybe(None)
-        return Maybe(fn(self.value))
+    @abstractmethod
+    def bind(self, f: Func) -> Func: pass
 
+    @staticmethod
+    def bind(fn: Func) -> Func:
+        def __inner(fn: Func, monad: Monad) -> Func:
+            return monad.bind(fn)
 
-class Option:
-    def __init__(self, value):
-        self.value = value
-
-    def or_call(self, fn, *args):
-        return Option(fn(*args)) if self.value is None else self
+        return partial(__inner, fn)
 
 
-def bind(fn: generic_func) -> generic_func:
-    def __inner(fn, monad: Maybe):
-        return monad.bind(fn)
-    return partial(__inner, fn)
 
-
-def pipeline(*functions: generic_func) -> generic_func:
-    def pipeline2(f: generic_func, g: generic_func) -> generic_func:
-        return lambda x: g(f(x))
-    return reduce(pipeline2, functions, lambda x: x)
-
-
-def safe(fn: generic_func) -> generic_func:
-    return lambda x: Maybe(fn(x))
+# class Maybe:
+#     def __init__(self, value):
+#         self.value = value
+#
+#     def bind(self, fn):
+#         if self.value is None: return Maybe(None)
+#         return Maybe(fn(self.value))
+#
+#
+# class Option:
+#     def __init__(self, value):
+#         self.value = value
+#
+#     def or_call(self, fn, *args):
+#         return Option(fn(*args)) if self.value is None else self
+#
+#
+# def safe(fn: Func) -> Func:
+#     return lambda x: Maybe(fn(x))
 
 
 # Modified version of fn.py decorator to support type annotations
