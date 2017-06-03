@@ -1,0 +1,11 @@
+.idea/
+venv/
+__pycache__/
+*.pyc
+/vagrant-config/
+/web/node_modules/
+/api/helpers/
+/web/coverage/
+/web/build/
+/web/npm-debug.log
+/config
