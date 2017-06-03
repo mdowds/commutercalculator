@@ -1,7 +1,7 @@
 import datetime
 from typing import Sequence
 
-from api.data import Station
+from api.data import Station, JourneyTime
 from api.lib.functional import curried
 from api.lib.utils import filter_, map_
 from api.services.journey_time import update_journey_time
@@ -12,14 +12,20 @@ def _update(all_stations: Sequence[Station], destination: Station):
     origins = filter_(lambda s: s.sid != destination.sid, all_stations)
     times = map_(_update_origin(destination), origins)
     print(str(len(times)) + " times inserted")
-    destination.journey_times_updated = datetime.datetime.now()
-    destination.save()
+
+    if len(times) > 0:
+        destination.journey_times_updated = datetime.datetime.now()
+        destination.save()
 
 
 @curried
-def _update_origin(destination: Station, origin: Station):
+def _update_origin(destination: Station, origin: Station) -> JourneyTime:
     print("Getting time for " + origin.name + " to " + destination.name)
-    return update_journey_time(origin, destination)
+    update = update_journey_time(origin, destination)
+    if update.get_error():
+        print("Error: " + update.get_error())
+
+    return update.get_value()
 
 
 stations_to_update = Station.select()\

@@ -6,7 +6,7 @@ import api.interfaces.gmaps as gmaps
 from api.data import JourneyTime
 from api.data import Station
 from api.interfaces.gmaps import JourneyTimeResult
-from api.lib.functional import curried, F
+from api.lib.functional import curried, F, Either
 from api.lib.utils import map_
 
 
@@ -22,12 +22,11 @@ def get_journey_times(destination: Station) -> Tuple[JourneyTimeResult, None]:
 
 
 @curried
-def update_journey_time(destination: Station, origin: Station) -> Union[JourneyTimeResult, None]:
-    pipe = F() >> gmaps.get_peak_journey_time(destination) >> _save_journey_time(destination)
+def update_journey_time(destination: Station, origin: Station) -> Either[JourneyTimeResult]:
+    pipe = F() >> gmaps.get_peak_journey_time(destination) >> Either.bind(_save_journey_time(destination))
     return pipe(origin)
 
 
 @curried
-def _save_journey_time(destination: Station, result: JourneyTimeResult) -> Union[JourneyTimeResult, None]:
-    if result is not None: JourneyTime.create(origin=result.origin.sid, destination=destination.sid, time=int(result.time))
-    return result
+def _save_journey_time(destination: Station, result: JourneyTimeResult) -> JourneyTime:
+    return JourneyTime.create(origin=result.origin.sid, destination=destination.sid, time=int(result.time))

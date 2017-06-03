@@ -1,24 +1,28 @@
 from functools import partial, reduce, wraps
-from typing import Callable, Any
+from typing import Callable, Any, Generic, TypeVar
 from inspect import getfullargspec
 from abc import ABCMeta, abstractmethod
 
-Func = Callable[[Any], Any]
+T = TypeVar('T')
+Func = Callable[[T], Any]
 
 
-class Monad:
+class Monad(Generic[T]):
     __metaclass__ = ABCMeta
 
-    def __init__(self, value):
+    def __init__(self, value: T):
         self._value = value or None
 
+    def get_value(self):
+        return self._value
+
     @abstractmethod
-    def bind(self, f: Func) -> Func: pass
+    def _bind(self, f: Func): pass
 
     @staticmethod
     def bind(fn: Func) -> Func:
-        def __inner(fn: Func, monad: Monad) -> Func:
-            return monad.bind(fn)
+        def __inner(fn: Func, monad: Monad):
+            return monad._bind(fn)
 
         return partial(__inner, fn)
 

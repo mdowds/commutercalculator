@@ -8,9 +8,11 @@ _FILENAME = os.path.join(os.path.dirname(__file__), "config.json")
 def load_config_value(key: str) -> str:
     try:
         config = _load_config()
-    except FileNotFoundError as err:
+    except FileNotFoundError:
         _create_config_file({'gmapsApiKey': ''})
-        raise KeyError("Config value not found") from err
+        raise KeyError("Config value not found for " + key)
+    except json.decoder.JSONDecodeError:
+        raise KeyError("Config value not found for " + key)
 
     return config[key]
 
@@ -18,12 +20,11 @@ def load_config_value(key: str) -> str:
 def _load_config() -> Dict[str, Any]:
     try:
         file = open(_FILENAME)
-    except FileNotFoundError:
+        config_data = json.load(file)
+        file.close()
+        return config_data
+    except (FileNotFoundError, json.decoder.JSONDecodeError):
         raise
-
-    config_data = json.load(file)
-    file.close()
-    return config_data
 
 
 def _create_config_file(structure: Dict):

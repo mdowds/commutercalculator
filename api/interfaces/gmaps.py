@@ -1,56 +1,45 @@
 from collections import namedtuple
 from datetime import date, time, datetime
-from typing import Union
+from typing import Union, Any, Dict
 
-import requests
-from frozendict import frozendict
 from pytz import timezone
+import googlemaps
 
 from api.config import load_config_value
 from api.data import Station
-from api.lib.functional import curried, F
-from api.lib.utils import dict_path, secs_to_mins, next_weekday
+from api.lib.functional import curried, F, Either
+from api.lib.utils import dict_path, next_weekday
 
-RequestSettings = namedtuple("RequestSettings", ("params", "callback"))
 JourneyTimeResult = namedtuple('JourneyTimeResult', ('origin', 'time'))
 
-_directions_url = "https://maps.googleapis.com/maps/api/directions/json"
-_partial_get = F(requests.get, _directions_url)
+
+@curried
+def get_peak_journey_time(destination: Station, origin: Station) -> Either[JourneyTimeResult]:
+    pipe = F() >> _get_peak_time >> _directions_request(origin, destination) >> _extract_journey_time(origin)
+
+    return pipe(date.today())
 
 
 @curried
-def get_peak_journey_time(destination: Station, origin: Station) -> JourneyTimeResult:
-    arrival = _get_peak_time(date.today())
-    pipe = F() >> _build_params(destination) >> _add_arrival_param(arrival) >> _partial_get >> _extract_journey_time(origin)
-    return pipe(origin)
+def _directions_request(origin: Station, destination: Station, arrival_time: int=None) -> Either:
+    @curried
+    def _request(origin, destination, arrival_time, g):
+        return g.directions(
+            "%s,%s" % (origin.lat, origin.long),
+            "%s,%s" % (destination.lat, destination.long),
+            mode="transit",
+            arrival_time=arrival_time
+        )
+
+    directions = F() >> Either.try_(load_config_value) >> Either.try_bind(googlemaps.Client) >> Either.try_bind(_request(origin, destination, arrival_time))
+
+    return directions("gmapsApiKey")
 
 
 @curried
-def get_journey_time(destination: Station, origin: Station) -> JourneyTimeResult:
-    pipe = F() >> _build_params(destination) >> _partial_get >> _extract_journey_time(origin)
-    return pipe(origin)
-
-
-@curried
-def _extract_journey_time(origin: Station, response: requests.Response) -> Union[JourneyTimeResult, None]:
-    time = dict_path(("routes", 0, "legs", 0, "duration", "value"), response.json())
-    if time is None: return None
-    return JourneyTimeResult(origin, secs_to_mins(time))
-
-
-@curried
-def _build_params(destination: Station, origin: Station) -> frozendict:
-    return frozendict({
-        "origin": "%s,%s" % (origin.lat, origin.long),
-        "destination": "%s,%s" % (destination.lat, destination.long),
-        "mode": "transit",
-        "key": load_config_value("gmapsApiKey")
-    })
-
-
-@curried
-def _add_arrival_param(arrival: int, params: frozendict) -> frozendict:
-    return params.copy(arrival_time=arrival)
+def _extract_journey_time(origin: Station, response: Either) -> Either[JourneyTimeResult]:
+    pipe = F() >> Either.bind(dict_path((0, "legs", 0, "duration", "value"))) >> Either.bind(lambda t: int(t/60)) >> Either.bind(lambda t: JourneyTimeResult(origin, t))
+    return pipe(response)
 
 
 def _get_peak_time(base_date: date) -> int:
@@ -58,6 +47,24 @@ def _get_peak_time(base_date: date) -> int:
     dt = datetime.combine(day, time(9))
     localised = timezone('Europe/London').localize(dt)
     return int(localised.timestamp())
+
+
+# @curried
+# def _build_params(destination: Station, origin: Station) -> frozendict:
+#     return frozendict({
+#         "origin": "%s,%s" % (origin.lat, origin.long),
+#         "destination": "%s,%s" % (destination.lat, destination.long),
+#         "mode": "transit",
+#         "key": load_config_value("gmapsApiKey")
+#     })
+
+
+# @curried
+# def _add_param(key: str, value: Any, params: frozendict) -> frozendict:
+#     return params.add(key, value)
+
+
+
 
 
 ### Functions for multiple concurrent requests

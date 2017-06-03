@@ -15,7 +15,7 @@ def dict_path(keys: Sequence[Any], input_dict: Dict[Any, Any]) -> Any:
 
 
 def secs_to_mins(value_in: int) -> int:
-    return int(round(value_in / 60, 0))
+    return int(value_in / 60)
 
 
 def create_error(message: str) -> Dict[str, str]:

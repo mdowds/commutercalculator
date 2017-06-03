@@ -1,20 +1,44 @@
-from typing import Any
+from typing import Any, TypeVar, Generic
+from functools import partial
+
 from .functional import Func, Monad
 
+T = TypeVar('T')
 
-class Either(Monad):
-    def __init__(self, value: Any, error: Exception=None):
+
+class Either(Monad, Generic[T]):
+    def __init__(self, value: T, error: Exception=None):
         super().__init__(value)
         self._error = error or None
 
-    def bind(self, f: Func):
-        if self._error is not None: return self
+    def get_error(self):
+        return self._error
+
+    def _bind(self, f: Func):
+        if self._error is not None or self._value is None:
+            return self
         return Either(f(self._value))
 
-    @staticmethod
-    def try_(f: Func, x: Any=None):
+    def _try_bind(self, f: Func):
         try:
-            value = f(x) if x else f()
-            return Either(value)
+            return self._bind(f)
         except Exception as e:
             return Either(None, e)
+
+    @staticmethod
+    def try_(f: Func):
+        def _inner(f: Func, x: Any=None):
+            try:
+                value = f(x) if x else f()
+                return Either(value)
+            except Exception as e:
+                return Either(None, e)
+
+        return partial(_inner, f)
+
+    @staticmethod
+    def try_bind(f: Func) -> Func:
+        def _inner(f: Func, either: Either):
+            return either._try_bind(f)
+
+        return partial(_inner, f)
