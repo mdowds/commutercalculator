@@ -1,6 +1,7 @@
 import datetime
 import unittest
-from api.utils import *
+
+from api.lib.utils.utils import *
 
 
 class UtilsTests(unittest.TestCase):

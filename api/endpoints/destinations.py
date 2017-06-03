@@ -1,9 +1,10 @@
 from flask import jsonify
 from flask_restful import Resource
 from flask_restful.utils import cors
+
 from api.data import Station, serialize_station
 from api.lib.functional import F
-from api.utils import map_
+from api.lib.utils import map_
 
 
 class Destinations(Resource):

@@ -1,9 +1,10 @@
-from api.data import Station
-from api.utils import filter_, map_
-from api.services.journey_time import update_journey_time
-from api.lib.functional import curried
-from typing import Sequence
 import datetime
+from typing import Sequence
+
+from api.data import Station
+from api.lib.functional import curried
+from api.lib.utils import filter_, map_
+from api.services.journey_time import update_journey_time
 
 
 def _update(all_stations: Sequence[Station], destination: Station):

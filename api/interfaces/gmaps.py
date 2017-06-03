@@ -1,14 +1,15 @@
+from collections import namedtuple
+from datetime import date, time, datetime
+from typing import Union
+
 import requests
-from api.utils import dict_path, map_, secs_to_mins, next_weekday
+from frozendict import frozendict
+from pytz import timezone
+
 from api.config import load_config_value
 from api.data import Station
-from typing import Sequence, List, Union
 from api.lib.functional import curried, F
-from collections import namedtuple
-from frozendict import frozendict
-from datetime import date, time, datetime
-import grequests
-from pytz import timezone
+from api.lib.utils import dict_path, secs_to_mins, next_weekday
 
 RequestSettings = namedtuple("RequestSettings", ("params", "callback"))
 JourneyTimeResult = namedtuple('JourneyTimeResult', ('origin', 'time'))

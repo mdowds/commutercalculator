@@ -1,11 +1,13 @@
-from api.data import Station
-from api.lib.functional import curried, F
-from api.data import JourneyTime
-import api.interfaces.gmaps as gmaps
-from api.interfaces.gmaps import JourneyTimeResult
-from api.utils import map_
 from typing import Union, Tuple
+
 from peewee import fn, SQL
+
+import api.interfaces.gmaps as gmaps
+from api.data import JourneyTime
+from api.data import Station
+from api.interfaces.gmaps import JourneyTimeResult
+from api.lib.functional import curried, F
+from api.lib.utils import map_
 
 
 def get_journey_times(destination: Station) -> Tuple[JourneyTimeResult, None]:

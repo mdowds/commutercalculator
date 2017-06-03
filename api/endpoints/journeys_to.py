@@ -1,12 +1,14 @@
+import re
+from typing import Dict, Any, List
+
 from flask import jsonify
 from flask_restful import Resource
 from flask_restful.utils import cors
+
 from api.data import Station, serialize_station
 from api.lib.functional import F, partial, curried
-from typing import Dict, Any, List
-from api.utils import create_error, map_
+from api.lib.utils import create_error, map_
 from api.services import get_journey_times, JourneyTimeResult
-import re
 
 Result = Dict[str, Any]
 
