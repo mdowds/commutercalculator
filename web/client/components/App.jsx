@@ -54,7 +54,7 @@ export default class App extends React.Component {
                     <SearchForm destinations={this.state.possibleDestinations} onSubmit={this.getJourneys}/>
                 </Header>
                 <MapContainer
-                    mapObj={new Map(this.gmapsApi)}
+                    mapObj={new Map(this.props.gmapsApi)}
                     destination={this.state.destination}
                     styles={{height: this.shouldDisplayResultList() ? '50%': undefined}}
                 />
