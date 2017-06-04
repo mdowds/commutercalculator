@@ -33,8 +33,3 @@ class EitherTests(unittest.TestCase):
     def test_bind(self):
         self.assertEqual(2, Either(1)._bind(lambda x: x + 1).get_value())
         self.assertEqual("Foo", Either(None, Exception("Foo"))._bind(lambda x: x + 1)._error.args[0])
-
-    # def test_try_bind(self):
-    #     bound_inc = Either.try_bind(lambda x: x+1)
-    #     self.assertEqual(4, bound_inc(Either(3))._value)
-    #     self.assertIsNone(bound_inc(Either(None, Exception()))._value)
