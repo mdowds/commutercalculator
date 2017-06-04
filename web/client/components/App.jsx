@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import MapContainer from './MapContainer.jsx';
 import Header from './Header.jsx';
 import SearchForm from './SearchForm.jsx';
-import ResultList from './ResultList.jsx'
-import { getJSON } from '../utils'
-import Map from '../map'
+import ResultList from './ResultList.jsx';
+import { getJSON } from '../utils';
+import Map from '../map';
+import Config from '../../config/config';
 
 export default class App extends React.Component {
 
@@ -18,7 +19,7 @@ export default class App extends React.Component {
             possibleDestinations: []
         };
         this.getJourneys = this.getJourneys.bind(this);
-        this.apiUrl = "http://127.0.0.1/api/"
+        this.apiUrl = Config.apiUrl;
     }
 
     componentDidMount() {
@@ -53,7 +54,7 @@ export default class App extends React.Component {
                     <SearchForm destinations={this.state.possibleDestinations} onSubmit={this.getJourneys}/>
                 </Header>
                 <MapContainer
-                    mapObj={new Map(this.props.gmapsApi)}
+                    mapObj={new Map(this.gmapsApi)}
                     destination={this.state.destination}
                     styles={{height: this.shouldDisplayResultList() ? '50%': undefined}}
                 />

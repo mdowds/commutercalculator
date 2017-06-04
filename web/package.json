@@ -14,6 +14,7 @@
     "path": "^0.12.7",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
+    "react-async-script-loader": "^0.3.0",
     "react-autocomplete": "^1.5.4",
     "react-dom": "^15.5.4",
     "webpack": "^2.4.1",
