@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 #rm -f .coverage coverage.json web/package-lock.json
 eval "$(ssh-agent -s)"
 echo "$DEPLOY_KEY" > deploy_key.pem
