@@ -2,7 +2,7 @@ import json
 import os
 from typing import Dict, Any
 
-_FILENAME = os.path.join(os.path.dirname(__file__), "config.json")
+_FILENAME = os.path.join(os.getcwd(), 'config', "config.json")
 
 
 def load_config_value(key: str) -> str:

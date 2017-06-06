@@ -5,7 +5,7 @@ import SearchForm from './SearchForm.jsx';
 import ResultList from './ResultList.jsx';
 import { getJSON } from '../utils';
 import Map from '../map';
-import Config from '../../config/config';
+import Config from '../../../config/config';
 import GoogleMapsLoader from 'google-maps';
 
 export default class App extends React.Component {

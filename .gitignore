@@ -8,6 +8,4 @@ __pycache__/
 /web/coverage/
 /web/build/
 /web/npm-debug.log
-/config
-/api/config/config.json
-/web/config/config.js
+/config/
