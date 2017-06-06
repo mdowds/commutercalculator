@@ -21,7 +21,7 @@ def _update(all_stations: Sequence[Station], destination: Station):
 @curried
 def _update_origin(destination: Station, origin: Station) -> JourneyTime:
     print("Getting time for " + origin.name + " to " + destination.name)
-    update = update_journey_time(origin, destination)
+    update = update_journey_time(destination, origin)
     if update.get_error():
         print("Error: " + update.get_error())
 
