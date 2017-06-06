@@ -9,15 +9,6 @@ export default class MapContainer extends React.Component {
         this.map = props.mapObj;
     }
 
-    componentDidMount() {
-        const trafalgar = {lat: 51.507368, lng: -0.127811};
-
-        this.map.initMap(this.containerElement, {
-            center: trafalgar,
-            zoom: 11
-        });
-    }
-
     setDestination(station, map) {
         if(station.position && station.name && map) {
             map.panTo(station.position);
@@ -27,7 +18,16 @@ export default class MapContainer extends React.Component {
     }
 
     render() {
-        this.setDestination(this.props.destination, this.map);
+        if(this.props.mapObj) {
+            const trafalgar = {lat: 51.507368, lng: -0.127811};
+
+            this.props.mapObj.initMap(this.containerElement, {
+                center: trafalgar,
+                zoom: 11
+            });
+
+            this.setDestination(this.props.destination, this.props.mapObj);
+        }
 
         const height = this.props.styles.height ? this.props.styles.height : '100%';
 

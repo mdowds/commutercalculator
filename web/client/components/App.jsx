@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import MapContainer from './MapContainer.jsx';
 import Header from './Header.jsx';
 import SearchForm from './SearchForm.jsx';
@@ -7,6 +6,7 @@ import ResultList from './ResultList.jsx';
 import { getJSON } from '../utils';
 import Map from '../map';
 import Config from '../../config/config';
+import GoogleMapsLoader from 'google-maps';
 
 export default class App extends React.Component {
 
@@ -16,7 +16,8 @@ export default class App extends React.Component {
             destination: {},
             results: [],
             resultsLoading: false,
-            possibleDestinations: []
+            possibleDestinations: [],
+            gmapsApi: null
         };
         this.getJourneys = this.getJourneys.bind(this);
         this.apiUrl = Config.apiUrl;
@@ -25,6 +26,11 @@ export default class App extends React.Component {
     componentDidMount() {
         getJSON(this.apiUrl + "destinations", (json) => {
             this.setState({possibleDestinations: json})
+        });
+
+        GoogleMapsLoader.KEY = Config.gmapsApiKey;
+        GoogleMapsLoader.load((google) => {
+            this.setState({gmapsApi: google.maps})
         });
     }
 
@@ -54,7 +60,7 @@ export default class App extends React.Component {
                     <SearchForm destinations={this.state.possibleDestinations} onSubmit={this.getJourneys}/>
                 </Header>
                 <MapContainer
-                    mapObj={new Map(this.props.gmapsApi)}
+                    mapObj={this.state.gmapsApi ? new Map(this.state.gmapsApi) : null}
                     destination={this.state.destination}
                     styles={{height: this.shouldDisplayResultList() ? '50%': undefined}}
                 />
@@ -67,7 +73,3 @@ export default class App extends React.Component {
         );
     }
 }
-
-App.propTypes = {
-    gmapsApi: PropTypes.object.isRequired
-};
