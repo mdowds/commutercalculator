@@ -15,3 +15,8 @@ script:
 after_success:
   - coveralls-lcov -v -n web/coverage/lcov.info > coverage.json
   - coveralls --merge=coverage.json
+deploy:
+  provider: script
+  script: deploy.sh
+  on:
+    branch: master
