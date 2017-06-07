@@ -63,7 +63,7 @@ export default class App extends React.Component {
                 <MapContainer
                     mapObj={this.state.gmapsLoaded ? this.map : null}
                     destination={this.state.destination}
-                    styles={{height: this.shouldDisplayResultList() ? '50%': undefined}}
+                    height={this.shouldDisplayResultList() ? '50%': undefined}
                 />
                 <ResultList
                     results={this.state.results}

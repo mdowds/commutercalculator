@@ -15,7 +15,7 @@ script:
 after_success:
   - coveralls-lcov -v -n web/coverage/lcov.info > coverage.json
   - coveralls --merge=coverage.json
-  - eval "$(ssh-agent -s)"
+#  - eval "$(ssh-agent -s)"
 #  - echo "$DEPLOY_KEY" > deploy_key.pem
 #  - chmod 600 deploy_key.pem
 #  - ssh-add deploy_key.pem
