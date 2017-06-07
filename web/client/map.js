@@ -15,7 +15,8 @@ export default class Map {
         };
 
         const options = Object.assign(defaultOptions, customOptions);
-        return this.renderedMap = new this.gmaps.Map(container, options);
+        this.renderedMap = new this.gmaps.Map(container, options);
+        return this;
     }
 
     addMarker(position, icon) {

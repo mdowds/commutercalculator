@@ -17,7 +17,7 @@ export default class App extends React.Component {
             results: [],
             resultsLoading: false,
             possibleDestinations: [],
-            gmapsApi: null
+            gmapsLoaded: false
         };
         this.getJourneys = this.getJourneys.bind(this);
         this.apiUrl = Config.apiUrl;
@@ -30,7 +30,8 @@ export default class App extends React.Component {
 
         GoogleMapsLoader.KEY = Config.gmapsApiKey;
         GoogleMapsLoader.load((google) => {
-            this.setState({gmapsApi: google.maps})
+            this.map = new Map(google.maps);
+            this.setState({gmapsLoaded: true})
         });
     }
 
@@ -60,7 +61,7 @@ export default class App extends React.Component {
                     <SearchForm destinations={this.state.possibleDestinations} onSubmit={this.getJourneys}/>
                 </Header>
                 <MapContainer
-                    mapObj={this.state.gmapsApi ? new Map(this.state.gmapsApi) : null}
+                    mapObj={this.state.gmapsLoaded ? this.map : null}
                     destination={this.state.destination}
                     styles={{height: this.shouldDisplayResultList() ? '50%': undefined}}
                 />

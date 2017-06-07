@@ -4,11 +4,6 @@ import Map from '../map';
 
 export default class MapContainer extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.map = props.mapObj;
-    }
-
     setDestination(station, map) {
         if(station.position && station.name && map) {
             map.panTo(station.position);
@@ -17,19 +12,23 @@ export default class MapContainer extends React.Component {
         }
     }
 
+    createMap() {
+        const trafalgar = {lat: 51.507368, lng: -0.127811};
+
+        return this.props.mapObj.initMap(this.containerElement, {
+            center: trafalgar,
+            zoom: 11
+        });
+    }
+
     render() {
         if(this.props.mapObj) {
-            const trafalgar = {lat: 51.507368, lng: -0.127811};
-
-            this.props.mapObj.initMap(this.containerElement, {
-                center: trafalgar,
-                zoom: 11
-            });
-
-            this.setDestination(this.props.destination, this.props.mapObj);
+            const map = this.createMap();
+            if(!this.map) this.map = map;
+            this.setDestination(this.props.destination, this.map);
         }
 
-        const height = this.props.styles.height ? this.props.styles.height : '100%';
+        const height = this.props.height ? this.props.height : '100%';
 
         return (
             <div
@@ -40,14 +39,14 @@ export default class MapContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(prevProps.styles.height !== this.props.styles.height) {
+        if(prevProps.height !== this.props.height) {
             this.map.resize();
         }
     }
 }
 
 MapContainer.propTypes = {
-    mapObj: PropTypes.instanceOf(Map).isRequired,
+    mapObj: PropTypes.instanceOf(Map),
     destination: PropTypes.object,
-    styles: PropTypes.object
+    height: PropTypes.string
 };

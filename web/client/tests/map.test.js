@@ -9,14 +9,14 @@ beforeEach(() => {
 
 test("initMap() returns a Google Map with correct container", () => {
     const container = {};
-    const gmap = map.initMap(container);
+    const gmap = map.initMap(container).renderedMap;
 
     expect(gmap).toEqual(expect.anything());
     expect(gmap.container).toBe(container);
 });
 
 test("initMap() returns a Google Map with default options", () => {
-    const gmap = map.initMap({});
+    const gmap = map.initMap({}).renderedMap;
 
     expect(gmap.center).toEqual({lat: 0, lng: 0});
     expect(gmap.zoom).toEqual(5);
@@ -30,14 +30,14 @@ test("initMap() returns a Google Map with specified options", () => {
     const gmap = map.initMap({}, {
         center: {lat: 50, lng: 50},
         zoom: 10
-    });
+    }).renderedMap;
 
     expect(gmap.center).toEqual({lat: 50, lng: 50});
     expect(gmap.zoom).toEqual(10);
 });
 
 test("addMarker() adds and renders a marker", () => {
-    const gmap = map.initMap();
+    const gmap = map.initMap().renderedMap;
     const marker = map.addMarker();
     expect(marker).toEqual(expect.anything());
     expect(marker.markerRendered).toEqual(true);
@@ -51,7 +51,7 @@ test("addMarker() returns a marker with correct properties", () => {
 });
 
 test("Map keeps track of created Google Map", () => {
-    const gmap = map.initMap({});
+    const gmap = map.initMap({}).renderedMap;
     expect(map.renderedMap).toBe(gmap);
 });
 
@@ -62,7 +62,7 @@ test("Map keeps track of added markers", () => {
 });
 
 test("removeMarkers() removes all markers", () => {
-    const gmap = map.initMap({});
+    const gmap = map.initMap({}).renderedMap;
     const marker = map.addMarker();
     map.removeMarkers();
     expect(map.markers.length).toEqual(0);
