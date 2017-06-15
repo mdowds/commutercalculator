@@ -2,16 +2,28 @@ language: python
 python:
   - 3.5
 install:
+  # Install API dependencies
   - pip install -r requirements.txt
   - pip install coveralls
+  # Update node & NPM
   - . $HOME/.nvm/nvm.sh
   - nvm install stable
   - nvm use stable
-  - cd web && npm install && cd ../
+  # Install yarn
+  - sudo apt-key adv --keyserver pgp.mit.edu --recv D101F7899D41F3C3
+  - echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+  - sudo apt-get update -qq
+  - sudo apt-get install -y -qq yarn
+  # Install web dependencies
+  - cd web && yarn install && cd ../
+  # Install coverage merge tool
   - gem install coveralls-lcov
+cache:
+  directories:
+  - $HOME/.yarn-cache
 script:
   - coverage run --omit=tests/*,*site-packages/*  -m unittest discover -p "*tests.py"
-  - cd web && npm test -- --coverage && cd ../
+  - cd web && yarn test -- --coverage && cd ../
 after_success:
   - coveralls-lcov -v -n web/coverage/lcov.info > coverage.json
   - coveralls --merge=coverage.json
