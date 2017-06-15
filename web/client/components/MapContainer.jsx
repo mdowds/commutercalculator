@@ -23,8 +23,7 @@ export default class MapContainer extends React.Component {
 
     render() {
         if(this.props.mapObj) {
-            const map = this.createMap();
-            if(!this.map) this.map = map;
+            if(!this.map) this.map = this.createMap();
             this.setDestination(this.props.destination, this.map);
         }
 
