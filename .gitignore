@@ -10,3 +10,4 @@ __pycache__/
 /web/npm-debug.log
 /config/
 /web/client/config.js
+/data/

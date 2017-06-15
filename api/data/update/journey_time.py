@@ -35,4 +35,4 @@ stations_to_update = Station.select()\
 
 all_stations = Station.select().order_by(Station.name)
 
-for terminal in stations_to_update: _update(all_stations, terminal)
+for station in stations_to_update: _update(all_stations, station)

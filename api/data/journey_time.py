@@ -1,12 +1,9 @@
-from peewee import Model, ForeignKeyField, CharField, IntegerField
-from api.data.ccdb import db
+from peewee import ForeignKeyField, CharField, IntegerField
 from .station import Station
+from .cc_model import CCModel
 
 
-class JourneyTime(Model):
+class JourneyTime(CCModel):
     origin = ForeignKeyField(Station)
     destination = CharField()
     time = IntegerField()
-
-    class Meta:
-        database = db

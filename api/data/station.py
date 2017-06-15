@@ -1,9 +1,9 @@
-from peewee import *
+from peewee import CharField, DoubleField, BooleanField, DateTimeField, IntegerField
 from typing import Dict, Any
-from api.data.ccdb import db
+from .cc_model import CCModel
 
 
-class Station(Model):
+class Station(CCModel):
     sid = CharField(primary_key=True)
     name = CharField(null=False)
     lat = DoubleField()
@@ -13,9 +13,6 @@ class Station(Model):
     journey_times_updated = DateTimeField()
     min_zone = IntegerField()
     max_zone = IntegerField()
-
-    class Meta:
-        database = db
 
 
 def serialize_station(station: Station) -> Dict[str, Any]:
