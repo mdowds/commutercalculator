@@ -4,25 +4,15 @@ exports[`SearchForm renders the form with Autocomplete 1`] = `
 <div
   style={
     Object {
-      "boxSizing": "border-box",
-      "padding": 5,
+      "position": "relative",
     }
   }
 >
-  <span
-    style={
-      Object {
-        "fontSize": "90%",
-        "paddingRight": 5,
-      }
-    }
-  >
-    Journeys to
-  </span>
   <div
     style={
       Object {
-        "display": "inline-block",
+        "height": 38,
+        "width": "100%",
       }
     }
   >
@@ -36,13 +26,34 @@ exports[`SearchForm renders the form with Autocomplete 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      placeholder="Enter destination"
       role="combobox"
+      style={
+        Object {
+          "border": "1px solid grey",
+          "boxSizing": "border-box",
+          "fontSize": "90%",
+          "padding": 10,
+          "paddingRight": 38,
+          "width": "100%",
+        }
+      }
       value=""
     />
   </div>
   <input
     id="submitSearch"
     onClick={[Function]}
+    style={
+      Object {
+        "border": "1px solid grey",
+        "height": 38,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+        "width": 38,
+      }
+    }
     type="button"
     value="Go"
   />

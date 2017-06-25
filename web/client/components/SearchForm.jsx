@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Autocomplete from 'react-autocomplete';
+import styles from './styles/SearchFormStyles';
 
 export default class SearchForm extends React.Component {
 
@@ -22,36 +23,23 @@ export default class SearchForm extends React.Component {
     }
 
     render() {
-        const borderStyle = "1px solid grey";
-
-        const acMenuStyle = {
-            borderRadius: '3px',
-            boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
-            background: 'rgba(255, 255, 255, 0.9)',
-            fontSize: '90%',
-            position: 'fixed',
-            overflow: 'hidden',
-            maxHeight: 400,
-            zIndex: 10,
-            border: borderStyle,
-        };
-
         return (
-            <div style={{padding: 5, boxSizing: "border-box"}}>
-                <span style={{fontSize: "90%", paddingRight: 5}}>Journeys to</span>
+            <div style={styles.overallWrapper}>
                 <Autocomplete
                     value={this.state.inputText}
                     items={this.props.destinations ? this.props.destinations : []}
                     getItemValue={station => station.name}
                     renderItem={(station, isHighlighted) => (
-                        <div style={{zIndex: 10, padding: 10, borderBottom: borderStyle}} key={station.id}>{station.name}</div>
+                        <div style={styles.acItem} key={station.id}>{station.name}</div>
                     )}
-                    menuStyle={acMenuStyle}
+                    inputProps={{placeholder: "Enter destination", style: styles.searchInput}}
+                    menuStyle={styles.acMenu}
                     onChange={(event, value) => this.setState({inputText: value})}
                     onSelect={(value, station) => this.setState({inputText: station.name, selectedStation: station})}
                     shouldItemRender={this.suggestStationName}
+                    wrapperStyle={styles.acWrapper}
                 />
-                <input id="submitSearch" type="button" value="Go" onClick={this.handleSubmit}/>
+                <input id="submitSearch" type="button" value="Go" onClick={this.handleSubmit} style={styles.goButton} />
             </div>
         );
     }
