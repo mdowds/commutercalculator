@@ -38,6 +38,15 @@ test("SearchForm calls onSubmit when Search button clicked", () => {
     expect(calledWith).toBe(dest);
 });
 
+test("SearchForm doesn't call onSubmit when Search button clicked with no selected station", () => {
+    let submitCalled = false;
+    const dest = {id: "FOO", name: "Foo Station"};
+
+    const form = shallow(<SearchForm onSubmit={() => submitCalled = true} destinations={[dest]} />);
+    form.find('#submitSearch').simulate('click');
+    expect(submitCalled).toEqual(false);
+});
+
 test("suggestStationName returns correct results", () => {
     const dest = {id: "ABC", name: "Foo Station"};
     const form = new SearchForm(()=>{} ,[dest]);

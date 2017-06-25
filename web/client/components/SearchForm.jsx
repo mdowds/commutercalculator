@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Autocomplete from 'react-autocomplete';
 import styles from './styles/SearchFormStyles';
+import {isEmptyObject} from '../utils';
 
 export default class SearchForm extends React.Component {
 
@@ -12,6 +13,7 @@ export default class SearchForm extends React.Component {
     }
 
     handleSubmit() {
+        if(isEmptyObject(this.state.selectedStation)) return;
         this.props.onSubmit(this.state.selectedStation);
     }
 

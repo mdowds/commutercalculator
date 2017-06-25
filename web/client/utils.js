@@ -4,4 +4,8 @@ function getJSON(url, callback) {
     ).then(callback);
 }
 
-export {getJSON};
+function isEmptyObject(obj) {
+    return Object.keys(obj).length === 0;
+}
+
+export {getJSON, isEmptyObject};
