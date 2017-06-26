@@ -8,12 +8,11 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
     inject: 'body'
 });
 
-
 module.exports = {
     entry: './client/index.js',
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: 'index_bundle.js'
+        filename: process.env.NODE_ENV === 'production' ? '[name].[chunkhash].js' : '[name].js'
     },
     module: {
         loaders: [
