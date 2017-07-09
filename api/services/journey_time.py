@@ -1,16 +1,16 @@
-from typing import Union, Tuple
+from typing import Tuple, NamedTuple
 
 from peewee import fn, SQL
 
-import api.interfaces.gmaps as gmaps
 from api.data import JourneyTime
 from api.data import Station
-from api.interfaces.gmaps import JourneyTimeResult
-from api.lib.functional import curried, F, Either
 from api.lib.utils import map_
 
 
-def get_journey_times(destination: Station) -> Tuple[JourneyTimeResult, None]:
+JourneyTimeResult = NamedTuple('JourneyTimeResult', (('origin', Station), ('time', int)))
+
+
+def get_journey_times(destination: Station) -> Tuple[JourneyTimeResult, ...]:
     times = JourneyTime\
         .select(JourneyTime.origin, fn.Avg(JourneyTime.time).alias('time'))\
         .join(Station)\
@@ -19,14 +19,3 @@ def get_journey_times(destination: Station) -> Tuple[JourneyTimeResult, None]:
         .order_by(SQL('time'))
 
     return map_(lambda t: JourneyTimeResult(t.origin, t.time), times)
-
-
-@curried
-def update_journey_time(destination: Station, origin: Station) -> Either[JourneyTimeResult]:
-    pipe = F() >> gmaps.get_peak_journey_time(destination) >> Either.bind(_save_journey_time(destination))
-    return pipe(origin)
-
-
-@curried
-def _save_journey_time(destination: Station, result: JourneyTimeResult) -> JourneyTime:
-    return JourneyTime.create(origin=result.origin.sid, destination=destination.sid, time=int(result.time))
