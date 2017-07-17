@@ -14,13 +14,16 @@ class Station(CCModel):
     min_zone = IntegerField()
     max_zone = IntegerField()
 
+    def serialize(self) -> Dict[str, Any]:
+        return {
+            "id": self.sid,
+            "name": self.name,
+            "position": {
+                "lat": self.lat,
+                "lng": self.long
+            }
+        }
+
 
 def serialize_station(station: Station) -> Dict[str, Any]:
-    return {
-        "id": station.sid,
-        "name": station.name,
-        "position": {
-            "lat": station.lat,
-            "lng": station.long
-        }
-    }
+    return station.serialize()

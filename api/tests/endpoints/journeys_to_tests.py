@@ -56,17 +56,17 @@ class JourneysToTests(unittest.TestCase):
 
     def test_build_output(self):
         results = ({"origin": {"id": "FOO", "name": "Foo Station"}, "journeyTime": 10})
-        output = _build_output(self._barStation, Either(results))
+        output = _build_output(Either(self._barStation), Either(results))
 
         self.assertEqual("BAR", output["destination"]["id"])
         self.assertEqual("Bar", output["destination"]["name"])
         self.assertEqual(results, output["results"])
 
     def test_build_output_with_error(self):
-        output = _build_output(self._barStation, Either(None, Station.DoesNotExist()))
+        output = _build_output(Either(self._barStation), Either(None, Station.DoesNotExist()))
         self.assertEqual("No station found", output["error"])
 
-        output = _build_output(self._barStation, Either(None, Exception()))
+        output = _build_output(Either(self._barStation), Either(None, Exception()))
         self.assertEqual("Unknown error", output["error"])
 
     def test_create_error(self):

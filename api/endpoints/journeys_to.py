@@ -9,7 +9,7 @@ from fn import F
 from fnplus import curried, tmap, Either
 from peewee import fn, SQL
 
-from api.data import Station, serialize_station, JourneyTime
+from api.data import Station, JourneyTime
 
 Result = Dict[str, Any]
 JourneyTimeResult = NamedTuple('JourneyTimeResult', (('origin', Station), ('time', int)))
@@ -19,22 +19,17 @@ class JourneysTo(Resource):
 
     @cors.crossdomain(origin='*')
     def get(self, dest):
-        try:
-            destination = Station.get(Station.sid == _sanitise_input(dest))
-        except Station.DoesNotExist:
-            return jsonify(_create_error("No station found"))
+        destination = (F() >> _sanitise_input >> Either.try_(_get_destination))(dest)
 
         get_output = (
             F() >>
-            _sanitise_input >>
-            Either.try_(_get_destination) >>
             Either.try_bind(_get_journey_times) >>
             Either.bind(tmap(_build_result)) >>
             _build_output(destination) >>
             jsonify
         )
 
-        return get_output(dest)
+        return get_output(destination)
 
 
 def _get_destination(sid: str) -> Station:
@@ -44,10 +39,10 @@ def _get_destination(sid: str) -> Station:
         raise e
 
 
-def _build_result(time: JourneyTimeResult) -> Result:
+def _build_result(result: JourneyTimeResult) -> Result:
     return {
-        "origin": serialize_station(time.origin),
-        "journeyTime": time.time
+        "origin": result.origin.serialize(),
+        "journeyTime": result.time
     }
 
 
@@ -58,12 +53,12 @@ def _sanitise_input(input: str) -> str:
 
 
 @curried
-def _build_output(destination: Station, results: Either[Tuple[Result, ...]]) -> Result:
+def _build_output(destination: Either[Station], results: Either[Tuple[Result, ...]]) -> Result:
     if(results.get_error()):
         return _create_error("No station found") if type(results.get_error()) == Station.DoesNotExist else _create_error("Unknown error")
 
     return {
-        "destination": serialize_station(destination),
+        "destination": destination.get_value().serialize(),
         "results": results.get_value()
     }
 
