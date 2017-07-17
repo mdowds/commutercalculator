@@ -1,12 +1,12 @@
 import re
-from typing import Dict, Any, List, NamedTuple, Tuple
+from typing import Dict, Any, NamedTuple, Tuple
 from functools import partial
 
 from flask import jsonify
 from flask_restful import Resource
 from flask_restful.utils import cors
 from fn import F
-from fnplus import curried, tmap
+from fnplus import curried, tmap, Either
 from peewee import fn, SQL
 
 from api.data import Station, serialize_station, JourneyTime
@@ -24,9 +24,24 @@ class JourneysTo(Resource):
         except Station.DoesNotExist:
             return jsonify(_create_error("No station found"))
 
-        output_pipe = F() >> _get_journey_times >> tmap(_build_result) >> _build_output(destination) >> jsonify
+        get_output = (
+            F() >>
+            _sanitise_input >>
+            Either.try_(_get_destination) >>
+            Either.try_bind(_get_journey_times) >>
+            Either.bind(tmap(_build_result)) >>
+            _build_output(destination) >>
+            jsonify
+        )
 
-        return output_pipe(destination)
+        return get_output(dest)
+
+
+def _get_destination(sid: str) -> Station:
+    try:
+        return Station.get(Station.sid == sid)
+    except Station.DoesNotExist as e:
+        raise e
 
 
 def _build_result(time: JourneyTimeResult) -> Result:
@@ -43,10 +58,13 @@ def _sanitise_input(input: str) -> str:
 
 
 @curried
-def _build_output(destination: Station, results: List[Result]) -> Result:
+def _build_output(destination: Station, results: Either[Tuple[Result, ...]]) -> Result:
+    if(results.get_error()):
+        return _create_error("No station found") if type(results.get_error()) == Station.DoesNotExist else _create_error("Unknown error")
+
     return {
         "destination": serialize_station(destination),
-        "results": results
+        "results": results.get_value()
     }
 
 
