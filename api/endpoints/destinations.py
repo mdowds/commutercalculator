@@ -11,6 +11,9 @@ class Destinations(Resource):
 
     @cors.crossdomain(origin='*')
     def get(self):
-        destinations = Station.select().where(Station.major_station == True).order_by(Station.name)
-        output_pipe =  F() >> tmap(serialize_station) >> jsonify
-        return output_pipe(destinations)
+        get_output =  F() >> _get_destinations >> tmap(serialize_station) >> jsonify
+        return get_output()
+
+
+def _get_destinations():
+    return Station.select().where((Station.min_zone == 1) | (Station.max_zone == 1)).order_by(Station.name)

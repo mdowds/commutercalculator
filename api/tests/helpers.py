@@ -19,8 +19,8 @@ def create_station_test_data():
 
     return (
         _station('FOO', 'Foo'),
-        _station('BAR', 'Bar'),
-        _station('BAZ', 'Baz')
+        _station('BAR', 'Bar', max_zone=2),
+        _station('BAZ', 'Baz', min_zone=2, max_zone=2)
     )
 
 
