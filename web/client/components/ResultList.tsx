@@ -1,8 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Result from './Result.jsx'
+import * as React from 'react';
+import {default as Result} from './Result';
+import {JourneyResult} from '../types';
 
-export default function ResultList(props) {
+interface ResultListProps {
+    results: Array<JourneyResult>,
+    styles,
+    isLoading: boolean
+}
+
+export default function ResultList(props: ResultListProps) {
 
     const entries = props.results.map((result) => {
         return <Result key={result.origin.id} origin={result.origin} journeyTime={result.journeyTime} />
@@ -23,9 +29,3 @@ export default function ResultList(props) {
         </div>
     );
 }
-
-ResultList.propTypes = {
-    results: PropTypes.arrayOf(PropTypes.object).isRequired,
-    isLoading: PropTypes.bool.isRequired,
-    styles: PropTypes.object
-};

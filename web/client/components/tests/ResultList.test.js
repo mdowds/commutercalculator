@@ -1,8 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
-import ResultList from '../ResultList.jsx';
-import Result from '../Result.jsx';
+import ResultList from '../ResultList.tsx';
+import Result from '../Result.tsx';
 
 test("ResultList renders the container", () => {
     const list = renderer.create(<ResultList results={[]} isLoading={false} />);

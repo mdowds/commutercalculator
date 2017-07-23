@@ -1,8 +1,8 @@
 import React from 'react';
 import MapContainer from './MapContainer.jsx';
-import Header from './Header.jsx';
+import Header from './Header.tsx';
 import SearchForm from './SearchForm.jsx';
-import ResultList from './ResultList.jsx';
+import ResultList from './ResultList.tsx';
 import { getJSON } from '../utils';
 import Map from '../map';
 import Config from '../config';

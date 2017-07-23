@@ -16,14 +16,18 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-            { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
+            { test: /\.(t|j)sx?$/, use: { loader: 'awesome-typescript-loader' } },
+            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
         ]
+    },
+    resolve: {
+        extensions: ['*', '.js', '.jsx', '.ts', '.tsx', '.json']
     },
     plugins: [
         HtmlWebpackPluginConfig,
         new CopyWebpackPlugin([
             { from: 'img', to: 'img' }
         ])
-    ]
+    ],
+    devtool: "source-map"
 };

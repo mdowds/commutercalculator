@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Header from '../Header.jsx';
+import Header from '../Header.tsx';
 
 test("Header renders the title", () => {
     const header = renderer.create(<Header />);

@@ -1,7 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import {Station} from '../types';
 
-export default function Result(props) {
+interface ResultProps {
+    origin: Station,
+    journeyTime: number
+}
+
+export default function Result(props: ResultProps) {
 
     const divStyle = {
         padding: 10,
@@ -15,8 +20,3 @@ export default function Result(props) {
         </div>
     );
 }
-
-Result.propTypes = {
-    origin: PropTypes.object.isRequired,
-    journeyTime: PropTypes.number
-};
