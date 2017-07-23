@@ -29,7 +29,7 @@ test("SearchForm updates selectedStation and inputText when station is selected"
     expect(form.state().selectedStation).toBe(dest);
 });
 
-test("SearchForm calls onSubmit when Search button clicked", () => {
+test("SearchForm calls onSubmit when Go button clicked", () => {
     let calledWith = {};
     const dest = {id: "FOO", name: "Foo Station"};
 
@@ -60,13 +60,15 @@ test("suggestStationName returns correct results", () => {
     expect(form.suggestStationName(dest, "Bar")).toEqual(false);
 });
 
-test("SearchForm renders a SearchFilter only when a station is selected", () => {
-    const dest = {id: "FOO", name: "Foo Station"};
-    const form = shallow(<SearchForm onSubmit={()=>{}} destinations={[dest]} />);
+test("SearchForm toggles SearchFilter rendering when Filters button clicked", () => {
+    const form = shallow(<SearchForm onSubmit={()=>{}} destinations={[]} />);
     expect(form.find(SearchFilters).length).toEqual(0);
 
-    form.find(Autocomplete).simulate('select', dest.name, dest);
+    form.find('#toggleFilters').simulate('click');
     expect(form.find(SearchFilters).length).toEqual(1);
+
+    form.find('#toggleFilters').simulate('click');
+    expect(form.find(SearchFilters).length).toEqual(0);
 });
 
 test("handleFilterChange updates state correctly", () => {

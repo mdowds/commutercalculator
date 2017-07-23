@@ -9,13 +9,14 @@ export default class SearchForm extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {inputText: "", selectedStation: {}, filters: {}};
+        this.state = {inputText: "", selectedStation: {}, showFilters: false, filters: {}};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFilterChange = this.handleFilterChange.bind(this);
     }
 
     handleSubmit() {
         if(isEmptyObject(this.state.selectedStation)) return;
+        this.setState({showFilters: false});
         this.props.onSubmit(this.state.selectedStation, this.state.filters);
     }
 
@@ -31,7 +32,7 @@ export default class SearchForm extends React.Component {
     }
 
     render() {
-        const filters = isEmptyObject(this.state.selectedStation) ? null : <SearchFilters onChange={this.handleFilterChange} />;
+        const filters = this.state.showFilters ? <SearchFilters onChange={this.handleFilterChange} /> : null;
 
         return (
             <div style={styles.overallWrapper}>
@@ -42,13 +43,14 @@ export default class SearchForm extends React.Component {
                     renderItem={(station, isHighlighted) => (
                         <div style={styles.acItem} key={station.id}>{station.name}</div>
                     )}
-                    inputProps={{placeholder: "Enter destination (Zone 1 stations only)", style: styles.searchInput}}
+                    inputProps={{placeholder: "Enter destination in Zone 1", style: styles.searchInput}}
                     menuStyle={styles.acMenu}
                     onChange={(event, value) => this.setState({inputText: value})}
                     onSelect={(value, station) => this.setState({inputText: station.name, selectedStation: station})}
                     shouldItemRender={this.suggestStationName}
                     wrapperStyle={styles.acWrapper}
                 />
+                <input id="toggleFilters" type="button" value="Filters" style={styles.filtersButton} onClick={() => {this.setState({showFilters: !this.state.showFilters})}} />
                 <input id="submitSearch" type="button" value="Go" onClick={this.handleSubmit} style={styles.goButton} />
                 {filters}
             </div>

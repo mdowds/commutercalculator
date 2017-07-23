@@ -1,12 +1,14 @@
 const borderStyle = "1px solid grey";
 const searchBarHeight = 38;
+const goButtonWidth = searchBarHeight;
+const filtersButtonWidth = 51;
 
 const overallWrapper = {position: "relative"};
 
 const searchInput = {
     width: "100%",
     padding: 10,
-    paddingRight: searchBarHeight,
+    paddingRight: goButtonWidth + filtersButtonWidth,
     fontSize: '90%',
     border: borderStyle,
     boxSizing: "border-box"
@@ -36,10 +38,19 @@ const goButton = {
     top: 0,
     right: 0,
     height: searchBarHeight,
-    width: searchBarHeight,
+    width: goButtonWidth,
+    border: borderStyle
+};
+
+const filtersButton = {
+    position: "absolute",
+    top: 0,
+    right: goButtonWidth - 1,
+    height: searchBarHeight,
+    width: filtersButtonWidth,
     border: borderStyle
 };
 
 const acWrapper = {width: "100%", height: searchBarHeight};
 
-export default {overallWrapper, searchInput, acMenu, acItem, goButton, acWrapper};
+export default {overallWrapper, searchInput, acMenu, acItem, goButton, filtersButton, acWrapper};
