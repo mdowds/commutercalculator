@@ -4,7 +4,7 @@ from peewee import SqliteDatabase
 from playhouse.test_utils import test_database
 
 from api.endpoints.journeys_to import *
-from api.endpoints.journeys_to import _get_destination, _build_result, _sanitise_input, _build_output, _create_error, _get_journey_times
+from api.endpoints.journeys_to import _get_destination, _build_result, _sanitise_input, _build_output, _create_error, _get_journey_times, _parse_args
 import api.tests.helpers as helpers
 
 
@@ -73,7 +73,37 @@ class JourneysToTests(unittest.TestCase):
         self.assertEqual({"error": "Some error"}, _create_error("Some error"))
 
     def test_get_journey_times(self):
-        journeys = _get_journey_times(self._fooStation)
+        journeys = _get_journey_times(DEFAULT_MIN_TIME, DEFAULT_MAX_TIME, self._fooStation)
         self.assertEqual(self._barStation, journeys[0].origin)
         self.assertTrue(journeys[0].time < journeys[1].time)
         self.assertEqual(11, journeys[0].time)
+
+    def test_get_journey_times_with_time_filter(self):
+        journeys = _get_journey_times(5, 15, self._fooStation)
+        for journey in journeys:
+            self.assertTrue(15 >= journey.time)
+            self.assertTrue(5 <= journey.time)
+
+    def test_parse_args_with_no_args(self):
+        args = _parse_args({'min_time': None, 'max_time': None})
+        self.assertEqual(DEFAULT_MIN_TIME, args.min_time)
+        self.assertEqual(DEFAULT_MAX_TIME, args.max_time)
+
+    def test_parse_args_with_one_arg(self):
+        args_max = _parse_args({'min_time': None, 'max_time': 30})
+        self.assertEqual(DEFAULT_MIN_TIME, args_max.min_time)
+        self.assertEqual(30, args_max.max_time)
+
+        args_min = _parse_args({'min_time': 10, 'max_time': None})
+        self.assertEqual(10, args_min.min_time)
+        self.assertEqual(DEFAULT_MAX_TIME, args_min.max_time)
+
+    def test_parse_args_with_two_args(self):
+        args = _parse_args({'min_time': 5, 'max_time': 60})
+        self.assertEqual(5, args.min_time)
+        self.assertEqual(60, args.max_time)
+
+    def test_parse_args_with_negative(self):
+        args_max = _parse_args({'min_time': -5, 'max_time': -10})
+        self.assertEqual(DEFAULT_MIN_TIME, args_max.min_time)
+        self.assertEqual(DEFAULT_MAX_TIME, args_max.max_time)
