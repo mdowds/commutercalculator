@@ -11,8 +11,9 @@ class Destinations(Resource):
 
     @cors.crossdomain(origin='*')
     def get(self):
-        get_output =  F() >> _get_destinations >> tmap(serialize_station) >> jsonify
-        return get_output()
+        destinations = _get_destinations()
+        get_output = F() >> tmap(serialize_station) >> jsonify
+        return get_output(destinations)
 
 
 def _get_destinations():
