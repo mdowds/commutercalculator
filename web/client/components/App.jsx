@@ -24,7 +24,7 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
-        getJSON(this.apiUrl + "destinations", (json) => {
+        getJSON(this.apiUrl + "destinations", {}, (json) => {
             this.setState({possibleDestinations: json})
         });
 
@@ -35,12 +35,19 @@ export default class App extends React.Component {
         });
     }
 
-    getJourneys(origin) {
+    getJourneys(origin, params) {
         this.setState({resultsLoading: true});
 
-        getJSON(this.apiUrl + 'journeys/to/' + origin.id, (json) => {
+        getJSON(this.apiUrl + 'journeys/to/' + origin.id, this.mapParamsForRequest(params), (json) => {
             this.setState({destination: json.destination, results: json.results, resultsLoading: false});
         });
+    }
+
+    mapParamsForRequest(params) {
+        let paramsOut = {};
+        if(params.minTime) paramsOut.min_time = params.minTime;
+        if(params.maxTime) paramsOut.max_time = params.maxTime;
+        return paramsOut;
     }
 
     shouldDisplayResultList() {

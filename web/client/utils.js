@@ -1,5 +1,9 @@
-function getJSON(url, callback) {
-    window.fetch(url).then(
+import querystring from 'querystring';
+
+function getJSON(url, params, callback) {
+    const fullUrl = isEmptyObject(params) ? url : url + '?' + querystring.stringify(params);
+
+    fetch(fullUrl).then(
         (response) => { return response.json(); }
     ).then(callback);
 }
