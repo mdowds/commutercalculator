@@ -1,14 +1,15 @@
 import * as React from 'react';
 import {Station} from '../types';
+import {CSSProperties} from "react";
 
 interface ResultProps {
-    origin: Station,
-    journeyTime: number
+    readonly origin: Station,
+    readonly journeyTime: number
 }
 
 export default function Result(props: ResultProps) {
 
-    const divStyle = {
+    const divStyle: CSSProperties = {
         padding: 10,
         borderBottom: "1px solid grey"
     };

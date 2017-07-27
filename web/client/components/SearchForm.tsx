@@ -1,30 +1,41 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Autocomplete from 'react-autocomplete';
+import * as React from 'react';
+import * as Autocomplete from 'react-autocomplete';
 import styles from './styles/SearchFormStyles';
-import SearchFilters from "./SearchFilters.jsx";
-import {isEmptyObject} from '../utils';
+import SearchFilters from "./SearchFilters";
+import {Station, SelectedFilters} from '../types';
 
-export default class SearchForm extends React.Component {
+interface SearchFormProps {
+    onSubmit(selectedStation: Station, filters: SelectedFilters) : void;
+    readonly destinations: Array<Station>;
+}
 
-    constructor(props) {
+interface SearchFormState {
+    inputText: string;
+    selectedStation?: Station;
+    showFilters: boolean;
+    filters: SelectedFilters;
+}
+
+export default class SearchForm extends React.Component<SearchFormProps, SearchFormState> {
+
+    constructor(props: SearchFormProps) {
         super(props);
-        this.state = {inputText: "", selectedStation: {}, showFilters: false, filters: {}};
+        this.state = {inputText: "", selectedStation: undefined, showFilters: false, filters: {}};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFilterChange = this.handleFilterChange.bind(this);
     }
 
     handleSubmit() {
-        if(isEmptyObject(this.state.selectedStation)) return;
+        if(this.state.selectedStation === undefined) return;
         this.setState({showFilters: false});
         this.props.onSubmit(this.state.selectedStation, this.state.filters);
     }
 
-    handleFilterChange(values) {
-        this.setState({filters: Object.assign(this.state.filters, values)});
+    handleFilterChange(filters: SelectedFilters) {
+        this.setState({filters: Object.assign(this.state.filters, filters)});
     }
 
-    suggestStationName(station, inputText) {
+    static suggestStationName(station: Station, inputText: string) {
         return (
             station.name.toLowerCase().indexOf(inputText.toLowerCase()) !== -1 ||
             station.id.toLowerCase().indexOf(inputText.toLowerCase()) !== -1
@@ -47,7 +58,7 @@ export default class SearchForm extends React.Component {
                     menuStyle={styles.acMenu}
                     onChange={(event, value) => this.setState({inputText: value})}
                     onSelect={(value, station) => this.setState({inputText: station.name, selectedStation: station})}
-                    shouldItemRender={this.suggestStationName}
+                    shouldItemRender={SearchForm.suggestStationName}
                     wrapperStyle={styles.acWrapper}
                 />
                 <input id="toggleFilters" type="button" value="Filters" style={styles.filtersButton} onClick={() => {this.setState({showFilters: !this.state.showFilters})}} />
@@ -57,8 +68,3 @@ export default class SearchForm extends React.Component {
         );
     }
 }
-
-SearchForm.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-    destinations: PropTypes.arrayOf(PropTypes.object)
-};

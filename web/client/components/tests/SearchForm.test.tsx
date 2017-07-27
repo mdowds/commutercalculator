@@ -1,9 +1,12 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
 import {shallow} from 'enzyme';
-import SearchForm from '../SearchForm.jsx';
-import SearchFilters from '../SearchFilters.jsx';
-import Autocomplete from 'react-autocomplete';
+import SearchForm from '../SearchForm';
+import SearchFilters from '../SearchFilters';
+import * as Autocomplete from 'react-autocomplete';
+import {Station} from "../../types"
+
+const mockStation: Station = {id: "ABC", name: "Foo Station", position: {lat: 0, lng: 0}};
 
 test("SearchForm renders the form with Autocomplete", () => {
     const form = renderer.create(<SearchForm onSubmit={()=>{}} destinations={[]} />);
@@ -19,45 +22,40 @@ test("SearchForm updates inputText when station input changes", () => {
 });
 
 test("SearchForm updates selectedStation and inputText when station is selected", () => {
-    const dest = {id: "FOO", name: "Foo Station"};
-    const form = shallow(<SearchForm onSubmit={()=>{}} destinations={[dest]} />);
-    expect(form.state().selectedStation).toEqual({});
+    const form = shallow(<SearchForm onSubmit={()=>{}} destinations={[mockStation]} />);
+    expect(form.state().selectedStation).toBeUndefined();
     expect(form.state().inputText).toEqual("");
-
-    form.find(Autocomplete).simulate('select', dest.name, dest);
+    console.log(typeof Autocomplete);
+    form.find(Autocomplete).simulate('select', mockStation.name, mockStation);
     expect(form.state().inputText).toEqual("Foo Station");
-    expect(form.state().selectedStation).toBe(dest);
+    expect(form.state().selectedStation).toBe(mockStation);
 });
 
 test("SearchForm calls onSubmit when Go button clicked", () => {
     let calledWith = {};
-    const dest = {id: "FOO", name: "Foo Station"};
 
-    const form = shallow(<SearchForm onSubmit={x => calledWith = x} destinations={[dest]} />);
-    form.setState({selectedStation: dest});
+    const form = shallow(<SearchForm onSubmit={x => calledWith = x} destinations={[mockStation]} />);
+    form.setState({selectedStation: mockStation});
     form.find('#submitSearch').simulate('click');
-    expect(calledWith).toBe(dest);
+    expect(calledWith).toBe(mockStation);
 });
 
 test("SearchForm doesn't call onSubmit when Search button clicked with no selected station", () => {
     let submitCalled = false;
-    const dest = {id: "FOO", name: "Foo Station"};
 
-    const form = shallow(<SearchForm onSubmit={() => submitCalled = true} destinations={[dest]} />);
+    const form = shallow(<SearchForm onSubmit={() => submitCalled = true} destinations={[mockStation]} />);
     form.find('#submitSearch').simulate('click');
     expect(submitCalled).toEqual(false);
 });
 
 test("suggestStationName returns correct results", () => {
-    const dest = {id: "ABC", name: "Foo Station"};
-    const form = new SearchForm(()=>{}, [dest]);
 
-    expect(form.suggestStationName(dest, "Foo")).toEqual(true);
-    expect(form.suggestStationName(dest, "foo")).toEqual(true);
-    expect(form.suggestStationName(dest, "abc")).toEqual(true);
-    expect(form.suggestStationName(dest, "ABC")).toEqual(true);
-    expect(form.suggestStationName(dest, "f")).toEqual(true);
-    expect(form.suggestStationName(dest, "Bar")).toEqual(false);
+    expect(SearchForm.suggestStationName(mockStation, "Foo")).toEqual(true);
+    expect(SearchForm.suggestStationName(mockStation, "foo")).toEqual(true);
+    expect(SearchForm.suggestStationName(mockStation, "abc")).toEqual(true);
+    expect(SearchForm.suggestStationName(mockStation, "ABC")).toEqual(true);
+    expect(SearchForm.suggestStationName(mockStation, "f")).toEqual(true);
+    expect(SearchForm.suggestStationName(mockStation, "Bar")).toEqual(false);
 });
 
 test("SearchForm toggles SearchFilter rendering when Filters button clicked", () => {

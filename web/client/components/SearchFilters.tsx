@@ -1,7 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import {CSSProperties} from 'react';
+import {SelectedFilters} from '../types';
 
-export default class SearchFilters extends React.Component {
+interface SearchFiltersProps {
+    onChange(filters: SelectedFilters) : void;
+}
+
+export default class SearchFilters extends React.Component<SearchFiltersProps, {}> {
 
     constructor(props) {
         super(props);
@@ -13,12 +18,12 @@ export default class SearchFilters extends React.Component {
     }
 
     render() {
-        const divStyle = {
+        const divStyle: CSSProperties = {
             fontSize: '90%',
             padding: 5
         };
 
-        const inputStyle = {
+        const inputStyle: CSSProperties = {
             width: '45%',
             textAlign: 'center',
             padding: 5,
@@ -36,7 +41,3 @@ export default class SearchFilters extends React.Component {
         );
     }
 }
-
-SearchFilters.propTypes = {
-    onChange: PropTypes.func.isRequired
-};

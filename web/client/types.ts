@@ -1,11 +1,20 @@
-interface Station {
+export interface Station {
     id: string,
-    name: string
+    name: string,
+    position: Position
 }
 
-interface JourneyResult {
+export interface JourneyResult {
     origin: Station,
     journeyTime: number
 }
 
-export {Station, JourneyResult}
+export interface SelectedFilters {
+    minTime?: number,
+    maxTime?: number
+}
+
+export interface Position {
+    lat: number,
+    lng: number
+}

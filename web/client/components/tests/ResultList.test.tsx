@@ -1,8 +1,8 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
-import ResultList from '../ResultList.tsx';
-import Result from '../Result.tsx';
+import ResultList from '../ResultList';
+import Result from '../Result';
 
 test("ResultList renders the container", () => {
     const list = renderer.create(<ResultList results={[]} isLoading={false} />);
@@ -20,13 +20,13 @@ test("ResultList renders the loading indicator", () => {
 });
 
 test("ResultList renders results", () => {
-    const list = shallow(<ResultList results={[mockResult(1, 10), mockResult(2, 20)]} isLoading={false} />);
+    const list = shallow(<ResultList results={[mockResult("foo", 10), mockResult("bar", 20)]} isLoading={false} />);
     expect(list.find(Result).length).toEqual(2);
 });
 
 function mockResult(id, time) {
     return {
-        origin: {id: id},
+        origin: {id: id, name: id},
         journeyTime: time
     }
 }

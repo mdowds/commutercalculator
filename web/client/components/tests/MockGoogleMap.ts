@@ -1,4 +1,14 @@
-export default class {
+import {IGoogleMap} from "../../googlemap"
+
+export default class MockGoogleMap implements IGoogleMap {
+
+    container: Element|null;
+    customOptions;
+    panToPosition;
+    markerPosition;
+    resizeCalled: boolean;
+    markerImg: string;
+
     initMap(container, customOptions) {
         this.container = container;
         this.customOptions = customOptions;

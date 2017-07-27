@@ -1,19 +1,32 @@
-import React from 'react';
-import MapContainer from './MapContainer.jsx';
-import Header from './Header.tsx';
-import SearchForm from './SearchForm.jsx';
-import ResultList from './ResultList.tsx';
+import * as React from 'react';
+import MapContainer from './MapContainer';
+import Header from './Header';
+import SearchForm from './SearchForm';
+import ResultList from './ResultList';
 import { getJSON } from '../utils';
-import Map from '../map';
+import GoogleMap from '../googlemap';
 import Config from '../config';
-import GoogleMapsLoader from 'google-maps';
+import * as GoogleMapsLoader from 'google-maps';
+import {CSSProperties} from "react";
+import {Station, JourneyResult, SelectedFilters} from "../types";
 
-export default class App extends React.Component {
+interface AppState {
+    destination?: Station;
+    results: Array<JourneyResult>;
+    resultsLoading: boolean;
+    possibleDestinations: Array<Station>;
+    gmapsLoaded: boolean;
+}
+
+export default class App extends React.Component<{}, AppState> {
+
+    apiUrl: string;
+    map: GoogleMap;
 
     constructor(){
         super();
         this.state = {
-            destination: {},
+            destination: undefined,
             results: [],
             resultsLoading: false,
             possibleDestinations: [],
@@ -30,12 +43,12 @@ export default class App extends React.Component {
 
         GoogleMapsLoader.KEY = Config.gmapsApiKey;
         GoogleMapsLoader.load((google) => {
-            this.map = new Map(google.maps);
+            this.map = new GoogleMap(google.maps);
             this.setState({gmapsLoaded: true})
         });
     }
 
-    getJourneys(origin, params) {
+    getJourneys(origin: Station, params: SelectedFilters) {
         this.setState({resultsLoading: true});
 
         getJSON(this.apiUrl + 'journeys/to/' + origin.id, this.mapParamsForRequest(params), (json) => {
@@ -43,8 +56,8 @@ export default class App extends React.Component {
         });
     }
 
-    mapParamsForRequest(params) {
-        let paramsOut = {};
+    mapParamsForRequest(params: SelectedFilters) {
+        let paramsOut: any = {};
         if(params.minTime) paramsOut.min_time = params.minTime;
         if(params.maxTime) paramsOut.max_time = params.maxTime;
         return paramsOut;
@@ -55,7 +68,7 @@ export default class App extends React.Component {
     }
 
     render() {
-        const containerStyle = {
+        const containerStyle: CSSProperties = {
             width: "100%",
             height: "100%",
             display: "flex",
@@ -64,11 +77,11 @@ export default class App extends React.Component {
 
         return (
             <div style={containerStyle}>
-                <Header destinationName={this.state.destination.name}>
+                <Header>
                     <SearchForm destinations={this.state.possibleDestinations} onSubmit={this.getJourneys}/>
                 </Header>
                 <MapContainer
-                    mapObj={this.state.gmapsLoaded ? this.map : null}
+                    mapObj={this.state.gmapsLoaded ? this.map : undefined}
                     destination={this.state.destination}
                     height={this.shouldDisplayResultList() ? '50%': undefined}
                 />

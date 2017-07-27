@@ -1,11 +1,12 @@
+import {CSSProperties} from "react";
 const borderStyle = "1px solid grey";
 const searchBarHeight = 38;
 const goButtonWidth = searchBarHeight;
 const filtersButtonWidth = 51;
 
-const overallWrapper = {position: "relative"};
+const overallWrapper: CSSProperties = {position: "relative"};
 
-const searchInput = {
+const searchInput: CSSProperties = {
     width: "100%",
     padding: 10,
     paddingRight: goButtonWidth + filtersButtonWidth,
@@ -14,7 +15,7 @@ const searchInput = {
     boxSizing: "border-box"
 };
 
-const acMenu = {
+const acMenu: CSSProperties = {
     background: 'rgba(255, 255, 255, 0.9)',
     fontSize: '90%',
     position: 'fixed',
@@ -24,7 +25,7 @@ const acMenu = {
     boxSizing: "border-box"
 };
 
-const acItem = {
+const acItem: CSSProperties = {
     borderBottom: borderStyle,
     borderLeft: borderStyle,
     borderRight: borderStyle,
@@ -33,7 +34,7 @@ const acItem = {
     paddingRight: 0
 };
 
-const goButton = {
+const goButton: CSSProperties = {
     position: "absolute",
     top: 0,
     right: 0,
@@ -42,7 +43,7 @@ const goButton = {
     border: borderStyle
 };
 
-const filtersButton = {
+const filtersButton: CSSProperties = {
     position: "absolute",
     top: 0,
     right: goButtonWidth - 1,
@@ -51,6 +52,6 @@ const filtersButton = {
     border: borderStyle
 };
 
-const acWrapper = {width: "100%", height: searchBarHeight};
+const acWrapper: CSSProperties = {width: "100%", height: searchBarHeight};
 
 export default {overallWrapper, searchInput, acMenu, acItem, goButton, filtersButton, acWrapper};

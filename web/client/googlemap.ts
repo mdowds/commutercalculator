@@ -1,11 +1,26 @@
-export default class Map {
+import {Position} from "./types"
+
+export interface IGoogleMap {
+    initMap(container, customOptions): IGoogleMap;
+    addMarker;
+    removeMarkers;
+    panTo;
+    resize;
+}
+
+export default class GoogleMap implements IGoogleMap {
+
+    gmaps;
+    renderedMap: google.maps.Map;
+    markers: Array<google.maps.Marker>;
+
     constructor(apiRef) {
         this.gmaps = apiRef;
         this.markers = [];
     }
 
-    initMap(container, customOptions) {
-        const defaultOptions = {
+    initMap(container: Element|null, customOptions: google.maps.MapOptions) {
+        const defaultOptions: google.maps.MapOptions = {
             center: {lat: 0, lng: 0},
             zoom: 5,
             clickableIcons: false,
@@ -19,7 +34,7 @@ export default class Map {
         return this;
     }
 
-    addMarker(position, icon) {
+    addMarker(position: Position, icon: string) {
         const marker = new this.gmaps.Marker({
             map: this.renderedMap,
             position: position,
@@ -35,7 +50,7 @@ export default class Map {
         return this.markers = [];
     }
 
-    panTo(position) {
+    panTo(position: Position) {
         if(this.renderedMap) this.renderedMap.panTo(position);
     }
 

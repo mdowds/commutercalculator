@@ -1,17 +1,18 @@
-import React from 'react';
+import * as React from 'react';
 import { shallow } from 'enzyme';
-import MapContainer from '../MapContainer.jsx';
-import MockMap from './MockMap';
+import MapContainer from '../MapContainer';
+import MockGoogleMap from './MockGoogleMap';
+import {Station} from "../../types";
 
-const mockStation = {position: {lat: 0, long: 10}, name: "Station"};
+const mockStation: Station = {id: "STA", position: {lat: 0, lng: 10}, name: "Station"};
 
 test("MapContainer renders the placeholder", () => {
-    const mapC = shallow(<MapContainer />);
+    const mapC = shallow(<MapContainer mapObj={new MockGoogleMap()} destination={mockStation}/>);
     expect(mapC.text()).toEqual('Map loading');
 });
 
 test("MapContainer renders a map when given a mapObj", () => {
-    const map = new MockMap();
+    const map = new MockGoogleMap();
     const mapC = shallow(<MapContainer mapObj={map} destination={mockStation} />);
 
     expect(map.container).toBe(mapC.containerElement);
@@ -20,7 +21,7 @@ test("MapContainer renders a map when given a mapObj", () => {
 });
 
 test("MapContainer sets the destination position on the map", () => {
-    const map = new MockMap();
+    const map = new MockGoogleMap();
     const mapC = shallow(<MapContainer mapObj={map} destination={mockStation} />);
 
     expect(map.panToPosition).toEqual(mockStation.position);
@@ -29,15 +30,15 @@ test("MapContainer sets the destination position on the map", () => {
 });
 
 test("MapContainer sets the correct height", () => {
-    const mapC = shallow(<MapContainer mapObj={new MockMap()} destination={mockStation} height={'10%'}/>);
+    const mapC = shallow(<MapContainer mapObj={new MockGoogleMap()} destination={mockStation} height={'10%'}/>);
     expect(mapC.prop('style').height).toEqual('10%');
 
-    const mapCNoHeight = shallow(<MapContainer mapObj={new MockMap()} destination={mockStation}/>);
+    const mapCNoHeight = shallow(<MapContainer mapObj={new MockGoogleMap()} destination={mockStation}/>);
     expect(mapCNoHeight.prop('style').height).toEqual('100%');
 });
 
 test("MapContainer resizes the map when height changes", () => {
-    const map = new MockMap();
+    const map = new MockGoogleMap();
     const mapC = shallow(<MapContainer mapObj={map} destination={mockStation} height={'10%'}/>);
     const prevProps = mapC.props();
     mapC.setProps({height: '20%'});

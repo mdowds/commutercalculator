@@ -1,11 +1,12 @@
 import * as React from 'react';
 import {default as Result} from './Result';
 import {JourneyResult} from '../types';
+import {CSSProperties} from "react";
 
 interface ResultListProps {
-    results: Array<JourneyResult>,
-    styles,
-    isLoading: boolean
+    readonly results: Array<JourneyResult>,
+    readonly styles?: CSSProperties,
+    readonly isLoading: boolean
 }
 
 export default function ResultList(props: ResultListProps) {
@@ -14,12 +15,14 @@ export default function ResultList(props: ResultListProps) {
         return <Result key={result.origin.id} origin={result.origin} journeyTime={result.journeyTime} />
     });
 
-    const containerStyle = Object.assign({
+    const containerStyleDefault: CSSProperties = {
         width: "100%",
         background: "white",
         height: "100%",
-        overflow: "scroll",
-    }, props.styles);
+        overflow: "scroll"
+    };
+
+    const containerStyle = props.styles === undefined ? containerStyleDefault : Object.assign(containerStyleDefault, props.styles);
 
     const loadingIndicator = <div style={{textAlign: "center", marginTop: 50}}>Results loading</div>;
 

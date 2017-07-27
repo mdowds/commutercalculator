@@ -1,4 +1,4 @@
-import Map from '../map'
+import Map from '../googlemap'
 import MockGmaps from './MockGmaps';
 
 let map;
