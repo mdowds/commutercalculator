@@ -11,3 +11,4 @@ __pycache__/
 /config/
 /web/client/config.js
 /data/
+/web/.awcache/
