@@ -22,9 +22,9 @@ cache:
   directories:
   - $HOME/.yarn-cache
 script:
-  - yarn run build
   - coverage run --omit=tests/*,*site-packages/*  -m unittest discover -p "*tests.py"
-  - cd web && yarn test -- --coverage && cd ../
+  - cd web && yarn run build
+  - yarn test -- --coverage && cd ../
 after_success:
   - coveralls-lcov -v -n web/coverage/lcov.info > coverage.json
   - coveralls --merge=coverage.json
