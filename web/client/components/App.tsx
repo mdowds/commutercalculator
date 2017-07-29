@@ -3,12 +3,12 @@ import MapContainer from './MapContainer';
 import Header from './Header';
 import SearchForm from './SearchForm';
 import ResultList from './ResultList';
-import { getJSON } from '../utils';
 import GoogleMap from '../googlemap';
 import Config from '../config';
 import * as GoogleMapsLoader from 'google-maps';
 import {CSSProperties} from "react";
 import {Station, JourneyResult, SelectedFilters} from "../types";
+import * as CCAPI from "../ccapi";
 
 interface AppState {
     destination?: Station;
@@ -37,8 +37,8 @@ export default class App extends React.Component<{}, AppState> {
     }
 
     componentDidMount() {
-        getJSON(this.apiUrl + "destinations", {}, (json) => {
-            this.setState({possibleDestinations: json})
+        CCAPI.getDestinations((destinations) => {
+            this.setState({possibleDestinations: destinations})
         });
 
         GoogleMapsLoader.KEY = Config.gmapsApiKey;
@@ -48,19 +48,12 @@ export default class App extends React.Component<{}, AppState> {
         });
     }
 
-    getJourneys(origin: Station, params: SelectedFilters) {
+    getJourneys(origin: Station, selectedFilters: SelectedFilters) {
         this.setState({resultsLoading: true});
 
-        getJSON(this.apiUrl + 'journeys/to/' + origin.id, this.mapParamsForRequest(params), (json) => {
-            this.setState({destination: json.destination, results: json.results, resultsLoading: false});
+        CCAPI.getJourneys(origin.id, selectedFilters, (destination, journeys) => {
+            this.setState({destination: destination, results: journeys, resultsLoading: false});
         });
-    }
-
-    mapParamsForRequest(params: SelectedFilters) {
-        let paramsOut: any = {};
-        if(params.minTime) paramsOut.min_time = params.minTime;
-        if(params.maxTime) paramsOut.max_time = params.maxTime;
-        return paramsOut;
     }
 
     shouldDisplayResultList() {
