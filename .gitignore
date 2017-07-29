@@ -6,7 +6,6 @@ __pycache__/
 /web/node_modules/
 /api/helpers/
 /web/coverage/
-/web/build/
 /web/npm-debug.log
 /config/
 /web/client/config.js
