@@ -9,7 +9,9 @@ interface ResultProps {
 }
 
 function makeDetails(result: JourneyResult) {
-    return result.seasonTicket ? <div>Season ticket price: £{result.seasonTicket.price}</div> : null;
+    const priceText = result.seasonTicket.price ? "£" + result.seasonTicket.price : "not found";
+
+    return <div>Season ticket price: {priceText}</div>;
 }
 
 export default function Result(props: ResultProps) {

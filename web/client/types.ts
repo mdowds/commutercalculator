@@ -7,11 +7,11 @@ export interface Station {
 export interface JourneyResult {
     readonly origin: Station,
     readonly journeyTime: number,
-    readonly seasonTicket?: SeasonTicket
+    readonly seasonTicket: SeasonTicket
 }
 
 export interface SeasonTicket {
-    readonly price: number
+    readonly price?: number
 }
 
 export interface SelectedFilters {
