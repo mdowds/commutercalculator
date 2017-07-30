@@ -10,22 +10,19 @@
     "test": "jest"
   },
   "dependencies": {
-    "@types/react": "^15.0.38",
-    "@types/react-dom": "^15.5.1",
     "google-maps": "^3.2.1",
-    "html-webpack-plugin": "^2.28.0",
     "path": "^0.12.7",
     "querystring": "^0.2.0",
     "react": "^15.5.4",
     "react-async-script-loader": "^0.3.0",
     "react-autocomplete": "^1.5.4",
-    "react-dom": "^15.5.4",
-    "webpack": "^2.4.1",
-    "webpack-dev-server": "^2.4.4"
+    "react-dom": "^15.5.4"
   },
   "devDependencies": {
     "@types/googlemaps": "^3.26.17",
     "@types/jest": "^20.0.4",
+    "@types/react": "^15.0.38",
+    "@types/react-dom": "^15.5.1",
     "awesome-typescript-loader": "^3.2.1",
     "babel-core": "^6.24.1",
     "babel-jest": "^19.0.0",
@@ -35,11 +32,14 @@
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^5.0.1",
     "enzyme": "^2.8.2",
+    "html-webpack-plugin": "^2.28.0",
     "jest": "^20.0.4",
     "react-test-renderer": "^15.5.4",
     "source-map-loader": "^0.2.1",
     "ts-jest": "^20.0.7",
-    "typescript": "^2.4.2"
+    "typescript": "^2.4.2",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.4"
   },
   "jest": {
     "moduleFileExtensions": [
