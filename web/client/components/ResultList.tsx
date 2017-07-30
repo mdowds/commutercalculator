@@ -30,7 +30,7 @@ export default class ResultList extends React.Component<ResultListProps, ResultL
         const entries = this.props.results.map((result) => {
             const showDetails = this.state.selectedResult == result.origin.id;
 
-            return <Result key={result.origin.id} origin={result.origin} journeyTime={result.journeyTime} showDetails={showDetails} onSelectResult={this.handleResultSelection} />
+            return <Result key={result.origin.id} result={result} isSelected={showDetails} onSelectResult={this.handleResultSelection} />
         });
 
         const containerStyleDefault: CSSProperties = {

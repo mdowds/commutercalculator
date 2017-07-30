@@ -28,19 +28,19 @@ test("ResultList renders results", () => {
 
 test("ResultList renders details for one result when selectedResult is set", () => {
      const list = shallow(<ResultList results={[mockResult("foo", 10), mockResult("bar", 20)]} isLoading={false} />);
-     expect(list.find('[showDetails=true]').length).toEqual(0);
+     expect(list.find('[isSelected=true]').length).toEqual(0);
 
      list.instance().handleResultSelection("foo");
-     expect(list.find('[showDetails=true]').length).toEqual(1);
+     expect(list.find('[isSelected=true]').length).toEqual(1);
 });
 
 test("ResultList closes details for one result when selectedResult is set with the same value", () => {
      const list = shallow(<ResultList results={[mockResult("foo", 10), mockResult("bar", 20)]} isLoading={false} />);
      list.instance().handleResultSelection("foo");
-     expect(list.find('[showDetails=true]').length).toEqual(1);
+     expect(list.find('[isSelected=true]').length).toEqual(1);
 
      list.instance().handleResultSelection("foo");
-     expect(list.find('[showDetails=true]').length).toEqual(0);
+     expect(list.find('[isSelected=true]').length).toEqual(0);
 });
 
 function mockResult(id, time): JourneyResult {

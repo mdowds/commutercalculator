@@ -10,8 +10,7 @@
     "allowJs": true
   },
   "awesomeTypescriptLoaderOptions": {
-    "useBabel": true,
-    "useCache": true
+    "useBabel": true
   },
   "include": [
     "./client/"

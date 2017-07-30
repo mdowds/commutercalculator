@@ -5,6 +5,7 @@ exports[`Result renders the result 1`] = `
   onClick={[Function]}
   style={
     Object {
+      "backgroundColor": "white",
       "borderBottom": "1px solid grey",
       "padding": 10,
     }
@@ -58,6 +59,7 @@ exports[`Result renders the result with details 1`] = `
   onClick={[Function]}
   style={
     Object {
+      "backgroundColor": "#ddd",
       "borderBottom": "1px solid grey",
       "padding": 10,
     }
@@ -111,7 +113,10 @@ exports[`Result renders the result with details 1`] = `
       }
     }
   >
-    Season ticket price: £1000
+    <div>
+      Season ticket price: £
+      1000
+    </div>
   </div>
 </div>
 `;

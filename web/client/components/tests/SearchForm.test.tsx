@@ -25,7 +25,6 @@ test("SearchForm updates selectedStation and inputText when station is selected"
     const form = shallow(<SearchForm onSubmit={()=>{}} destinations={[mockStation]} />);
     expect(form.state().selectedStation).toBeUndefined();
     expect(form.state().inputText).toEqual("");
-    console.log(typeof Autocomplete);
     form.find(Autocomplete).simulate('select', mockStation.name, mockStation);
     expect(form.state().inputText).toEqual("Foo Station");
     expect(form.state().selectedStation).toBe(mockStation);
