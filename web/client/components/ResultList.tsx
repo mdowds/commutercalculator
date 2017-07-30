@@ -9,26 +9,47 @@ interface ResultListProps {
     readonly isLoading: boolean
 }
 
-export default function ResultList(props: ResultListProps) {
+interface ResultListState {
+    selectedResult?: string
+}
 
-    const entries = props.results.map((result) => {
-        return <Result key={result.origin.id} origin={result.origin} journeyTime={result.journeyTime} />
-    });
+export default class ResultList extends React.Component<ResultListProps, ResultListState> {
 
-    const containerStyleDefault: CSSProperties = {
-        width: "100%",
-        background: "white",
-        height: "100%",
-        overflow: "scroll"
-    };
+    constructor(props: ResultListProps) {
+        super(props);
+        this.state = {};
+        this.handleResultSelection = this.handleResultSelection.bind(this);
+    }
 
-    const containerStyle = props.styles === undefined ? containerStyleDefault : Object.assign(containerStyleDefault, props.styles);
+    handleResultSelection(selectedResult: string) {
+        const newResult = this.state.selectedResult != selectedResult ? selectedResult : undefined;
+        this.setState({selectedResult: newResult});
+    }
 
-    const loadingIndicator = <div style={{textAlign: "center", marginTop: 50}}>Results loading</div>;
+    render() {
+        const entries = this.props.results.map((result) => {
+            const showDetails = this.state.selectedResult == result.origin.id;
 
-    return (
-        <div style={containerStyle}>
-            {props.isLoading ? loadingIndicator : entries}
-        </div>
-    );
+            return <Result key={result.origin.id} origin={result.origin} journeyTime={result.journeyTime} showDetails={showDetails} onSelectResult={this.handleResultSelection} />
+        });
+
+        const containerStyleDefault: CSSProperties = {
+            width: "100%",
+            background: "white",
+            height: "100%",
+            overflow: "scroll"
+        };
+
+        const containerStyle = this.props.styles === undefined ? containerStyleDefault : Object.assign(containerStyleDefault, this.props.styles);
+
+        const loadingIndicator = <div style={{textAlign: "center", marginTop: 50}}>Results loading</div>;
+
+        return (
+            <div style={containerStyle}>
+                {this.props.isLoading ? loadingIndicator : entries}
+            </div>
+        );
+    }
+
+
 }

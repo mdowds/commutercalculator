@@ -1,12 +1,17 @@
 export interface Station {
-    id: string,
-    name: string,
-    position: Position
+    readonly id: string,
+    readonly name: string,
+    readonly position: Position
 }
 
 export interface JourneyResult {
-    origin: Station,
-    journeyTime: number
+    readonly origin: Station,
+    readonly journeyTime: number,
+    readonly seasonTicket?: SeasonTicket
+}
+
+export interface SeasonTicket {
+    readonly price: number
 }
 
 export interface SelectedFilters {
@@ -15,6 +20,6 @@ export interface SelectedFilters {
 }
 
 export interface Position {
-    lat: number,
-    lng: number
+    readonly lat: number,
+    readonly lng: number
 }
