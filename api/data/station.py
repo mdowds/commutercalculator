@@ -5,14 +5,14 @@ from .cc_model import CCModel
 
 class Station(CCModel):
     sid = CharField(primary_key=True)
-    name = CharField(null=False)
+    name = CharField()
     lat = DoubleField()
     long = DoubleField()
     postcode = CharField()
-    major_station = BooleanField()
+    major_station = BooleanField(default=False)
     journey_times_updated = DateTimeField()
-    min_zone = IntegerField()
-    max_zone = IntegerField()
+    min_zone = IntegerField(null=True)
+    max_zone = IntegerField(null=True)
 
     def serialize(self) -> Dict[str, Any]:
         return {

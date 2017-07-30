@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from api.data import Station, JourneyTime
+from api.data import Station, JourneyTime, Travelcard
 
 
 def make_datetime(day):
@@ -20,7 +20,8 @@ def create_station_test_data():
     return (
         _station('FOO', 'Foo'),
         _station('BAR', 'Bar', max_zone=2),
-        _station('BAZ', 'Baz', min_zone=2, max_zone=2)
+        _station('BAZ', 'Baz', min_zone=2, max_zone=2),
+        _station('FOZ', 'Foz', min_zone=None, max_zone=None)
     )
 
 
@@ -33,4 +34,12 @@ def create_journey_test_data():
         _journey('BAZ', 'FOO', 20),
         _journey('BAR', 'FOO', 10),
         _journey('BAR', 'FOO', 12)
+    )
+
+
+def create_travelcard_test_data():
+    return (
+        Travelcard(min_zone=1, max_zone=1, annual_price=1000),
+        Travelcard(min_zone=1, max_zone=2, annual_price=1500),
+        Travelcard(min_zone=2, max_zone=2, annual_price=750)
     )

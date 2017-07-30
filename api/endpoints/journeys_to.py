@@ -6,19 +6,21 @@ from flask import jsonify
 from flask_restful import Resource, reqparse
 from flask_restful.utils import cors
 from fn import F
-from fnplus import curried, tmap, Either
+from fnplus import curried, tmap, Either, tfilter
 from peewee import fn, SQL
 
-from api.data import Station, JourneyTime
+from api.data import Station, JourneyTime, Travelcard
 
 # Type defs
-Result = Dict[str, Any]
-JourneyTimeResult = NamedTuple('JourneyTimeResult', (('origin', Station), ('time', int)))
+Output = Dict[str, Any]
+JourneyResult = NamedTuple('JourneyResult', (('origin', Station), ('time', int), ('price', int)))
+JourneyResults = NamedTuple('JourneyResults', (('destination', Station), ('results', Tuple[JourneyResult, ...])))
 JourneysToArgs = NamedTuple('JourneysToArgs', (('min_time', int), ('max_time', int)))
 
 # Constants
 DEFAULT_MIN_TIME = 0
 DEFAULT_MAX_TIME = 999
+NO_PRICE_FOUND = -1
 
 # Argument parser setup
 parser = reqparse.RequestParser()
@@ -36,8 +38,8 @@ class JourneysTo(Resource):
         get_output = (
             F() >>
             Either.try_bind(_get_journey_times(args.min_time, args.max_time)) >>
-            Either.bind(tmap(_build_result)) >>
-            _build_output(destination) >>
+            Either.try_bind(_get_journey_prices) >>
+            _build_output >>
             jsonify
         )
 
@@ -60,27 +62,30 @@ def _get_destination(sid: str) -> Station:
         raise e
 
 
-def _build_result(result: JourneyTimeResult) -> Result:
-    return {
-        "origin": result.origin.serialize(),
-        "journeyTime": result.time
-    }
-
-
 def _sanitise_input(input: str) -> str:
     strip_non_alpha = partial(re.sub,'[^a-zA-Z]','')
     sanitise = F() >> strip_non_alpha >> str.upper
     return sanitise(input)
 
 
-@curried
-def _build_output(destination: Either[Station], results: Either[Tuple[Result, ...]]) -> Result:
-    if(results.get_error()):
+def _build_output(results: Either[JourneyResults]) -> Output:
+    if results.get_error():
+        print(results.get_error())
         return _create_error("No station found") if type(results.get_error()) == Station.DoesNotExist else _create_error("Unknown error")
 
     return {
-        "destination": destination.get_value().serialize(),
-        "results": results.get_value()
+        "destination": results.get_value().destination.serialize(),
+        "results": tmap(_build_result, results.get_value().results)
+    }
+
+
+def _build_result(result: JourneyResult) -> Output:
+    price = result.price if result.price != NO_PRICE_FOUND else None
+
+    return {
+        "origin": result.origin.serialize(),
+        "journeyTime": result.time,
+        "seasonTicket": {"price": price}
     }
 
 
@@ -89,7 +94,7 @@ def _create_error(message: str) -> Dict[str, str]:
 
 
 @curried
-def _get_journey_times(min_time: int, max_time: int, destination: Station) -> Tuple[JourneyTimeResult, ...]:
+def _get_journey_times(min_time: int, max_time: int, destination: Station) -> JourneyResults:
     times = JourneyTime\
         .select(JourneyTime.origin, fn.Avg(JourneyTime.time).alias('time'))\
         .join(Station)\
@@ -97,4 +102,28 @@ def _get_journey_times(min_time: int, max_time: int, destination: Station) -> Tu
         .group_by(JourneyTime.origin)\
         .order_by(SQL('time'))
 
-    return tmap(lambda t: JourneyTimeResult(t.origin, t.time), times)
+    results = tmap(lambda t: JourneyResult(t.origin, t.time, NO_PRICE_FOUND), times)
+
+    return JourneyResults(destination, results)
+
+
+@curried
+def _get_journey_prices(existing_results: JourneyResults) -> JourneyResults:
+    travelcards = Travelcard.select()
+
+    def _price_for_journey(origin: Station, destination: Station) -> int:
+        if origin.min_zone is None: return NO_PRICE_FOUND
+
+        possible_prices = tfilter(lambda t: (
+            (t.min_zone==destination.max_zone and t.max_zone==origin.min_zone) or
+            (t.min_zone==destination.min_zone and t.max_zone==origin.max_zone)
+        ), travelcards)
+
+        sorted_prices = sorted(possible_prices, key=lambda t: t.annual_price)
+        if len(sorted_prices) == 0: print(origin.name)
+
+        return sorted_prices[0].annual_price
+
+    new_results = tmap(lambda r: JourneyResult(r.origin, r.time, _price_for_journey(r.origin, existing_results.destination)), existing_results.results)
+
+    return JourneyResults(existing_results.destination, new_results)
