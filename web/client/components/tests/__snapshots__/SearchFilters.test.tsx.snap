@@ -4,8 +4,11 @@ exports[`SearchFilters renders the filter form 1`] = `
 <div
   style={
     Object {
+      "backgroundColor": "white",
       "fontSize": "90%",
       "padding": 5,
+      "position": "fixed",
+      "zIndex": 5,
     }
   }
 >

@@ -20,7 +20,10 @@ export default class SearchFilters extends React.Component<SearchFiltersProps, {
     render() {
         const divStyle: CSSProperties = {
             fontSize: '90%',
-            padding: 5
+            padding: 5,
+            position: 'fixed',
+            zIndex: 5,
+            backgroundColor: 'white'
         };
 
         const inputStyle: CSSProperties = {

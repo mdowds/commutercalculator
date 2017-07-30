@@ -58,6 +58,7 @@ export default class SearchForm extends React.Component<SearchFormProps, SearchF
                     menuStyle={styles.acMenu}
                     onChange={(event, value) => this.setState({inputText: value})}
                     onSelect={(value, station) => this.setState({inputText: station.name, selectedStation: station})}
+                    onMenuVisibilityChange={(isOpen) => this.setState({showFilters: isOpen ? false : this.state.showFilters})}
                     shouldItemRender={SearchForm.suggestStationName}
                     wrapperStyle={styles.acWrapper}
                 />
