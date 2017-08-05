@@ -8,12 +8,10 @@ export default {
     //         lng: function() { return this.longitude; }
     //     };
     // },
-    // LatLngBounds: function(ne, sw) {
-    //     return {
-    //         getSouthWest: function() { return sw; },
-    //         getNorthEast: function() { return ne; }
-    //     };
-    // },
+    LatLngBounds: class {
+        points: Array<any> = [];
+        extend(point) { this.points.push(point); }
+    },
     // OverlayView: function() {
     //     return {};
     // },
@@ -21,25 +19,31 @@ export default {
         input.infoWindowRendered = true;
         return input;
     },
-    Marker: function(input) {
-        // input.addListener = function () {
-        //     return {};
-        // };
+    Marker: class {
+        map;
+        position;
+        icon;
+        markerRendered = false;
 
-        // input.markerRendered = true;
-        return {
-            map: input.map,
-            position: input.position,
-            icon: input.icon,
-            markerRendered: true,
-            setMap: function(map) { this.map = map; }
-        };
+        constructor(input) {
+            this.map = input.map;
+            this.position = input.position;
+            this.icon = input.icon;
+            this.markerRendered = true;
+        }
+
+        setMap(map){ this.map = map; }
+        getPosition() { return this.position; }
     },
     // MarkerImage: function() {
     //     return {};
     // },
     Map: function(container, input) {
-        return Object.assign({container: container}, input);
+        return Object.assign({
+            container: container,
+            fitBounds: function (bounds) { this.bounds = bounds },
+            getBounds: function () { return this.bounds }
+        }, input);
     },
     // Point: function() {
     //     return {};

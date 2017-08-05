@@ -1,10 +1,13 @@
-import Map from '../googlemap'
-import MockGmaps from './MockGmaps';
+import {} from 'jest';
+import GoogleMap from '../googlemap'
+import MockGmaps from './MockGmapsApi';
+import {Position} from '../types';
+import arrayContaining = jasmine.arrayContaining;
 
 let map;
 
 beforeEach(() => {
-    map = new Map(MockGmaps);
+    map = new GoogleMap(MockGmaps);
 });
 
 test("initMap() returns a Google Map with correct container", () => {
@@ -68,4 +71,14 @@ test("removeMarkers() removes all markers", () => {
     expect(map.markers.length).toEqual(0);
     expect(marker.map).toBeNull();
     expect(marker.map).not.toBe(gmap);
+});
+
+test("resizeToFitMarkers calls fitBounds with correct bounds", () => {
+    const points = [{lat: 1.0, lng: 1.0}, {lat: -1.0, lng: -1.0}];
+    map.initMap();
+    map.addMarker(points[0], "");
+    map.addMarker(points[1], "");
+
+    map.resizeToFitMarkers();
+    expect(map.renderedMap.getBounds().points).toEqual(arrayContaining(points));
 });

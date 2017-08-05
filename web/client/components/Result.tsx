@@ -5,7 +5,7 @@ import {CSSProperties} from "react";
 interface ResultProps {
     readonly result: JourneyResult,
     readonly isSelected: boolean,
-    onSelectResult(selectedResult: string): void
+    onSelectResult(selectedResult: JourneyResult): void
 }
 
 function makeDetails(result: JourneyResult) {
@@ -15,7 +15,6 @@ function makeDetails(result: JourneyResult) {
 }
 
 export default function Result(props: ResultProps) {
-
     const bgColour = props.isSelected ? '#ddd' : 'white';
 
     const divStyle: CSSProperties = {
@@ -29,7 +28,7 @@ export default function Result(props: ResultProps) {
     const icon = props.isSelected ? "img/chevron-up.svg" : "img/chevron-down.svg";
 
     return (
-        <div style={divStyle} onClick={() => {props.onSelectResult(props.result.origin.id)}}>
+        <div style={divStyle} onClick={() => {props.onSelectResult(props.result)}}>
             <div>
                 <div style={{float: "left", marginRight: 10}}><img src={icon} style={{width: 20, height: 20}}/></div>
                 <div style={{display: "inline-block", width: "65%"}}>{props.result.origin.name}</div>

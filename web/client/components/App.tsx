@@ -11,11 +11,13 @@ import {Station, JourneyResult, SelectedFilters} from "../types";
 import * as CCAPI from "../ccapi";
 
 interface AppState {
-    destination?: Station;
     results: Array<JourneyResult>;
     resultsLoading: boolean;
     possibleDestinations: Array<Station>;
     gmapsLoaded: boolean;
+
+    destination?: Station;
+    selectedResult?: JourneyResult;
 }
 
 export default class App extends React.Component<{}, AppState> {
@@ -27,12 +29,14 @@ export default class App extends React.Component<{}, AppState> {
         super();
         this.state = {
             destination: undefined,
+            selectedResult: undefined,
             results: [],
             resultsLoading: false,
             possibleDestinations: [],
             gmapsLoaded: false
         };
         this.getJourneys = this.getJourneys.bind(this);
+        this.handleResultSelection = this.handleResultSelection.bind(this);
         this.apiUrl = Config.apiUrl;
     }
 
@@ -48,7 +52,7 @@ export default class App extends React.Component<{}, AppState> {
         });
     }
 
-    getJourneys(origin: Station, selectedFilters: SelectedFilters) {
+    private getJourneys(origin: Station, selectedFilters: SelectedFilters) {
         this.setState({resultsLoading: true});
 
         CCAPI.getJourneys(origin.id, selectedFilters, (destination, journeys) => {
@@ -56,8 +60,13 @@ export default class App extends React.Component<{}, AppState> {
         });
     }
 
-    shouldDisplayResultList() {
+    private shouldDisplayResultList() {
         return this.state.results.length > 0 || this.state.resultsLoading;
+    }
+
+    private handleResultSelection(selectedResult: JourneyResult) {
+        const newResult = this.state.selectedResult != selectedResult ? selectedResult : undefined;
+        this.setState({selectedResult: newResult});
     }
 
     render() {
@@ -77,11 +86,14 @@ export default class App extends React.Component<{}, AppState> {
                     mapObj={this.state.gmapsLoaded ? this.map : undefined}
                     destination={this.state.destination}
                     height={this.shouldDisplayResultList() ? '40%': undefined}
+                    origin={this.state.selectedResult ? this.state.selectedResult.origin : undefined}
                 />
                 <ResultList
                     results={this.state.results}
                     isLoading={this.state.resultsLoading}
                     styles={{height: this.shouldDisplayResultList() ? '60%': 0}}
+                    onSelectResult={this.handleResultSelection}
+                    selectedResult={this.state.selectedResult}
                 />
             </div>
         );

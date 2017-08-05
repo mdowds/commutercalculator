@@ -1,11 +1,12 @@
-import {Position} from "./types"
+import {Position} from "./types";
 
 export interface IGoogleMap {
-    initMap(container, customOptions): IGoogleMap;
-    addMarker;
-    removeMarkers;
-    panTo;
-    resize;
+    initMap(container: Element|null, customOptions: google.maps.MapOptions): IGoogleMap;
+    addMarker(position: Position, icon: string): google.maps.Marker;
+    removeMarkers(): void;
+    panTo(position: Position);
+    resize(): void;
+    resizeToFitMarkers(): void;
 }
 
 export default class GoogleMap implements IGoogleMap {
@@ -47,11 +48,17 @@ export default class GoogleMap implements IGoogleMap {
 
     removeMarkers() {
         this.markers.map((marker) => {marker.setMap(null)});
-        return this.markers = [];
+        this.markers = [];
     }
 
     panTo(position: Position) {
         if(this.renderedMap) this.renderedMap.panTo(position);
+    }
+
+    resizeToFitMarkers() {
+        let bounds = new this.gmaps.LatLngBounds();
+        this.markers.map((marker) => { bounds.extend(marker.getPosition()) });
+        this.renderedMap.fitBounds(bounds);
     }
 
     resize() {

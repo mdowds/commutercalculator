@@ -5,9 +5,10 @@ export default class MockGoogleMap implements IGoogleMap {
     container: Element|null;
     customOptions;
     panToPosition;
-    markerPosition;
-    resizeCalled: boolean;
-    markerImg: string;
+    markerPositions = [];
+    resizeCalled = false;
+    markerImgs = [];
+    resizeToFitCalled = false;
 
     initMap(container, customOptions) {
         this.container = container;
@@ -17,8 +18,9 @@ export default class MockGoogleMap implements IGoogleMap {
     panTo(position) { this.panToPosition = position; }
     removeMarkers() {}
     addMarker(position, img) {
-        this.markerPosition = position;
-        this.markerImg = img;
+        this.markerPositions.push(position);
+        this.markerImgs.push(img);
     }
     resize() { this.resizeCalled = true; }
+    resizeToFitMarkers() { this.resizeToFitCalled = true; }
 }
