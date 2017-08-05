@@ -1,5 +1,5 @@
 import re
-from typing import Dict, Any, NamedTuple, Tuple, Union
+from typing import Dict, Optional
 from functools import partial
 
 from flask import jsonify
@@ -10,12 +10,7 @@ from fnplus import curried, tmap, Either, tfilter
 from peewee import fn, SQL
 
 from api.data import Station, JourneyTime, Travelcard
-
-# Type defs
-Output = Dict[str, Any]
-JourneyResult = NamedTuple('JourneyResult', (('origin', Station), ('time', int), ('price', int)))
-JourneyResults = NamedTuple('JourneyResults', (('destination', Station), ('results', Tuple[JourneyResult, ...])))
-JourneysToArgs = NamedTuple('JourneysToArgs', (('min_time', int), ('max_time', int)))
+from api.types import JourneysToArgs, JourneyResults, JourneyResult, OutputDict
 
 # Constants
 DEFAULT_MIN_TIME = 0
@@ -46,8 +41,8 @@ class JourneysTo(Resource):
         return get_output(destination)
 
 
-def _parse_args(args: Dict[str, Union[int, None]]) -> JourneysToArgs:
-    def _is_time_arg_valid(arg: Union[int, None]) -> bool:
+def _parse_args(args: Dict[str, Optional[int]]) -> JourneysToArgs:
+    def _is_time_arg_valid(arg: Optional[int]) -> bool:
         return arg is not None and arg >= 0
 
     min_time = args['min_time'] if _is_time_arg_valid(args['min_time']) else DEFAULT_MIN_TIME
@@ -68,7 +63,7 @@ def _sanitise_input(input: str) -> str:
     return sanitise(input)
 
 
-def _build_output(results: Either[JourneyResults]) -> Output:
+def _build_output(results: Either[JourneyResults]) -> OutputDict:
     if results.get_error():
         print(results.get_error())
         return _create_error("No station found") if type(results.get_error()) == Station.DoesNotExist else _create_error("Unknown error")
@@ -79,7 +74,7 @@ def _build_output(results: Either[JourneyResults]) -> Output:
     }
 
 
-def _build_result(result: JourneyResult) -> Output:
+def _build_result(result: JourneyResult) -> OutputDict:
     price = result.price if result.price != NO_PRICE_FOUND else None
 
     return {
@@ -89,7 +84,7 @@ def _build_result(result: JourneyResult) -> Output:
     }
 
 
-def _create_error(message: str) -> Dict[str, str]:
+def _create_error(message: str) -> OutputDict:
     return {"error": message}
 
 
