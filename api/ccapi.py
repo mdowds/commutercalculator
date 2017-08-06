@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
-from api.endpoints import JourneysTo, Destinations
+from api.endpoints import Destinations
+from api.journeys.to import JourneysTo
 
 app = Flask(__name__)
 ccapi = Api(app)

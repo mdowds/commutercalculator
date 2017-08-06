@@ -1,15 +1,12 @@
-from typing import NamedTuple, Tuple, Dict, Union, Sequence
+from typing import NamedTuple, Dict, Any, Optional
+
+from api.data import Travelcard
 from .data import Station
 
 JourneyResult = NamedTuple('JourneyResult', (
     ('origin', Station),
     ('time', int),
-    ('price', int)
-))
-
-JourneyResults = NamedTuple('JourneyResults', (
-    ('destination', Station),
-    ('results', Tuple[JourneyResult, ...])
+    ('travelcard', Optional[Travelcard]),
 ))
 
 JourneysToArgs = NamedTuple('JourneysToArgs', (
@@ -17,5 +14,10 @@ JourneysToArgs = NamedTuple('JourneysToArgs', (
     ('max_time', int)
 ))
 
-_OutputTypes = Union[str, int, float]
-OutputDict = Dict[str, Union[_OutputTypes, Sequence[_OutputTypes]]]
+JourneyPrice = NamedTuple('JourneyPrice', (
+    ('origin', Station),
+    ('destination', Station),
+    ('travelcard', Optional[Travelcard])
+))
+
+OutputDict = Dict[str, Any]

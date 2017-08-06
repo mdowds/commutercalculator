@@ -4,7 +4,7 @@ click==6.7
 Flask==0.12.2
 Flask-RESTful==0.3.6
 fn.py==0.4.4
-fnplus==0.1
+fnplus==0.3
 itsdangerous==0.24
 Jinja2==2.9.6
 MarkupSafe==1.0
