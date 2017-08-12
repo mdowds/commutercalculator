@@ -1,3 +1,4 @@
+import {} from 'jest';
 import {isEmptyObject} from '../utils';
 
 test("isEmptyObject() returns correct results", () => {

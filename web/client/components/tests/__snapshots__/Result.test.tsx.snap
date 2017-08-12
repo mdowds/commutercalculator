@@ -114,8 +114,7 @@ exports[`Result renders the result with details 1`] = `
     }
   >
     <div>
-      Season ticket price: 
-      £1000
+      Season ticket not found
     </div>
   </div>
 </div>
@@ -181,8 +180,7 @@ exports[`Result renders the result with price not found string 1`] = `
     }
   >
     <div>
-      Season ticket price: 
-      not found
+      Season ticket not found
     </div>
   </div>
 </div>

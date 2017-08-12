@@ -1,17 +1,21 @@
 import * as React from 'react';
-import {JourneyResult, Station} from '../types';
+import {JourneyResult, Station, Travelcard} from '../types';
 import {CSSProperties} from "react";
 
 interface ResultProps {
-    readonly result: JourneyResult,
-    readonly isSelected: boolean,
-    onSelectResult(selectedResult: JourneyResult): void
+    readonly result: JourneyResult;
+    readonly isSelected: boolean;
+    onSelectResult(selectedResult: JourneyResult): void;
+}
+
+function travelcardDescription(travelcard: Travelcard) {
+    return <div>Zone {travelcard.minZone} to {travelcard.maxZone} travelcard: £{travelcard.price}</div>
 }
 
 function makeDetails(result: JourneyResult) {
-    const priceText = result.seasonTicket.price ? "£" + result.seasonTicket.price : "not found";
+    const travelcardText = result.seasonTicket.travelcard ? travelcardDescription(result.seasonTicket.travelcard) : "Season ticket not found";
 
-    return <div>Season ticket price: {priceText}</div>;
+    return <div>{travelcardText}</div>;
 }
 
 export default function Result(props: ResultProps) {

@@ -11,7 +11,7 @@ interface ResultListProps {
     onSelectResult(selectedResult: JourneyResult): void;
 }
 
-export default function(props) {
+export default function(props: ResultListProps) {
     const entries = props.results.map((result) => {
         const showDetails = props.selectedResult == result;
 
