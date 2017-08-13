@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "cross-env NODE_ENV=production webpack -p",
+    "build": "rm -rf build/* && cross-env NODE_ENV=production webpack -p",
     "test": "jest"
   },
   "dependencies": {

@@ -56,7 +56,12 @@ export default class App extends React.Component<{}, AppState> {
         this.setState({resultsLoading: true});
 
         CCAPI.getJourneys(origin.id, selectedFilters, (destination, journeys) => {
-            this.setState({destination: destination, results: journeys, resultsLoading: false});
+            this.setState({
+                destination: destination,
+                selectedResult: undefined,
+                results: journeys,
+                resultsLoading: false
+            });
         });
     }
 
