@@ -4,6 +4,6 @@ from .cc_model import CCModel
 
 
 class SeasonTicket(CCModel):
-    origin = ForeignKeyField(Station)
-    destination = CharField()
+    destination = ForeignKeyField(Station)
+    origin = CharField()
     annual_price = IntegerField()
