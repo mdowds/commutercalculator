@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
-from api.endpoints import Destinations
+from api.destinations import Destinations
 from api.journeys.to import JourneysTo
 
 app = Flask(__name__)

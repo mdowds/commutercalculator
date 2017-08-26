@@ -3,10 +3,9 @@ import unittest
 from peewee import SqliteDatabase
 from playhouse.test_utils import test_database
 
-from api.endpoints.destinations import *
-from api.endpoints.destinations import _get_destinations
 import api.tests.helpers as helpers
-
+from api.destinations.endpoint import *
+from api.destinations.endpoint import _get_destinations
 
 test_db = SqliteDatabase(':memory:')
 

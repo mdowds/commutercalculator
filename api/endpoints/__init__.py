@@ -1,1 +1,0 @@
-from .destinations import Destinations
