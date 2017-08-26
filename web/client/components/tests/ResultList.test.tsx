@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import {} from 'jest';
 import { shallow } from 'enzyme';
+
 import ResultList from '../ResultList';
 import Result from '../Result';
 import {JourneyResult} from "../../types";
@@ -36,6 +37,6 @@ function mockResult(id, time): JourneyResult {
     return {
         origin: {id: id, name: id, position: {lat: 0, lng: 0}},
         journeyTime: time,
-        seasonTicket: {}
+        seasonTickets: {}
     }
 }

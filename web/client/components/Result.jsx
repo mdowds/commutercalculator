@@ -5,8 +5,18 @@ function travelcardDescription(travelcard) {
     return <div>Zone {travelcard.minZone} to {travelcard.maxZone} travelcard: £{travelcard.price}</div>;
 }
 function makeDetails(result) {
-    var travelcardText = result.seasonTicket.travelcard ? travelcardDescription(result.seasonTicket.travelcard) : "Season ticket not found";
-    return <div>{travelcardText}</div>;
+    var travelcardDiv = result.seasonTickets.travelcard ? travelcardDescription(result.seasonTickets.travelcard) : null;
+    var seasonTicketDiv = result.seasonTickets.seasonTicket ? <div>Direct season ticket: £{result.seasonTickets.seasonTicket.price}</div> : null;
+    var seasonTicketsDescription = <div>
+        {travelcardDiv}
+        {seasonTicketDiv}
+    </div>;
+    return seasonTicketsHasValues(result.seasonTickets) ?
+        seasonTicketsDescription :
+        <div>Season ticket not found</div>;
+}
+function seasonTicketsHasValues(seasonTickets) {
+    return seasonTickets.travelcard || seasonTickets.seasonTicket;
 }
 function Result(props) {
     var bgColour = props.isSelected ? '#ddd' : 'white';

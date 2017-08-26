@@ -30,6 +30,6 @@ function mockResult(id, time) {
     return {
         origin: { id: id, name: id, position: { lat: 0, lng: 0 } },
         journeyTime: time,
-        seasonTicket: {}
+        seasonTickets: {}
     };
 }

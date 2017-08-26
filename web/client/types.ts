@@ -7,16 +7,21 @@ export interface Station {
 export interface JourneyResult {
     readonly origin: Station;
     readonly journeyTime: number;
-    readonly seasonTicket: SeasonTicket;
+    readonly seasonTickets: SeasonTickets;
 }
 
-export interface SeasonTicket {
+export interface SeasonTickets {
     readonly travelcard?: Travelcard;
+    readonly seasonTicket?: SeasonTicket
 }
 
 export interface Travelcard {
     readonly minZone: number;
     readonly maxZone: number;
+    readonly price: number;
+}
+
+export interface SeasonTicket {
     readonly price: number;
 }
 

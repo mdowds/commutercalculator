@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {JourneyResult, Station, Travelcard} from '../types';
+import {JourneyResult, SeasonTicket, SeasonTickets, Station, Travelcard} from '../types';
 import {CSSProperties} from "react";
 
 interface ResultProps {
@@ -13,9 +13,21 @@ function travelcardDescription(travelcard: Travelcard) {
 }
 
 function makeDetails(result: JourneyResult) {
-    const travelcardText = result.seasonTicket.travelcard ? travelcardDescription(result.seasonTicket.travelcard) : "Season ticket not found";
+    const travelcardDiv = result.seasonTickets.travelcard ? travelcardDescription(result.seasonTickets.travelcard) : null;
+    const seasonTicketDiv = result.seasonTickets.seasonTicket ? <div>Direct season ticket: £{result.seasonTickets.seasonTicket.price}</div> : null;
 
-    return <div>{travelcardText}</div>;
+    const seasonTicketsDescription = <div>
+        {travelcardDiv}
+        {seasonTicketDiv}
+    </div>;
+
+    return seasonTicketsHasValues(result.seasonTickets) ?
+        seasonTicketsDescription :
+        <div>Season ticket not found</div>;
+}
+
+function seasonTicketsHasValues(seasonTickets: SeasonTickets) {
+    return seasonTickets.travelcard || seasonTickets.seasonTicket;
 }
 
 export default function Result(props: ResultProps) {
