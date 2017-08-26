@@ -1,12 +1,13 @@
 from typing import NamedTuple, Dict, Any, Optional
 
-from api.data import Travelcard
+from api.data import Travelcard, SeasonTicket
 from .data import Station
 
 JourneyResult = NamedTuple('JourneyResult', (
     ('origin', Station),
     ('time', int),
     ('travelcard', Optional[Travelcard]),
+    ('season_ticket', Optional[SeasonTicket])
 ))
 
 JourneysToArgs = NamedTuple('JourneysToArgs', (
@@ -14,7 +15,7 @@ JourneysToArgs = NamedTuple('JourneysToArgs', (
     ('max_time', int)
 ))
 
-JourneyPrice = NamedTuple('JourneyPrice', (
+TravelcardForJourney = NamedTuple('TravelcardForJourney', (
     ('origin', Station),
     ('destination', Station),
     ('travelcard', Optional[Travelcard])

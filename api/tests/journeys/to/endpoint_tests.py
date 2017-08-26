@@ -1,3 +1,5 @@
+from fnplus import tfilter
+
 from api.journeys.to.endpoint import *
 from api.journeys.to.endpoint import _sanitise_input, _build_output, _parse_args
 from api.tests.dbtestcase import DBTestCase
@@ -14,6 +16,7 @@ class EndpointTests(DBTestCase):
         self._all_journeys = self.setUp_journey_time_data()
 
         self._travelcards = self.setUp_travelcard_data()
+        self._season_tickets = self.setUp_season_ticket_data()
 
     def test_sanitise_input(self):
         self.assertEqual("FOO", _sanitise_input("FOO"))
@@ -23,28 +26,29 @@ class EndpointTests(DBTestCase):
         self.assertEqual("FOO", _sanitise_input("FOO;"))
 
     def test_build_output(self):
-        journey_times = (self._all_journeys[0], self._all_journeys[1])
+        journey_times = tfilter(lambda jt: jt.destination == 'BAR', self._all_journeys)
         journey_prices = (
-            JourneyPrice(self._fooStation, self._barStation, self._travelcards[0]),
-            JourneyPrice(self._bazStation, self._barStation, self._travelcards[1])
+            TravelcardForJourney(self._fooStation, self._barStation, self._travelcards[0]),
+            TravelcardForJourney(self._bazStation, self._barStation, self._travelcards[1])
         )
-        output = _build_output(Either(self._barStation), Either(journey_times), Either(journey_prices))
+        output = _build_output(Either(self._barStation), Either(journey_times), Either(journey_prices), Either(self._season_tickets))
 
         self.assertEqual("BAR", output["destination"]["id"])
         self.assertEqual("Bar", output["destination"]["name"])
         self.assertEqual("FOO", output["results"][0]["origin"]["id"])
         self.assertEqual(12, output["results"][0]["journeyTime"])
-        self.assertEqual(1, output["results"][0]["seasonTicket"]["travelcard"]["minZone"])
-        self.assertEqual(1, output["results"][0]["seasonTicket"]["travelcard"]["maxZone"])
-        self.assertEqual(1000, output["results"][0]["seasonTicket"]["travelcard"]["price"])
+        self.assertEqual(1, output["results"][0]["seasonTickets"]["travelcard"]["minZone"])
+        self.assertEqual(1, output["results"][0]["seasonTickets"]["travelcard"]["maxZone"])
+        self.assertEqual(1000, output["results"][0]["seasonTickets"]["travelcard"]["price"])
+        self.assertEqual(1100, output["results"][1]["seasonTickets"]["seasonTicket"]["price"])
 
     def test_build_output_with_error(self):
         no_station_error = Either(None, Station.DoesNotExist())
-        output = _build_output(no_station_error, no_station_error, no_station_error)
+        output = _build_output(no_station_error, no_station_error, no_station_error, no_station_error)
         self.assertEqual("No station found", output["error"])
 
         generic_error = Either(None, Exception())
-        output = _build_output(generic_error, generic_error, generic_error)
+        output = _build_output(generic_error, generic_error, generic_error, generic_error)
         self.assertEqual("Unknown error", output["error"])
 
     def test_parse_args_with_no_args(self):

@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Tuple
 
-from api.data import Station, JourneyTime, Travelcard
+from api.data import Station, JourneyTime, Travelcard, SeasonTicket
 
 
 def make_datetime(day):
@@ -34,7 +34,8 @@ def create_journey_test_data() -> Tuple[JourneyTime, ...]:
         _journey('FOO', 'BAR', 12),
         _journey('BAZ', 'FOO', 20),
         _journey('BAR', 'FOO', 10),
-        _journey('BAR', 'FOO', 12)
+        _journey('BAR', 'FOO', 12),
+        _journey('FOZ', 'BAR', 30)
     )
 
 
@@ -44,3 +45,7 @@ def create_travelcard_test_data() -> Tuple[Travelcard, ...]:
         Travelcard(min_zone=1, max_zone=2, annual_price=1500),
         Travelcard(min_zone=2, max_zone=2, annual_price=750)
     )
+
+
+def create_season_ticket_test_data() -> Tuple[SeasonTicket, ...]:
+    return tuple([SeasonTicket(origin='FOZ', destination='BAR', annual_price=1100)])

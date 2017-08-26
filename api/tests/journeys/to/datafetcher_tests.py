@@ -13,6 +13,7 @@ class DataFetcherTests(DBTestCase):
         self._all_journeys = self.setUp_journey_time_data()
 
         self._travelcards = self.setUp_travelcard_data()
+        self._season_tickets = self.setUp_season_ticket_data()
 
     def test_get_destination(self):
         self.assertEqual(self._fooStation, get_destination("FOO"))
@@ -37,12 +38,16 @@ class DataFetcherTests(DBTestCase):
         self.assertEqual(1000, prices[0].travelcard.annual_price)
         self.assertEqual(1500, prices[1].travelcard.annual_price)
 
-    def test_get_journey_prices_with_border_station(self):
+    def test_get_travelcard_prices_with_border_station(self):
         prices = get_travelcard_prices((self._fooStation, self._bazStation), self._barStation)
         self.assertEqual(1000, prices[0].travelcard.annual_price)
         self.assertEqual(750, prices[1].travelcard.annual_price)
 
-    def test_get_journey_prices_with_zoneless_origin(self):
+    def test_get_travelcard_prices_with_zoneless_origin(self):
         prices = get_travelcard_prices((self._all_stations[3], self._bazStation), self._fooStation)
         self.assertIsNone(prices[0].travelcard)
         self.assertEqual(1500, prices[1].travelcard.annual_price)
+
+    def test_get_season_ticket_prices(self):
+        tickets = get_season_ticket_prices([self._all_stations[3]], self._barStation)
+        self.assertEqual(1100, tickets[0].annual_price)
