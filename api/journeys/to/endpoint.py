@@ -30,7 +30,7 @@ class JourneysTo(Resource):
         destination = Either.fromfunction(get_destination, _sanitise_input(dest))
 
         journey_times = destination.call(get_journey_times(args.min_time, args.max_time))
-        origins = (journey.origin for journey in journey_times.value()) if journey_times.value() else None
+        origins = (journey.origin for journey in journey_times.value) if journey_times.value else None
         journey_prices = destination.call(get_travelcard_prices(origins)) if origins else None
         output = _build_output(destination, journey_times, journey_prices)
 
@@ -53,14 +53,14 @@ def _sanitise_input(input: str) -> str:
 
 
 def _build_output(destination: Either[Station], journey_times: Either[Tuple[JourneyTime, ...]], travelcards: Either[Tuple[JourneyPrice, ...]]) -> OutputDict:
-    if journey_times.error():
-        # print(journey_times.error())
-        return _create_error("No station found") if type(journey_times.error()) == Station.DoesNotExist else _create_error("Unknown error")
+    if journey_times.error:
+        # print(journey_times.error)
+        return _create_error("No station found") if type(journey_times.error) == Station.DoesNotExist else _create_error("Unknown error")
 
-    results = tmap(_join_data(travelcards.value()), journey_times.value())
+    results = tmap(_join_data(travelcards.value), journey_times.value)
 
     return {
-        "destination": destination.value().serialize(),
+        "destination": destination.value.serialize(),
         "results": tmap(_build_result, results)
     }
 
