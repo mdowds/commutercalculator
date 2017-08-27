@@ -28,7 +28,8 @@ test("ResultList renders details for one result when selectedResult is set", fun
 });
 function mockResult(id, time) {
     return {
-        origin: { id: id, name: id, position: { lat: 0, lng: 0 } },
+        origin: { id: id, name: id, position: { lat: 0, lng: 0 }, postcode: "E1 1A" },
+        directionsUrl: "",
         journeyTime: time,
         seasonTickets: {}
     };

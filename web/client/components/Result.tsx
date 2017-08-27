@@ -5,17 +5,20 @@ import {CSSProperties} from "react";
 interface ResultProps {
     readonly result: JourneyResult;
     readonly isSelected: boolean;
+    readonly averageHousePrice?: number;
     onSelectResult(selectedResult: JourneyResult): void;
 }
 
-interface ResultState {
-
-}
-
-export default class Result extends React.Component<ResultProps, ResultState> {
+export default class Result extends React.Component<ResultProps, {}> {
 
     travelcardDescription(travelcard: Travelcard) {
         return <div>Zone {travelcard.minZone} to {travelcard.maxZone} travelcard: £{travelcard.price}</div>
+    }
+
+    housePriceDescription() {
+        const outcode = this.props.result.origin.postcode.split(" ")[0];
+        const price = this.props.averageHousePrice ? "£" + this.props.averageHousePrice.toLocaleString('en-GB') : "Loading";
+        return <div>Average house price for {outcode}: {price}</div>;
     }
 
     makeDetails(result: JourneyResult) {
@@ -28,7 +31,11 @@ export default class Result extends React.Component<ResultProps, ResultState> {
 
         const directionsLink = <span><a href={result.directionsUrl}>View directions on Google Maps</a> (May show a different journey time)</span>;
 
-        return <div>{seasonTicketsDescription}{directionsLink}</div>;
+        return <div>
+            {seasonTicketsDescription}
+            {this.housePriceDescription()}
+            {directionsLink}
+        </div>;
     }
 
     seasonTicketsHasValues(seasonTickets: SeasonTickets) {

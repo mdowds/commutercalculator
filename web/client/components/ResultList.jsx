@@ -5,7 +5,7 @@ var Result_1 = require("./Result");
 function default_1(props) {
     var entries = props.results.map(function (result) {
         var showDetails = props.selectedResult == result;
-        return <Result_1.default key={result.origin.id} result={result} isSelected={showDetails} onSelectResult={props.onSelectResult}/>;
+        return <Result_1.default key={result.origin.id} result={result} isSelected={showDetails} onSelectResult={props.onSelectResult} averageHousePrice={showDetails ? props.selectedResultHousePrice : undefined}/>;
     });
     var containerStyleDefault = {
         width: "100%",

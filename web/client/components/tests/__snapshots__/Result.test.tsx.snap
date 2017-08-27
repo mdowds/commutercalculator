@@ -120,6 +120,12 @@ exports[`Result renders the result with details for season ticket but no travelc
           900
         </div>
       </div>
+      <div>
+        Average house price for 
+        E1
+        : 
+        Loading
+      </div>
       <span>
         <a
           href="https://google.maps"
@@ -207,6 +213,12 @@ exports[`Result renders the result with details for travelcard and season ticket
           900
         </div>
       </div>
+      <div>
+        Average house price for 
+        E1
+        : 
+        Loading
+      </div>
       <span>
         <a
           href="https://google.maps"
@@ -290,6 +302,12 @@ exports[`Result renders the result with details for travelcard but no season tic
           1000
         </div>
       </div>
+      <div>
+        Average house price for 
+        E1
+        : 
+        Loading
+      </div>
       <span>
         <a
           href="https://google.maps"
@@ -365,6 +383,12 @@ exports[`Result renders the result with price not found string 1`] = `
     <div>
       <div>
         Season ticket not found
+      </div>
+      <div>
+        Average house price for 
+        E1
+        : 
+        Loading
       </div>
       <span>
         <a

@@ -28,7 +28,7 @@ function mockResult(includeSeasonTicket, includeTravelcard) {
     var seasonTicket = includeSeasonTicket ? { price: 900 } : null;
     return {
         origin: {
-            id: "FOO", name: "Foo", position: { lat: 0, lng: 0 }
+            id: "FOO", name: "Foo", position: { lat: 0, lng: 0 }, postcode: "E1 1A"
         },
         journeyTime: 10,
         directionsUrl: "https://google.maps",

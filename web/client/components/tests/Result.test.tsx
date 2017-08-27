@@ -37,7 +37,7 @@ function mockResult(includeSeasonTicket: boolean, includeTravelcard: boolean): J
 
     return {
         origin: {
-            id: "FOO", name: "Foo", position:{lat: 0, lng: 0}
+            id: "FOO", name: "Foo", position:{lat: 0, lng: 0}, postcode: "E1 1A"
         },
         journeyTime: 10,
         directionsUrl: "https://google.maps",

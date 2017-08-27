@@ -9,6 +9,7 @@ import * as GoogleMapsLoader from 'google-maps';
 import {CSSProperties} from "react";
 import {Station, JourneyResult, SelectedFilters} from "../types";
 import * as CCAPI from "../ccapi";
+import * as NHPAPI from "../nhpapi";
 
 interface AppState {
     results: Array<JourneyResult>;
@@ -18,6 +19,7 @@ interface AppState {
 
     destination?: Station;
     selectedResult?: JourneyResult;
+    selectedResultHousePrice?: number;
 }
 
 export default class App extends React.Component<{}, AppState> {
@@ -30,6 +32,7 @@ export default class App extends React.Component<{}, AppState> {
         this.state = {
             destination: undefined,
             selectedResult: undefined,
+            selectedResultHousePrice: undefined,
             results: [],
             resultsLoading: false,
             possibleDestinations: [],
@@ -72,6 +75,13 @@ export default class App extends React.Component<{}, AppState> {
     private handleResultSelection(selectedResult: JourneyResult) {
         const newResult = this.state.selectedResult != selectedResult ? selectedResult : undefined;
         this.setState({selectedResult: newResult});
+
+        if(newResult){
+            const postcode_components = newResult.origin.postcode.split(" ");
+            NHPAPI.getPrices(postcode_components[0], (averagePrice => {
+                this.setState({selectedResultHousePrice: averagePrice});
+            }));
+        }
     }
 
     render() {
@@ -99,6 +109,7 @@ export default class App extends React.Component<{}, AppState> {
                     styles={{height: this.shouldDisplayResultList() ? '60%': 0}}
                     onSelectResult={this.handleResultSelection}
                     selectedResult={this.state.selectedResult}
+                    selectedResultHousePrice={this.state.selectedResultHousePrice}
                 />
             </div>
         );

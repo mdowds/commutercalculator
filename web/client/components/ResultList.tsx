@@ -6,6 +6,7 @@ import {CSSProperties} from "react";
 interface ResultListProps {
     readonly results: Array<JourneyResult>,
     selectedResult?: JourneyResult,
+    selectedResultHousePrice?: number,
     readonly styles?: CSSProperties,
     readonly isLoading: boolean,
     onSelectResult(selectedResult: JourneyResult): void;
@@ -15,7 +16,13 @@ export default function(props: ResultListProps) {
     const entries = props.results.map((result) => {
         const showDetails = props.selectedResult == result;
 
-        return <Result key={result.origin.id} result={result} isSelected={showDetails} onSelectResult={props.onSelectResult} />
+        return <Result
+            key={result.origin.id}
+            result={result}
+            isSelected={showDetails}
+            onSelectResult={props.onSelectResult}
+            averageHousePrice={showDetails ? props.selectedResultHousePrice : undefined }
+        />
     });
 
     const containerStyleDefault: CSSProperties = {

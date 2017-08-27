@@ -18,6 +18,7 @@ class Station(CCModel):
         return {
             "id": self.sid,
             "name": self.name,
+            "postcode": self.postcode,
             "position": {
                 "lat": self.lat,
                 "lng": self.long
