@@ -4,6 +4,7 @@ import Header from './Header';
 import SearchForm from './SearchForm';
 import ResultList from './ResultList';
 import GoogleMap from '../googlemap';
+import Footer from './Footer';
 import Config from '../config';
 import * as GoogleMapsLoader from 'google-maps';
 import {CSSProperties} from "react";
@@ -111,6 +112,7 @@ export default class App extends React.Component<{}, AppState> {
                     selectedResult={this.state.selectedResult}
                     selectedResultHousePrice={this.state.selectedResultHousePrice}
                 />
+                <Footer/>
             </div>
         );
     }
