@@ -115,9 +115,19 @@ exports[`Result renders the result with details for season ticket but no travelc
   >
     <div>
       <div>
-        Direct season ticket: £
-        900
+        <div>
+          Direct season ticket: £
+          900
+        </div>
       </div>
+      <span>
+        <a
+          href="https://google.maps"
+        >
+          View directions on Google Maps
+        </a>
+         (May show a different journey time)
+      </span>
     </div>
   </div>
 </div>
@@ -184,17 +194,27 @@ exports[`Result renders the result with details for travelcard and season ticket
   >
     <div>
       <div>
-        Zone 
-        1
-         to 
-        2
-         travelcard: £
-        1000
+        <div>
+          Zone 
+          1
+           to 
+          2
+           travelcard: £
+          1000
+        </div>
+        <div>
+          Direct season ticket: £
+          900
+        </div>
       </div>
-      <div>
-        Direct season ticket: £
-        900
-      </div>
+      <span>
+        <a
+          href="https://google.maps"
+        >
+          View directions on Google Maps
+        </a>
+         (May show a different journey time)
+      </span>
     </div>
   </div>
 </div>
@@ -261,13 +281,23 @@ exports[`Result renders the result with details for travelcard but no season tic
   >
     <div>
       <div>
-        Zone 
-        1
-         to 
-        2
-         travelcard: £
-        1000
+        <div>
+          Zone 
+          1
+           to 
+          2
+           travelcard: £
+          1000
+        </div>
       </div>
+      <span>
+        <a
+          href="https://google.maps"
+        >
+          View directions on Google Maps
+        </a>
+         (May show a different journey time)
+      </span>
     </div>
   </div>
 </div>
@@ -333,7 +363,17 @@ exports[`Result renders the result with price not found string 1`] = `
     }
   >
     <div>
-      Season ticket not found
+      <div>
+        Season ticket not found
+      </div>
+      <span>
+        <a
+          href="https://google.maps"
+        >
+          View directions on Google Maps
+        </a>
+         (May show a different journey time)
+      </span>
     </div>
   </div>
 </div>

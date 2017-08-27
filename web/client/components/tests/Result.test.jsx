@@ -31,6 +31,7 @@ function mockResult(includeSeasonTicket, includeTravelcard) {
             id: "FOO", name: "Foo", position: { lat: 0, lng: 0 }
         },
         journeyTime: 10,
+        directionsUrl: "https://google.maps",
         seasonTickets: {
             travelcard: travelcard,
             seasonTicket: seasonTicket

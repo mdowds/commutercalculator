@@ -3,6 +3,7 @@ import * as renderer from 'react-test-renderer';
 import {} from 'jest';
 
 import Result from '../Result';
+import {JourneyResult} from "../../types";
 
 test("Result renders the result", () => {
     const result = renderer.create(<Result result={mockResult(true, true)} isSelected={false} onSelectResult={() => {}} />);
@@ -29,7 +30,7 @@ test("Result renders the result with price not found string", () => {
     expect(result.toJSON()).toMatchSnapshot();
 });
 
-function mockResult(includeSeasonTicket: boolean, includeTravelcard: boolean) {
+function mockResult(includeSeasonTicket: boolean, includeTravelcard: boolean): JourneyResult {
 
     const travelcard = includeTravelcard ? {minZone: 1, maxZone: 2, price: 1000} : null;
     const seasonTicket = includeSeasonTicket ? {price: 900} : null;
@@ -39,6 +40,7 @@ function mockResult(includeSeasonTicket: boolean, includeTravelcard: boolean) {
             id: "FOO", name: "Foo", position:{lat: 0, lng: 0}
         },
         journeyTime: 10,
+        directionsUrl: "https://google.maps",
         seasonTickets: {
             travelcard: travelcard,
             seasonTicket: seasonTicket

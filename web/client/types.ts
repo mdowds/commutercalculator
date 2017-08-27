@@ -7,6 +7,7 @@ export interface Station {
 export interface JourneyResult {
     readonly origin: Station;
     readonly journeyTime: number;
+    readonly directionsUrl: string;
     readonly seasonTickets: SeasonTickets;
 }
 

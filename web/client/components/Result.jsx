@@ -7,13 +7,11 @@ function travelcardDescription(travelcard) {
 function makeDetails(result) {
     var travelcardDiv = result.seasonTickets.travelcard ? travelcardDescription(result.seasonTickets.travelcard) : null;
     var seasonTicketDiv = result.seasonTickets.seasonTicket ? <div>Direct season ticket: £{result.seasonTickets.seasonTicket.price}</div> : null;
-    var seasonTicketsDescription = <div>
-        {travelcardDiv}
-        {seasonTicketDiv}
-    </div>;
-    return seasonTicketsHasValues(result.seasonTickets) ?
-        seasonTicketsDescription :
+    var seasonTicketsDescription = seasonTicketsHasValues(result.seasonTickets) ?
+        <div>{travelcardDiv}{seasonTicketDiv}</div> :
         <div>Season ticket not found</div>;
+    var directionsLink = <a href={result.directionsUrl}>View directions on Google Maps</a>;
+    return <div>{seasonTicketsDescription}{directionsLink}</div>;
 }
 function seasonTicketsHasValues(seasonTickets) {
     return seasonTickets.travelcard || seasonTickets.seasonTicket;
