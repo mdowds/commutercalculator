@@ -11,6 +11,7 @@ from fnplus import tmap, Either, find, curried
 from api.data import Station, JourneyTime, SeasonTicket
 from api.journeys.to.datafetcher import get_journey_times, get_destination, get_travelcard_prices, \
     get_season_ticket_prices
+from api.journeys.to.gmaps_url_factory import make_gmaps_direction_url
 from api.types import JourneysToArgs, JourneyResult, OutputDict, TravelcardForJourney
 
 # Constants
@@ -63,11 +64,12 @@ def _build_output(destination: Either[Station],
     if journey_times.error:
         # print(journey_times.error)
         return _create_error("No station found") if type(journey_times.error) == Station.DoesNotExist else _create_error("Unknown error")
+
     results = tmap(_join_data(travelcards.value, season_tickets.value), journey_times.value)
 
     return {
         "destination": destination.value.serialize(),
-        "results": tmap(_build_result, results)
+        "results": tmap(_build_result(destination.value), results)
     }
 
 
@@ -84,10 +86,12 @@ def _join_data(
     return JourneyResult(time.origin, time.time, travelcard_result, season_ticket)
 
 
-def _build_result(result: JourneyResult) -> OutputDict:
+@curried
+def _build_result(destination: Station, result: JourneyResult) -> OutputDict:
     return {
         "origin": result.origin.serialize(),
         "journeyTime": result.time,
+        "directionsUrl": make_gmaps_direction_url(result.origin.name, destination.name),
         "seasonTickets": {
             "travelcard": result.travelcard.serialize() if result.travelcard else None,
             "seasonTicket": result.season_ticket.serialize() if result.season_ticket else None

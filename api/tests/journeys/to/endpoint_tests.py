@@ -37,6 +37,10 @@ class EndpointTests(DBTestCase):
         self.assertEqual("Bar", output["destination"]["name"])
         self.assertEqual("FOO", output["results"][0]["origin"]["id"])
         self.assertEqual(12, output["results"][0]["journeyTime"])
+        self.assertEqual(
+            "https://www.google.com/maps/dir/?api=1&origin=Foo+Station,London&destination=Bar+Station,London&travelmode=transit",
+            output["results"][0]["directionsUrl"]
+        )
         self.assertEqual(1, output["results"][0]["seasonTickets"]["travelcard"]["minZone"])
         self.assertEqual(1, output["results"][0]["seasonTickets"]["travelcard"]["maxZone"])
         self.assertEqual(1000, output["results"][0]["seasonTickets"]["travelcard"]["price"])
