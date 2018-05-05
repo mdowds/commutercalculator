@@ -8,7 +8,7 @@ __pycache__/
 /web/coverage/
 /web/npm-debug.log
 /config/
-/web/client/config.js
 /data/
 /web/.awcache/
 /.mypy_cache/
+/web/build/
