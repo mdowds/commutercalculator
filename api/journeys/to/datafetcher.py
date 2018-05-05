@@ -4,7 +4,7 @@ from fnplus import curried, tfilter, tmap
 from peewee import fn, SQL
 
 from api.data import Station, JourneyTime, Travelcard, SeasonTicket
-from api.types import TravelcardForJourney
+from api.cctypes import TravelcardForJourney
 
 
 def get_destination(sid: str) -> Station:

@@ -12,7 +12,7 @@ from api.data import Station, JourneyTime, SeasonTicket
 from api.journeys.to.datafetcher import get_journey_times, get_destination, get_travelcard_prices, \
     get_season_ticket_prices
 from api.journeys.to.gmaps_url_factory import make_gmaps_direction_url
-from api.types import JourneysToArgs, JourneyResult, OutputDict, TravelcardForJourney
+from api.cctypes import JourneysToArgs, JourneyResult, OutputDict, TravelcardForJourney
 
 # Constants
 DEFAULT_MIN_TIME = 0
