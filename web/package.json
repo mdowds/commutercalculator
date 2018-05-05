@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "rm -rf build/* && cross-env NODE_ENV=production webpack -p",
+    "build": "rm -rf build/* && cross-env NODE_ENV=production GMAPS_API_KEY=$GMAPS_API_KEY CCAPI_URL=$CCAPI_URL webpack -p",
     "test": "jest"
   },
   "dependencies": {

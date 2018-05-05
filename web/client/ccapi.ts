@@ -1,5 +1,4 @@
 import {getJSON} from "./utils";
-import Config from "./config";
 import {JourneyResult, SelectedFilters, Station} from "./types";
 
 // Get destinations
@@ -9,7 +8,7 @@ interface getDestinationsCallback {
 }
 
 export function getDestinations(callback: getDestinationsCallback) {
-    getJSON(Config.apiUrl + "destinations", {}, (json) => {
+    getJSON(process.env.CCAPI_URL + "/destinations", {}, (json) => {
         callback(<Array<Station>>json);
     });
 }
@@ -32,7 +31,7 @@ export function getJourneys(originId: string, selectedFilters: SelectedFilters, 
     if(selectedFilters.minTime) params.min_time = selectedFilters.minTime;
     if(selectedFilters.maxTime) params.max_time = selectedFilters.maxTime;
 
-    getJSON(Config.apiUrl + 'journeys/to/' + originId, params, (json) => {
+    getJSON(process.env.CCAPI_URL + '/journeys/to/' + originId, params, (json) => {
         const response = <getJourneysResponse>json;
         callback(response.destination, response.results);
     });

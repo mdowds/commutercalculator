@@ -5,7 +5,6 @@ import SearchForm from './SearchForm';
 import ResultList from './ResultList';
 import GoogleMap from '../googlemap';
 import Footer from './Footer';
-import Config from '../config';
 import * as GoogleMapsLoader from 'google-maps';
 import {CSSProperties} from "react";
 import {Station, JourneyResult, SelectedFilters} from "../types";
@@ -25,7 +24,6 @@ interface AppState {
 
 export default class App extends React.Component<{}, AppState> {
 
-    apiUrl: string;
     map: GoogleMap;
 
     constructor(){
@@ -41,7 +39,6 @@ export default class App extends React.Component<{}, AppState> {
         };
         this.getJourneys = this.getJourneys.bind(this);
         this.handleResultSelection = this.handleResultSelection.bind(this);
-        this.apiUrl = Config.apiUrl;
     }
 
     componentDidMount() {
@@ -49,7 +46,7 @@ export default class App extends React.Component<{}, AppState> {
             this.setState({possibleDestinations: destinations})
         });
 
-        GoogleMapsLoader.KEY = Config.gmapsApiKey;
+        GoogleMapsLoader.KEY = process.env.GMAPS_API_KEY;
         GoogleMapsLoader.load((google) => {
             this.map = new GoogleMap(google.maps);
             this.setState({gmapsLoaded: true})
