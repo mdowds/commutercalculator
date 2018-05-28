@@ -19,7 +19,7 @@
     "react-dom": "^15.5.4"
   },
   "devDependencies": {
-    "@types/googlemaps": "^3.26.17",
+    "@types/googlemaps": "^3.30.8",
     "@types/jest": "^20.0.4",
     "@types/react": "^15.0.38",
     "@types/react-dom": "^15.5.1",
