@@ -2,26 +2,34 @@ import unittest
 from typing import Tuple
 
 from peewee import SqliteDatabase
-from playhouse.test_utils import test_database
 
 from api.data import Station, JourneyTime, Travelcard, SeasonTicket
 from api.tests import helpers
 
+test_db = SqliteDatabase(':memory:')
+
 
 class DBTestCase(unittest.TestCase):
 
-    test_db = SqliteDatabase(':memory:')
+    _models = [Station, JourneyTime, Travelcard, SeasonTicket]
+
+    def setUp(self):
+        for model in self._models: model.bind(test_db)
+        test_db.create_tables(self._models)
+
+        self.all_stations = self.setUp_station_data()
+        self.fooStation = self.all_stations[0]
+        self.barStation = self.all_stations[1]
+        self.bazStation = self.all_stations[2]
+
+        self.all_journeys = self.setUp_journey_time_data()
+
+        self.travelcards = self.setUp_travelcard_data()
+        self.season_tickets = self.setUp_season_ticket_data()
 
     def tearDown(self):
-        Station.delete()
-        JourneyTime.delete()
-        Travelcard.delete()
-        SeasonTicket.delete()
-
-    def run(self, result=None):
-        # All queries will be run in `test_db`
-        with test_database(self.test_db, [Station, JourneyTime, Travelcard, SeasonTicket]):
-            super(DBTestCase, self).run(result)
+        test_db.drop_tables(self._models)
+        test_db.close()
 
     def setUp_station_data(self) -> Tuple[Station, ...]:
         stations = helpers.create_station_test_data()
