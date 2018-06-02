@@ -7,17 +7,6 @@ from api.tests.dbtestcase import DBTestCase
 
 class EndpointTests(DBTestCase):
 
-    def setUp(self):
-        self._all_stations = self.setUp_station_data()
-        self._fooStation = self._all_stations[0]
-        self._barStation = self._all_stations[1]
-        self._bazStation = self._all_stations[2]
-
-        self._all_journeys = self.setUp_journey_time_data()
-
-        self._travelcards = self.setUp_travelcard_data()
-        self._season_tickets = self.setUp_season_ticket_data()
-
     def test_sanitise_input(self):
         self.assertEqual("FOO", _sanitise_input("FOO"))
         self.assertEqual("FOO", _sanitise_input("foo"))
@@ -26,12 +15,12 @@ class EndpointTests(DBTestCase):
         self.assertEqual("FOO", _sanitise_input("FOO;"))
 
     def test_build_output(self):
-        journey_times = tfilter(lambda jt: jt.destination == 'BAR', self._all_journeys)
+        journey_times = tfilter(lambda jt: jt.destination == 'BAR', self.all_journeys)
         journey_prices = (
-            TravelcardForJourney(self._fooStation, self._barStation, self._travelcards[0]),
-            TravelcardForJourney(self._bazStation, self._barStation, self._travelcards[1])
+            TravelcardForJourney(self.fooStation, self.barStation, self.travelcards[0]),
+            TravelcardForJourney(self.bazStation, self.barStation, self.travelcards[1])
         )
-        output = _build_output(Either(self._barStation), Either(journey_times), Either(journey_prices), Either(self._season_tickets))
+        output = _build_output(Either(self.barStation), Either(journey_times), Either(journey_prices), Either(self.season_tickets))
 
         self.assertEqual("BAR", output["destination"]["id"])
         self.assertEqual("Bar", output["destination"]["name"])
