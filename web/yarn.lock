@@ -33,9 +33,9 @@
   dependencies:
     "@types/babel-types" "*"
 
-"@types/googlemaps@^3.26.17":
-  version "3.26.17"
-  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.26.17.tgz#539921ff45999367c51202436bf11ac995662ef5"
+"@types/googlemaps@^3.30.8":
+  version "3.30.8"
+  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.30.8.tgz#cc6ab90f79f3a8b799860ea1d70252a221af702e"
 
 "@types/jest@^20.0.4":
   version "20.0.4"
