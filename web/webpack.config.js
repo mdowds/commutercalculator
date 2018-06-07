@@ -17,7 +17,7 @@ module.exports = env => {
             filename: process.env.NODE_ENV === 'production' ? '[name].[chunkhash].js' : '[name].js'
         },
         module: {
-            loaders: [
+            rules: [
                 { test: /\.(t|j)sx?$/, use: { loader: 'awesome-typescript-loader' } },
                 { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
             ]
