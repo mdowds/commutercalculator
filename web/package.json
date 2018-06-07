@@ -15,7 +15,7 @@
     "react": "^15.5.4",
     "react-async-script-loader": "^0.3.0",
     "react-autocomplete": "^1.8.1",
-    "react-dom": "^15.5.4"
+    "react-dom": "^16.4.0"
   },
   "devDependencies": {
     "@types/googlemaps": "^3.30.9",
