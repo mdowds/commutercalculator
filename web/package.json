@@ -19,11 +19,11 @@
     "react-dom": "^15.5.4"
   },
   "devDependencies": {
-    "@types/googlemaps": "^3.26.17",
+    "@types/googlemaps": "^3.30.9",
     "@types/jest": "^20.0.4",
     "@types/react": "^15.0.38",
     "@types/react-dom": "^15.5.1",
-    "awesome-typescript-loader": "^3.2.1",
+    "awesome-typescript-loader": "^5.0.0",
     "babel-core": "^6.24.1",
     "babel-jest": "^19.0.0",
     "babel-loader": "^7.1.4",
@@ -37,7 +37,7 @@
     "react-test-renderer": "^15.5.4",
     "source-map-loader": "^0.2.1",
     "ts-jest": "^20.0.7",
-    "typescript": "^2.4.2",
+    "typescript": "^2.9.1",
     "webpack": "^4.11.1",
     "webpack-cli": "^3.0.3",
     "webpack-dev-server": "^3.1.4"
