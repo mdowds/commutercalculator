@@ -12,7 +12,7 @@
   "dependencies": {
     "google-maps": "^3.2.1",
     "querystring": "^0.2.0",
-    "react": "^15.5.4",
+    "react": "^16.4.0",
     "react-async-script-loader": "^0.3.0",
     "react-autocomplete": "^1.8.1",
     "react-dom": "^15.5.4"
