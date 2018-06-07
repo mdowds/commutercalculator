@@ -18,8 +18,17 @@ module.exports = env => {
         },
         module: {
             rules: [
-                { test: /\.(t|j)sx?$/, use: { loader: 'awesome-typescript-loader' } },
-                { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+                {
+                    test: /\.(t|j)sx?$/,
+                    include: [ path.resolve(__dirname, 'client') ],
+                    use: { loader: 'awesome-typescript-loader' }
+                },
+                {
+                    enforce: "pre",
+                    test: /\.js$/,
+                    include: [ path.resolve(__dirname, 'client') ],
+                    loader: "source-map-loader"
+                }
             ]
         },
         resolve: {
