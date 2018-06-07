@@ -6,7 +6,7 @@ exports[`ResultList renders the container 1`] = `
     Object {
       "background": "white",
       "height": "100%",
-      "overflow": "scroll",
+      "overflowY": "scroll",
       "width": "100%",
     }
   }
@@ -19,7 +19,7 @@ exports[`ResultList renders the container with custom styles 1`] = `
     Object {
       "background": "white",
       "height": 200,
-      "overflow": "scroll",
+      "overflowY": "scroll",
       "width": "100%",
     }
   }
@@ -32,7 +32,7 @@ exports[`ResultList renders the loading indicator 1`] = `
     Object {
       "background": "white",
       "height": "100%",
-      "overflow": "scroll",
+      "overflowY": "scroll",
       "width": "100%",
     }
   }

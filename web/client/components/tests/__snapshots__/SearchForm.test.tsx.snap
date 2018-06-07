@@ -1,77 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchForm renders the form with Autocomplete 1`] = `
-<div
-  style={
-    Object {
-      "position": "relative",
-    }
-  }
->
+<div>
   <div
     style={
       Object {
-        "height": 38,
-        "width": "100%",
+        "display": "flex",
       }
     }
   >
-    <input
-      aria-autocomplete="list"
-      aria-expanded={false}
-      autoComplete="off"
-      onBlur={[Function]}
-      onChange={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      placeholder="Enter destination in Zone 1"
-      role="combobox"
+    <div
       style={
         Object {
-          "border": "1px solid grey",
-          "boxSizing": "border-box",
-          "fontSize": "90%",
-          "padding": 10,
-          "paddingRight": 89,
+          "height": 38,
           "width": "100%",
         }
       }
-      value=""
+    >
+      <input
+        aria-autocomplete="list"
+        aria-expanded={false}
+        autoComplete="off"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Enter destination in Zone 1"
+        role="combobox"
+        style={
+          Object {
+            "border": "1px solid grey",
+            "borderRight": 0,
+            "boxSizing": "border-box",
+            "fontSize": "90%",
+            "height": 38,
+            "padding": 10,
+            "paddingRight": 89,
+            "width": "100%",
+          }
+        }
+        value=""
+      />
+    </div>
+    <input
+      id="toggleFilters"
+      onClick={[Function]}
+      style={
+        Object {
+          "border": "1px solid grey",
+          "borderRight": 0,
+          "height": 38,
+          "width": 51,
+        }
+      }
+      type="button"
+      value="Filters"
+    />
+    <input
+      id="submitSearch"
+      onClick={[Function]}
+      style={
+        Object {
+          "border": "1px solid grey",
+          "height": 38,
+          "width": 38,
+        }
+      }
+      type="button"
+      value="Go"
     />
   </div>
-  <input
-    id="toggleFilters"
-    onClick={[Function]}
-    style={
-      Object {
-        "border": "1px solid grey",
-        "height": 38,
-        "position": "absolute",
-        "right": 37,
-        "top": 0,
-        "width": 51,
-      }
-    }
-    type="button"
-    value="Filters"
-  />
-  <input
-    id="submitSearch"
-    onClick={[Function]}
-    style={
-      Object {
-        "border": "1px solid grey",
-        "height": 38,
-        "position": "absolute",
-        "right": 0,
-        "top": 0,
-        "width": 38,
-      }
-    }
-    type="button"
-    value="Go"
-  />
 </div>
 `;

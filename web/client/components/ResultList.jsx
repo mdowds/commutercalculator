@@ -11,7 +11,7 @@ function default_1(props) {
         width: "100%",
         background: "white",
         height: "100%",
-        overflow: "scroll"
+        overflowY: "scroll"
     };
     var containerStyle = props.styles === undefined ? containerStyleDefault : Object.assign(containerStyleDefault, props.styles);
     var loadingIndicator = <div style={{ textAlign: "center", marginTop: 50 }}>Results loading</div>;

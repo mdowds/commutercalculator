@@ -4,7 +4,7 @@ const searchBarHeight = 38;
 const goButtonWidth = searchBarHeight;
 const filtersButtonWidth = 51;
 
-const overallWrapper: CSSProperties = {position: "relative"};
+const overallWrapper: CSSProperties = {display: "flex"};
 
 const searchInput: CSSProperties = {
     width: "100%",
@@ -12,14 +12,15 @@ const searchInput: CSSProperties = {
     paddingRight: goButtonWidth + filtersButtonWidth,
     fontSize: '90%',
     border: borderStyle,
-    boxSizing: "border-box"
+    borderRight: 0,
+    boxSizing: "border-box",
+    height: searchBarHeight
 };
 
 const acMenu: CSSProperties = {
     background: 'rgba(255, 255, 255, 0.9)',
     fontSize: '90%',
-    position: 'fixed',
-    overflow: 'scroll',
+    position: 'absolute',
     width: '100%',
     zIndex: 10,
     boxSizing: "border-box"
@@ -35,21 +36,16 @@ const acItem: CSSProperties = {
 };
 
 const goButton: CSSProperties = {
-    position: "absolute",
-    top: 0,
-    right: 0,
     height: searchBarHeight,
     width: goButtonWidth,
     border: borderStyle
 };
 
 const filtersButton: CSSProperties = {
-    position: "absolute",
-    top: 0,
-    right: goButtonWidth - 1,
     height: searchBarHeight,
     width: filtersButtonWidth,
-    border: borderStyle
+    border: borderStyle,
+    borderRight: 0
 };
 
 const acWrapper: CSSProperties = {width: "100%", height: searchBarHeight};

@@ -29,7 +29,7 @@ export default function(props: ResultListProps) {
         width: "100%",
         background: "white",
         height: "100%",
-        overflow: "scroll"
+        overflowY: "scroll"
     };
 
     const containerStyle = props.styles === undefined ? containerStyleDefault : Object.assign(containerStyleDefault, props.styles);
