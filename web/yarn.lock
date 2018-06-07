@@ -37,9 +37,9 @@
   version "3.30.9"
   resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.30.9.tgz#893eb307bfcbff95ef6c9ce70f72e6f9a2068cc4"
 
-"@types/jest@^20.0.4":
-  version "20.0.4"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-20.0.4.tgz#91e2c76fbe90b3a719b5d689958f0495f005beb9"
+"@types/jest@^23.0.0":
+  version "23.0.0"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.0.0.tgz#760cac74f00bb9c3075587716d2b3b4435663bc0"
 
 "@types/react-dom@^15.5.1":
   version "15.5.1"
