@@ -4,7 +4,8 @@ stages:
   - test
 
 cache:
-  paths: web/node_modules/
+  paths:
+    - web/node_modules/
 
 test_api:
   stage: test
