@@ -1,24 +1,24 @@
 language: python
 python:
   - 3.6
-install:
-  # Install API dependencies
-  - pip install -r requirements.txt
-  - pip install coveralls
-  # Update node & NPM
-  - . $HOME/.nvm/nvm.sh
-  - nvm install stable
-  - nvm use stable
-  # Install web dependencies
-  - cd web && yarn install && cd ../
-  # Install coverage merge tool
-  - gem install coveralls-lcov
-cache:
-  directories:
-  - $HOME/.yarn-cache
-script:
-  - coverage run --omit=tests/*,*site-packages/*  -m unittest discover -p "*tests.py"
-  - cd web && yarn test -- --coverage && cd ../
-after_success:
-  - coveralls-lcov -v -n web/coverage/lcov.info > coverage.json
-  - coveralls --merge=coverage.json
+sudo: required
+services:
+  - docker
+
+stages:
+  - test
+
+before_script: chmod +x go
+
+jobs:
+  include:
+    - stage: test
+      cache: pip
+      script: ./go test-api
+      after_success: coveralls
+    - stage: test
+      language: node_js
+      node_js: node
+      cache: yarn
+      script: ./go test-web
+      after_success: cd web && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
