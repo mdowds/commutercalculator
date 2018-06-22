@@ -1,8 +1,7 @@
 #!/bin/bash
 
 build-api() {
-    cd api &&
-    pip install -r requirements.txt
+    pip install -r api/requirements.txt
 }
 
 test-api() {
