@@ -2,7 +2,7 @@ FROM mdowds/uwsgi:python3.6.5
 
 WORKDIR /app
 
-ADD ./requirements.txt /app/requirements.txt
+ADD requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
 
 ADD . /app/api

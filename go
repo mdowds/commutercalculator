@@ -1,6 +1,7 @@
 #!/bin/bash
 
 build-api() {
+    cd api &&
     pip install -r requirements.txt
 }
 
@@ -10,6 +11,11 @@ test-api() {
     coverage run --omit=tests/*,*site-packages/*  -m unittest discover -p "*tests.py"
 }
 
+package-api() {
+    cd api &&
+    docker build .
+}
+
 test-web() {
     cd web &&
     yarn &&
@@ -17,7 +23,14 @@ test-web() {
     jest --coverage --collectCoverageFrom=!client/tests/**
 }
 
-if [[ $1 =~ ^(build-api|test-api|test-web)$ ]]; then
+package-web() {
+    cd web &&
+    docker build \
+        --build-arg GMAPS_API_KEY=${GMAPS_JS_API_KEY} \
+        --build-arg CCAPI_URL=https://mdowds.com/commutercalculator/api .
+}
+
+if [[ $1 =~ ^(build-api|test-api|package-api|test-web|package-web)$ ]]; then
   COMMAND=$1
   shift
   ${COMMAND} "$@"

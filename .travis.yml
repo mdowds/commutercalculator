@@ -7,18 +7,34 @@ services:
 
 stages:
   - test
+  - package
 
 before_script: chmod +x go
 
 jobs:
   include:
+    # Test API
     - stage: test
       cache: pip
       script: ./go test-api
       after_success: coveralls
+
+    # Test web app
     - stage: test
       language: node_js
       node_js: node
       cache: yarn
       script: ./go test-web
       after_success: cd web && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+
+    # Package API
+    - stage: package
+      cache: pip
+      script: ./go package-api
+
+    # Package web app
+    - stage: package
+      language: node_js
+      node_js: node
+      cache: yarn
+      script: ./go package-web
