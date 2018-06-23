@@ -42,7 +42,7 @@ push-web-image() {
 }
 
 registry_login(){
-    echo "$REGISTRY_USER" | docker login -u "$REGISTRY_TOKEN" --password-stdin registry.gitlab.com
+    echo "$REGISTRY_TOKEN" | docker login -u "$REGISTRY_USER" --password-stdin registry.gitlab.com
 }
 
 if [[ $1 =~ ^(build-api|test-api|package-api|push-api-image|test-web|package-web|push-web-image)$ ]]; then
