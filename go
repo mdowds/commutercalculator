@@ -17,7 +17,7 @@ package-api() {
 }
 
 push-api-image() {
-    docker login registry.example.com -u ${REGISTRY_USER} -p ${REGISTRY_TOKEN} &&
+    registry_login &&
     docker push ${IMAGE_BASE_NAME}/commutercalculator-api:0.${TRAVIS_BUILD_NUMBER}
 }
 
@@ -37,8 +37,12 @@ package-web() {
 }
 
 push-web-image() {
-    docker login registry.example.com -u ${REGISTRY_USER} -p ${REGISTRY_TOKEN} &&
+    registry_login &&
     docker push ${IMAGE_BASE_NAME}/commutercalculator-web:0.${TRAVIS_BUILD_NUMBER}-nginx
+}
+
+registry_login(){
+    echo "$REGISTRY_USER" | docker login -u "$REGISTRY_TOKEN" --password-stdin registry.example.com
 }
 
 if [[ $1 =~ ^(build-api|test-api|package-api|push-api-image|test-web|package-web|push-web-image)$ ]]; then
