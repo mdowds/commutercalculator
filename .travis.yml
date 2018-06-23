@@ -31,7 +31,7 @@ jobs:
     - stage: package
       cache: pip
       script: ./go package-api
-      after_success: docker images
+      after_success: ./go push-api-image
 
     # Package web app
     - stage: package
@@ -39,4 +39,4 @@ jobs:
       node_js: node
       cache: yarn
       script: ./go package-web
-      after_success: docker images
+      after_success: ./go push-web-image

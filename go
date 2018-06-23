@@ -16,6 +16,11 @@ package-api() {
 .
 }
 
+push-api-image() {
+    docker login registry.example.com -u ${REGISTRY_USER} -p ${REGISTRY_TOKEN} &&
+    docker push ${IMAGE_BASE_NAME}/commutercalculator-api:0.${TRAVIS_BUILD_NUMBER}
+}
+
 test-web() {
     cd web &&
     yarn &&
@@ -31,7 +36,12 @@ package-web() {
         --build-arg CCAPI_URL=https://mdowds.com/commutercalculator/api .
 }
 
-if [[ $1 =~ ^(build-api|test-api|package-api|test-web|package-web)$ ]]; then
+push-web-image() {
+    docker login registry.example.com -u ${REGISTRY_USER} -p ${REGISTRY_TOKEN} &&
+    docker push ${IMAGE_BASE_NAME}/commutercalculator-web:0.${TRAVIS_BUILD_NUMBER}-nginx
+}
+
+if [[ $1 =~ ^(build-api|test-api|package-api|push-api-image|test-web|package-web|push-web-image)$ ]]; then
   COMMAND=$1
   shift
   ${COMMAND} "$@"
