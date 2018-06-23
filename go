@@ -12,7 +12,8 @@ test-api() {
 
 package-api() {
     cd api &&
-    docker build .
+    docker build -t ${IMAGE_BASE_NAME}/commutercalculator-api:0.${TRAVIS_BUILD_NUMBER} \
+.
 }
 
 test-web() {
@@ -25,6 +26,7 @@ test-web() {
 package-web() {
     cd web &&
     docker build \
+        -t ${IMAGE_BASE_NAME}/commutercalculator-web:0.${TRAVIS_BUILD_NUMBER}-nginx \
         --build-arg GMAPS_API_KEY=${GMAPS_JS_API_KEY} \
         --build-arg CCAPI_URL=https://mdowds.com/commutercalculator/api .
 }
