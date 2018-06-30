@@ -46,8 +46,7 @@ export default class App extends React.Component<{}, AppState> {
             this.setState({possibleDestinations: destinations})
         });
 
-        // TODO TypeScript error is preventing setting this
-        // GoogleMapsLoader.KEY = process.env.GMAPS_API_KEY;
+        GoogleMapsLoader.KEY = process.env.GMAPS_API_KEY;
         GoogleMapsLoader.load((google) => {
             this.map = new GoogleMap(google.maps);
             this.setState({gmapsLoaded: true})
