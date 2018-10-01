@@ -10,7 +10,7 @@ Jinja2==2.10
 MarkupSafe==1.0
 packaging==17.1
 peewee==3.5.0
-pyparsing==2.2.0
+pyparsing==2.2.2
 python-dateutil==2.7.3
 pytz==2018.4
 six==1.11.0
