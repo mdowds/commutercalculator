@@ -1,5 +1,8 @@
 # Commuter Calculator
 
+[![Build Status](https://travis-ci.org/mdowds/commutercalculator.svg?branch=master)](https://travis-ci.org/mdowds/commutercalculator)
+[![Coverage Status](https://coveralls.io/repos/github/mdowds/commutercalculator/badge.svg?branch=master)](https://coveralls.io/github/mdowds/commutercalculator?branch=master)
+
 A website to show commute times and costs to get into central London. Enter a zone 1 destination and optional minimum / maximum travel time and it'll show you the travel times, season ticket cost and average house prices for stations in outer London.
 
 The project is split into two parts - an API and a web app.
