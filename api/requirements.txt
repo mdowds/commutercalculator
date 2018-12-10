@@ -13,5 +13,5 @@ peewee==3.5.0
 pyparsing==2.2.0
 python-dateutil==2.7.3
 pytz==2018.4
-six==1.11.0
+six==1.12.0
 Werkzeug==0.14.1
