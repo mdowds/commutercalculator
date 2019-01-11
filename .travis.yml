@@ -5,7 +5,6 @@ env:
 - CCAPI_URL=https://mdowds.com/commutercalculator/api
 
 script:
-- cd web
 - yarn
 - yarn build
 - yarn test
