@@ -1,14 +1,5 @@
 .idea/
-venv/
-__pycache__/
-*.pyc
 /vagrant-config/
-/web/node_modules/
-/api/helpers/
-/web/coverage/
-/web/npm-debug.log
-/config/
-/data/
-/web/.awcache/
-/.mypy_cache/
-/web/build/
+node_modules/
+npm-debug.log
+build/
