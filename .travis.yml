@@ -6,6 +6,7 @@ env:
 
 script:
 - cd web
+- yarn
 - yarn build
 - yarn test
 
