@@ -1,0 +1,404 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Result renders the result 1`] = `
+<div
+  onClick={[Function]}
+  style={
+    Object {
+      "backgroundColor": "white",
+      "borderBottom": "1px solid grey",
+      "padding": 10,
+    }
+  }
+>
+  <div>
+    <div
+      style={
+        Object {
+          "float": "left",
+          "marginRight": 10,
+        }
+      }
+    >
+      <img
+        src="img/chevron-down.svg"
+        style={
+          Object {
+            "height": 20,
+            "width": 20,
+          }
+        }
+      />
+    </div>
+    <div
+      style={
+        Object {
+          "display": "inline-block",
+          "width": "65%",
+        }
+      }
+    >
+      Foo
+    </div>
+    <div
+      style={
+        Object {
+          "float": "right",
+        }
+      }
+    >
+      10
+       mins
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Result renders the result with details for season ticket but no travelcard 1`] = `
+<div
+  onClick={[Function]}
+  style={
+    Object {
+      "backgroundColor": "#ddd",
+      "borderBottom": "1px solid grey",
+      "padding": 10,
+    }
+  }
+>
+  <div>
+    <div
+      style={
+        Object {
+          "float": "left",
+          "marginRight": 10,
+        }
+      }
+    >
+      <img
+        src="img/chevron-up.svg"
+        style={
+          Object {
+            "height": 20,
+            "width": 20,
+          }
+        }
+      />
+    </div>
+    <div
+      style={
+        Object {
+          "display": "inline-block",
+          "width": "65%",
+        }
+      }
+    >
+      Foo
+    </div>
+    <div
+      style={
+        Object {
+          "float": "right",
+        }
+      }
+    >
+      10
+       mins
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "fontSize": "75%",
+        "margin": "10px 0px 0px 30px",
+      }
+    }
+  >
+    <div>
+      <div>
+        <div>
+          Direct season ticket: £
+          900
+        </div>
+      </div>
+      <div>
+        Average house price for 
+        E1
+        : 
+        Loading
+      </div>
+      <span>
+        <a
+          href="https://google.maps"
+        >
+          View directions on Google Maps
+        </a>
+         (May show a different journey time)
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Result renders the result with details for travelcard and season ticket 1`] = `
+<div
+  onClick={[Function]}
+  style={
+    Object {
+      "backgroundColor": "#ddd",
+      "borderBottom": "1px solid grey",
+      "padding": 10,
+    }
+  }
+>
+  <div>
+    <div
+      style={
+        Object {
+          "float": "left",
+          "marginRight": 10,
+        }
+      }
+    >
+      <img
+        src="img/chevron-up.svg"
+        style={
+          Object {
+            "height": 20,
+            "width": 20,
+          }
+        }
+      />
+    </div>
+    <div
+      style={
+        Object {
+          "display": "inline-block",
+          "width": "65%",
+        }
+      }
+    >
+      Foo
+    </div>
+    <div
+      style={
+        Object {
+          "float": "right",
+        }
+      }
+    >
+      10
+       mins
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "fontSize": "75%",
+        "margin": "10px 0px 0px 30px",
+      }
+    }
+  >
+    <div>
+      <div>
+        <div>
+          Zone 
+          1
+           to 
+          2
+           travelcard: £
+          1000
+        </div>
+        <div>
+          Direct season ticket: £
+          900
+        </div>
+      </div>
+      <div>
+        Average house price for 
+        E1
+        : 
+        Loading
+      </div>
+      <span>
+        <a
+          href="https://google.maps"
+        >
+          View directions on Google Maps
+        </a>
+         (May show a different journey time)
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Result renders the result with details for travelcard but no season ticket 1`] = `
+<div
+  onClick={[Function]}
+  style={
+    Object {
+      "backgroundColor": "#ddd",
+      "borderBottom": "1px solid grey",
+      "padding": 10,
+    }
+  }
+>
+  <div>
+    <div
+      style={
+        Object {
+          "float": "left",
+          "marginRight": 10,
+        }
+      }
+    >
+      <img
+        src="img/chevron-up.svg"
+        style={
+          Object {
+            "height": 20,
+            "width": 20,
+          }
+        }
+      />
+    </div>
+    <div
+      style={
+        Object {
+          "display": "inline-block",
+          "width": "65%",
+        }
+      }
+    >
+      Foo
+    </div>
+    <div
+      style={
+        Object {
+          "float": "right",
+        }
+      }
+    >
+      10
+       mins
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "fontSize": "75%",
+        "margin": "10px 0px 0px 30px",
+      }
+    }
+  >
+    <div>
+      <div>
+        <div>
+          Zone 
+          1
+           to 
+          2
+           travelcard: £
+          1000
+        </div>
+      </div>
+      <div>
+        Average house price for 
+        E1
+        : 
+        Loading
+      </div>
+      <span>
+        <a
+          href="https://google.maps"
+        >
+          View directions on Google Maps
+        </a>
+         (May show a different journey time)
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Result renders the result with price not found string 1`] = `
+<div
+  onClick={[Function]}
+  style={
+    Object {
+      "backgroundColor": "#ddd",
+      "borderBottom": "1px solid grey",
+      "padding": 10,
+    }
+  }
+>
+  <div>
+    <div
+      style={
+        Object {
+          "float": "left",
+          "marginRight": 10,
+        }
+      }
+    >
+      <img
+        src="img/chevron-up.svg"
+        style={
+          Object {
+            "height": 20,
+            "width": 20,
+          }
+        }
+      />
+    </div>
+    <div
+      style={
+        Object {
+          "display": "inline-block",
+          "width": "65%",
+        }
+      }
+    >
+      Foo
+    </div>
+    <div
+      style={
+        Object {
+          "float": "right",
+        }
+      }
+    >
+      10
+       mins
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "fontSize": "75%",
+        "margin": "10px 0px 0px 30px",
+      }
+    }
+  >
+    <div>
+      <div>
+        Season ticket not found
+      </div>
+      <div>
+        Average house price for 
+        E1
+        : 
+        Loading
+      </div>
+      <span>
+        <a
+          href="https://google.maps"
+        >
+          View directions on Google Maps
+        </a>
+         (May show a different journey time)
+      </span>
+    </div>
+  </div>
+</div>
+`;

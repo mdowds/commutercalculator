@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders children 1`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "white",
+      "width": "100%",
+    }
+  }
+>
+  <h1
+    style={
+      Object {
+        "fontSize": "25px",
+        "margin": "2px 0",
+        "textAlign": "center",
+      }
+    }
+  >
+    Commuter Calculator
+  </h1>
+  Child content
+</div>
+`;
+
+exports[`Header renders the title 1`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "white",
+      "width": "100%",
+    }
+  }
+>
+  <h1
+    style={
+      Object {
+        "fontSize": "25px",
+        "margin": "2px 0",
+        "textAlign": "center",
+      }
+    }
+  >
+    Commuter Calculator
+  </h1>
+</div>
+`;
