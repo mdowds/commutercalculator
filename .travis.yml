@@ -16,7 +16,7 @@ deploy:
   secret_access_key:
     secure: XMLrcpCqm2IBjVVfUdPUW/41LxYs0AueFRwoie5SDv7KsQtdU/dAiP+oJe0ZDYyXDbSjP00eMikKCvMgdQ867+q+WsRTNpEPQu93le4g0VGNw/P/YB3jUQ0Er7oHeCw4aiMtNMiI16gFd1Ij7JBd7jxImjVHlvlQaS8scJWKJc6N51HWivvHktJ6F7lQZ9nxJhmWrFr/9Mivr942wT6PWQY5ZHiP59AksuEQrZ0PN/pOFll61Vtdge6f88j7Fi2HQDHtxRjMTJvBwoKXO77UeYZ91xsC6eNXhHFNfovGI7xkqEkBDrC5dVjvt8UvamhwSyipb45Ap90IQIovr6G8AwdUD7ItoyVb5Ta306zYY8upg37IMPpE1cY9IBVIZjsWAT/+bIp+x0mTbIOR67f+GoOie1VFEcT6Qr6glextZbOX0q5BSO9zTuRKSJumMMAa/Kyjdt2hiSqxPUQB+4ai4tbYav9HE4lNVQRCbZhOerXfeP52IUWPoz0jhYGe5zallhuZLEBe3AXl7eQGG3EiTeBvBeczqIZjGhWwIwD4iMotSNAEeLO8+uvAT+phAfCp8iSGEVEQjZjV+ks2WH9xqXW9Xf/9C2caSrUeXe59imZAE3l8XkymBnn5wPNOlTHS/St88g8u01r8oaiZtu+J9F/r7cCdzjozefQzqfWriH8=
   bucket: commutercalculator-web
-  local-dir: web/build
+  local-dir: build
   skip_cleanup: true
   on:
     repo: mdowds/commutercalculator
