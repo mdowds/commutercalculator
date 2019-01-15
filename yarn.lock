@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@types/googlemaps@^3.30.9":
-  version "3.30.9"
-  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.30.9.tgz#893eb307bfcbff95ef6c9ce70f72e6f9a2068cc4"
+"@types/googlemaps@^3.30.16":
+  version "3.30.16"
+  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.30.16.tgz#3264d5ef7c3a92fab2a9f00e09e3247866ff3532"
 
 "@types/jest@^20.0.4":
   version "20.0.4"
