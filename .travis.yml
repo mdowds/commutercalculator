@@ -11,9 +11,8 @@ deploy:
   access_key_id: GOOGDQAHALXVRJ5RGDXPS7TL
   secret_access_key:
     secure: s4O7h83rGk/2sy0Dfu55N1JMX6FLv3QRXcKTJEzKmXcaTD6JVXC3G99WBiSScXGPylCQU7UM38GQJBHpDaRaFlGX7gtbuC+NrFscTkEwCmloTbNdGScJ7m6oj+NTDCJuofYpZgy3lftL1+/8iIp2nzD1iMkfLLJeAt96D++/V7UYPt8bw7Lyo5V0njVAnLM6Cr3mr2lIifNHWtQcRO3QIKoEDkbdXMKgIKMj+oZoKm5NbQChXn6SEiOIAmsYTtYAnSbeMY4/3d5+p8f3xIDhFh23JrNB1Cpzw6RRCLA1EMsSQAbr2ZMRqT4nBIkUW6NKvUKLC/ePSR+y5weRdmxbmpNEGZU7rOiKsBWPCfYdeBiLCO6VhpmEex8EYx7KzomaNlQn2u3h80dhWu8/kDXvrIqNflVIPsftbwjP0TwESG+DgPltn8cb69J+n8wl6VcRp2WXIpsYJ23hMHzuwV5OUlxGrKUAscdy6m6/Jrx6myEQou/NSHfmB7vna2qY9OFl5LLsIpBB2k0fQz0JcYPMHVgiWPVGJAsoempEWhITOqj083wkBnzfwQFWqpAHBaHoBg1Cmvym2DwGjui25E8Df18uWZZHa0a+gx2dh1g/hXAJpkA34hpgTtj3fWYp80CF/oekhb42+0kVKHdwjP8otqPT7u5R2km2IHAJ9YhRXkQ=
-  bucket: commutercalculator.mdowds.com
+  bucket: commutercalculator-web
   local-dir: build
   skip_cleanup: true
-  acl: public-read
   on:
     repo: mdowds/commutercalculator
