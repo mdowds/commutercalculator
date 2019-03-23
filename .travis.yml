@@ -1,7 +1,7 @@
 language: node_js
 node_js: node
 env:
-- CCAPI_URL=https://mdowds.com/commutercalculator/api
+- CCAPI_URL=/commutercalculator/api
 script:
 - yarn
 - yarn build
