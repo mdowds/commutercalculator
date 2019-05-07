@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "google-maps": "^3.2.1",
+    "google-maps": "^3.3.0",
     "querystring": "^0.2.0",
     "react": "^15.6.2",
     "react-async-script-loader": "^0.3.0",
