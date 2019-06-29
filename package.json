@@ -4,6 +4,7 @@
   "main": "index.js",
   "author": "Matt Dowds",
   "license": "MIT",
+  "homepage" : "https://mdowds.com/commutercalculator",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
