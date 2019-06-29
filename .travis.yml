@@ -1,7 +1,7 @@
 language: node_js
 node_js: node
 env:
-- CCAPI_URL=https://commutercalculator-api.herokuapp.com
+- REACT_APP_CCAPI_URL=https://commutercalculator-api.herokuapp.com
 script:
 - yarn
 - yarn build
