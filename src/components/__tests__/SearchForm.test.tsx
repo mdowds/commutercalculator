@@ -3,7 +3,7 @@ import * as renderer from 'react-test-renderer';
 import {shallow} from 'enzyme';
 import SearchForm from '../SearchForm';
 import SearchFilters from '../SearchFilters';
-import * as Autocomplete from 'react-autocomplete';
+import Autocomplete from 'react-autocomplete';
 import {Station} from "../../types"
 
 const mockStation: Station = {id: "ABC", name: "Foo Station", position: {lat: 0, lng: 0}};

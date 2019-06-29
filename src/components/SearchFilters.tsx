@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {CSSProperties} from 'react';
+import { ChangeEvent, CSSProperties } from "react";
 import {SelectedFilters} from '../types';
 
 interface SearchFiltersProps {
@@ -8,12 +8,12 @@ interface SearchFiltersProps {
 
 export default class SearchFilters extends React.Component<SearchFiltersProps, {}> {
 
-    constructor(props) {
+    constructor(props: SearchFiltersProps) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange(event) {
+    handleChange(event: ChangeEvent<HTMLInputElement>) {
         this.props.onChange({[event.target.id]: event.target.value});
     }
 

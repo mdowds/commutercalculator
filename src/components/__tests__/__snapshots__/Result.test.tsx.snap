@@ -21,6 +21,7 @@ exports[`Result renders the result 1`] = `
       }
     >
       <img
+        alt="Expand results"
         src="img/chevron-down.svg"
         style={
           Object {
@@ -75,6 +76,7 @@ exports[`Result renders the result with details for season ticket but no travelc
       }
     >
       <img
+        alt="Expand results"
         src="img/chevron-up.svg"
         style={
           Object {
@@ -160,6 +162,7 @@ exports[`Result renders the result with details for travelcard and season ticket
       }
     >
       <img
+        alt="Expand results"
         src="img/chevron-up.svg"
         style={
           Object {
@@ -253,6 +256,7 @@ exports[`Result renders the result with details for travelcard but no season tic
       }
     >
       <img
+        alt="Expand results"
         src="img/chevron-up.svg"
         style={
           Object {
@@ -342,6 +346,7 @@ exports[`Result renders the result with price not found string 1`] = `
       }
     >
       <img
+        alt="Expand results"
         src="img/chevron-up.svg"
         style={
           Object {
