@@ -1095,21 +1095,18 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@react-google-maps/api@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.3.0.tgz#11fd1045efff7636a5053b387569f1398c60e385"
-  integrity sha512-qeeptQnEZHuptLTeI1J3ieDyqWzOtq4rSzdfkYSyquQRKh57adCcsAchNPIVJa+63V+gWJnnV1J+qL1uRbYEUA==
+"@react-google-maps/api@^1.5.4":
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.5.4.tgz#fdd31a3156679d40a4bb6eb0db82a2f45d725bda"
+  integrity sha512-B0Mn3WxdK/DXy051mEaNDuT+d/GRvzQqyNINnv2LqdBk32xbaJuJu3K1SXX+EiKrEH6q7mHyREzsxOR2fxP7mA==
   dependencies:
-    "@react-google-maps/marker-clusterer" "1.2.6"
+    "@react-google-maps/marker-clusterer" "1.5.4"
     invariant "2.2.4"
 
-"@react-google-maps/marker-clusterer@1.2.6":
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.2.6.tgz#d6c3d5f42d89db36643ebd8b7bda68306e1c3428"
-  integrity sha512-2xKKFae4CV5f8mIk1RF5Jm8yLRwPg1jrQ4QYkAQh0HdAlDBywI/49+T+iyqCLxsLdNMLZboKaeUa77+DQHiCpg==
-  dependencies:
-    "@types/googlemaps" "3.36.3"
-    typescript "3.5.1"
+"@react-google-maps/marker-clusterer@1.5.4":
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.5.4.tgz#cdd42d63e685140feff956260f43fc6d27bb5ef3"
+  integrity sha512-J84zipyt/9dO+EwtMVmK2+sv2wpL1ai+knSF7vJKJI+jG/wp+g4rS1RPkZ/J3kgorpg6l6W/DZxp+SXq58czlQ==
 
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
   version "4.2.0"
@@ -1263,11 +1260,6 @@
   dependencies:
     "@types/cheerio" "*"
     "@types/react" "*"
-
-"@types/googlemaps@3.36.3":
-  version "3.36.3"
-  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.36.3.tgz#3d3dded3b56f8369b3a6ffafc408473037fb34c7"
-  integrity sha512-VDB9ub0q5hf/Ri/bblc9Q/rzqE95CzZCSWMcpeVzmzr+w2Kef2fRnnr5QZBePhbqNh8GNyfac812A46eqwcWeg==
 
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
   version "2.0.1"
@@ -9608,11 +9600,6 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
-
-typescript@3.5.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.1.tgz#ba72a6a600b2158139c5dd8850f700e231464202"
-  integrity sha512-64HkdiRv1yYZsSe4xC1WVgamNigVYjlssIoaH2HcZF0+ijsk5YK2g0G34w9wJkze8+5ow4STd22AynfO6ZYYLw==
 
 typescript@3.5.2:
   version "3.5.2"
