@@ -1095,21 +1095,24 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@react-google-maps/api@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.3.0.tgz#11fd1045efff7636a5053b387569f1398c60e385"
-  integrity sha512-qeeptQnEZHuptLTeI1J3ieDyqWzOtq4rSzdfkYSyquQRKh57adCcsAchNPIVJa+63V+gWJnnV1J+qL1uRbYEUA==
+"@react-google-maps/api@^1.8.1":
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-1.8.1.tgz#5239a9b9087f3fb55418947de7d57f6a6982dd3c"
+  integrity sha512-yWvyXg86+p18ki3NFFwxugBfO9wZ/HFv9ebFsoePu1/bgWcmUx0TF8okp73c8y2VzAThP8OoqFpTQ4RnZLdPDw==
   dependencies:
-    "@react-google-maps/marker-clusterer" "1.2.6"
+    "@react-google-maps/infobox" "1.8.1"
+    "@react-google-maps/marker-clusterer" "1.8.1"
     invariant "2.2.4"
 
-"@react-google-maps/marker-clusterer@1.2.6":
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.2.6.tgz#d6c3d5f42d89db36643ebd8b7bda68306e1c3428"
-  integrity sha512-2xKKFae4CV5f8mIk1RF5Jm8yLRwPg1jrQ4QYkAQh0HdAlDBywI/49+T+iyqCLxsLdNMLZboKaeUa77+DQHiCpg==
-  dependencies:
-    "@types/googlemaps" "3.36.3"
-    typescript "3.5.1"
+"@react-google-maps/infobox@1.8.1":
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-1.8.1.tgz#c20e75c5e879e9e03665e1b4c330d1fbfd93108f"
+  integrity sha512-t9aeShxCuXsovMxjZFZNHss2kd2eWniltFAJbTvIRk43EKywDlHWHfeoIe/rWtGpKObvIwukkMgoCwVP43b4SQ==
+
+"@react-google-maps/marker-clusterer@1.8.1":
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-1.8.1.tgz#cbeb7b93564e1675c00ad8913dde2ec3ef5a8df9"
+  integrity sha512-TbzwKroDRxlR6kPTrswY33qbEnGHaYjplIOjdVnQyqdSeCoGc9LUD4p9DhjU6iOH6AX/H7jH7nfdGA3YEryXXg==
 
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
   version "4.2.0"
@@ -1263,11 +1266,6 @@
   dependencies:
     "@types/cheerio" "*"
     "@types/react" "*"
-
-"@types/googlemaps@3.36.3":
-  version "3.36.3"
-  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.36.3.tgz#3d3dded3b56f8369b3a6ffafc408473037fb34c7"
-  integrity sha512-VDB9ub0q5hf/Ri/bblc9Q/rzqE95CzZCSWMcpeVzmzr+w2Kef2fRnnr5QZBePhbqNh8GNyfac812A46eqwcWeg==
 
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
   version "2.0.1"
@@ -9610,11 +9608,6 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
-
-typescript@3.5.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.1.tgz#ba72a6a600b2158139c5dd8850f700e231464202"
-  integrity sha512-64HkdiRv1yYZsSe4xC1WVgamNigVYjlssIoaH2HcZF0+ijsk5YK2g0G34w9wJkze8+5ow4STd22AynfO6ZYYLw==
 
 typescript@3.5.2:
   version "3.5.2"
