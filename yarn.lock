@@ -1256,10 +1256,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/enzyme@^3.9.4":
-  version "3.9.4"
-  resolved "https://registry.yarnpkg.com/@types/enzyme/-/enzyme-3.9.4.tgz#08f3ebfa24aa881021693a0fe615d6d2720c07ad"
-  integrity sha512-bQcwt5gcKnekrbci4hcapfE2J6rkkFbHM1l4VobLtSl4ogOfj0lvSxrdS6FftCakmJqqPBqdQCwb5KnlivL6SQ==
+"@types/enzyme@^3.10.9":
+  version "3.10.9"
+  resolved "https://registry.yarnpkg.com/@types/enzyme/-/enzyme-3.10.9.tgz#b2d7c7429a37d994c156b6f361e83f271a60c8aa"
+  integrity sha512-dx5UvcWe2Vtye6S9Hw2rFB7Ul9uMXOAje2FAbXvVYieQDNle9qPAo7DfvFMSztZ9NFiD3dVZ4JsRYGTrSLynJg==
   dependencies:
     "@types/cheerio" "*"
     "@types/react" "*"
